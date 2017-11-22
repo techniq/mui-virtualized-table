@@ -1,6 +1,6 @@
 {
   "name": "mui-table",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha",
   "description": "Material-UI table with windowing, row/column freezing, and more",
   "main": "index.js",
   "repository": "https://github.com/techniq/mui-table",

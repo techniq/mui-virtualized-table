@@ -13,3 +13,4 @@
   - Variable width columns
     - with/without minWidth
   - Order by / direction
+  - Embedded within <Card> / <Paper>

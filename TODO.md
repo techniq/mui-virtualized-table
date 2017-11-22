@@ -1,0 +1,15 @@
+- Table
+  - Support percentage based variable columns
+  - Support optional pagination (if no pagination set)
+  - Support sortable column headers (use TableSortLabel ?) ,onHeaderClick()?
+  - Ability to style each grid (top left, bottom right) and per cell
+  - Loading progress (spiner in footer, linear, overlay, ...)
+  - Account for <TablePagination> when setting height/maxHeight
+  - Add PropTypes
+
+- Stories
+  - All fixed width columns
+  - Individual fixed width columns
+  - Variable width columns
+    - with/without minWidth
+  - Order by / direction

@@ -1,0 +1,38 @@
+{
+  "name": "mui-table",
+  "version": "0.0.1",
+  "description": "Material-UI table with windowing, row/column freezing, and more",
+  "main": "index.js",
+  "repository": "https://github.com/techniq/mui-table",
+  "author": "Sean Lynch <techniq35@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "material-ui": "^1.0.0-beta.21",
+    "react": ">=15"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0",
+    "react-virtualized": "^9.12.0"
+  },
+  "devDependencies": {
+    "@storybook/react": "^3.2.16",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "gh-pages": "^1.1.0",
+    "material-ui": "^1.0.0-beta.21",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  },
+  "scripts": {
+    "build": "NODE_ENV=production babel src -d dist",
+    "storybook": "start-storybook -p 9009 -c stories",
+    "build-docs": "cd stories && yarn install && cd .. && build-storybook -c stories -o docs",
+    "deploy-docs": "gh-pages -d docs",
+    "preversion": "yarn build",
+    "postpublish": "yarn build-docs && yarn deploy-docs"
+  }
+}

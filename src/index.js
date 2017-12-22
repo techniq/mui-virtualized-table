@@ -12,6 +12,7 @@ import Table, {
   TablePagination,
   TableSortLabel
 } from 'material-ui/Table';
+import { calcColumnWidth } from './utils';
 
 const styles = theme => ({
   table: {
@@ -150,22 +151,6 @@ class MuiTable extends Component {
     )
   }
 
-  columnWidth = (index, columns, tableWidth) => {
-    const column = columns[index];
-    if (column.width) {
-      return column.width;
-    } else {
-      // TODO: Support column.width as percentage (0.5 or '50%'?) for variable width columns
-      const totalFixedWidth = columns.reduce((result, item) => result + (item.width || 0), 0);
-      const variableWidthColumns = columns.filter(c => !c.width);
-      const totalMinWidth = columns.reduce((result, item) => result + (item.minWidth || 0), 0);
-      const remainingWidth = (tableWidth - totalFixedWidth - totalMinWidth);
-      const minWidth = column.minWidth || 0;
-
-      return Math.max(minWidth + remainingWidth / variableWidthColumns.length, minWidth);
-    }
-  }
-
   render() {
     const {
       data,
@@ -207,7 +192,7 @@ class MuiTable extends Component {
           ref={el => this.multiGrid = el}
 
           width={width}
-          columnWidth={columnWidth || (({ index }) => this.columnWidth(index, columns, width))}
+          columnWidth={columnWidth || (({ index }) => calcColumnWidth(index, columns, width))}
           columnCount={Array.isArray(columns) ? columns.length : 0}
           fixedColumnCount={fixedColumnCount}
           enableFixedColumnScroll={fixedColumnCount > 0}

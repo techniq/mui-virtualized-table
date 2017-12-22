@@ -1,5 +1,11 @@
 - Table
-  - Support percentage based variable columns
+  - Widths
+    - Support percentage based variable columns
+    - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
+    - Support maxWidth
+    - http://schrodinger.github.io/fixed-data-table-2/api-column.html
+    - https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
+    - http://allenfang.github.io/react-bootstrap-table/docs.html#width
   - Support optional pagination (if no pagination set)
   - Support sortable column headers (use TableSortLabel ?) ,onHeaderClick()?
   - Ability to style each grid (top left, bottom right) and per cell

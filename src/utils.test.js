@@ -81,4 +81,44 @@ describe('calcColumnWidth', () => {
     expect(calcColumnWidth(2, columns, tableWidth)).toBe(50);
   });
 
+  it('should support columns with percentage based widths', () => {
+    const columns = [
+      { name: 'firstName', width: '50%' },
+      { name: 'middleName' },
+      { name: 'lastName' },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(250);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(125);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(125);
+  });
+
+  it('should distribute remaining width to undeclared columns when other columns use width and minWidth', () => {
+    const columns = [
+      { name: 'firstName', width: '50%' },
+      { name: 'middleName', minWidth: 150 },
+      { name: 'lastName' },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(250);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(150);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(100);
+  });
+
+  it('should use minWidth over percentage width when larger', () => {
+    const columns = [
+      { name: 'firstName', width: '50%', minWidth: 300 },
+      { name: 'middleName' },
+      { name: 'lastName' },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(300);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(100);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(100);
+  });
+
+  // TODO
+  //   - If widths exceed tableWidth
+  //   - If minWidths exceed tableWidth
+
 });

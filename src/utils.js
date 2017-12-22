@@ -1,21 +1,39 @@
 export function calcColumnWidth (index, columns, tableWidth) {
   const column = columns[index];
 
-  if (column.width) {
-    return column.width;
-  } else {
-    // TODO: Support column.width as percentage (0.5 or '50%'?) for variable width columns
-    const fixedWidthColumns = columns.filter(c => c.width);
-    const totalFixedWidth = fixedWidthColumns.reduce((result, item) => result + item.width, 0);
+  let width = getDeterministicColumnWidth(column, tableWidth);
 
-    const variableWidthColumns = columns.filter(c => !c.width);
-    const totalDistributedWidth = tableWidth - totalFixedWidth;
-    const initialDistributedWidthPerColumn = totalDistributedWidth / variableWidthColumns.length;
-
-    const activeMinWidthColumns = columns.filter(c => c.minWidth > initialDistributedWidthPerColumn ? c.minWidth : 0);
-    const allocatedMinWidth = activeMinWidthColumns.reduce((result, c) => result + c.minWidth, 0);
-    const remainingWidth = (tableWidth - totalFixedWidth - allocatedMinWidth);
-
-    return Math.max(column.minWidth || 0, remainingWidth / (variableWidthColumns.length - activeMinWidthColumns.length));
+  if (width) {
+    return width;
   }
+
+  // Evenly distribute remaining width amoungst columns
+  const variableWidthColumns = columns.filter(c => typeof c.width !== 'number' && typeof c.width !== 'string');
+
+  const totalAllocatedWidth = columns.reduce((result, c) => result + (getDeterministicColumnWidth(c, tableWidth) || 0), 0)
+
+  const initialDistributedWidthPerColumn = (tableWidth - totalAllocatedWidth) / variableWidthColumns.length;
+  const activeMinWidthColumns = variableWidthColumns.filter(c => c.minWidth > initialDistributedWidthPerColumn ? c.minWidth : 0);
+  const allocatedMinWidth = activeMinWidthColumns.reduce((result, c) => result + c.minWidth, 0);
+  const remainingWidth = (tableWidth - totalAllocatedWidth - allocatedMinWidth);
+
+  return Math.max(column.minWidth || 0, remainingWidth / (variableWidthColumns.length - activeMinWidthColumns.length));
+}
+
+function getDeterministicColumnWidth (column, tableWidth) {
+  if (typeof column.width === 'number') {
+    // Fixed width
+    return column.width;
+  } else if (typeof column.width === 'string') {
+    // Percentage width
+    const percentageBasedWidth = percentToFixedWidth(column.width, tableWidth)
+    return Math.max(percentageBasedWidth, column.minWidth || 0)
+  } else {
+    // Variable width
+    return null
+  }
+}
+
+function percentToFixedWidth (percentAsString, tableWidth) {
+  return (parseFloat(percentAsString) / 100) * tableWidth; 
 }

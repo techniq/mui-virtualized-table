@@ -1,12 +1,10 @@
 - Table
   - Widths
-    - Support percentage based variable columns
     - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
     - Support maxWidth
     - http://schrodinger.github.io/fixed-data-table-2/api-column.html
     - https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
-  - Support optional pagination (if no pagination set)
   - Support sortable column headers (use TableSortLabel ?) ,onHeaderClick()?
   - Ability to style each grid (top left, bottom right) and per cell
   - Loading progress (spiner in footer, linear, overlay, ...)
@@ -17,7 +15,7 @@
       - Consider adding `maxWidth` to column definition to allow columns to grow as well
       - Consider adding `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
   - Remove scrollbars from all but bottomRightGrid
-    - Currently only working for Chrome, Safari, IE, and Edge
+    - Currently working for Chrome, Safari, IE, and Edge
     - Might want to consider
       - https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
   - Fix scrolling performance on IE

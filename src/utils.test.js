@@ -117,8 +117,39 @@ describe('calcColumnWidth', () => {
     expect(calcColumnWidth(2, columns, tableWidth)).toBe(100);
   });
 
-  // TODO
-  //   - If widths exceed tableWidth
-  //   - If minWidths exceed tableWidth
+  it('should allow percentage widths to exceed table width (viewport) to support horizontal scrolling', () => {
+    const columns = [
+      { name: 'firstName', width: '50%' },
+      { name: 'middleName', width: '50%' },
+      { name: 'lastName', width: '50%' },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(250);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(250);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(250);
+  });
 
+  it('should allow fixed widths to exceed table width (viewport) to support horizontal scrolling', () => {
+    const columns = [
+      { name: 'firstName', width: 200 },
+      { name: 'middleName', width: 200 },
+      { name: 'lastName', width: 200 },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(200);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(200);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(200);
+  });
+
+  it('should allow minWidths to exceed table width (viewport) to support horizontal scrolling', () => {
+    const columns = [
+      { name: 'firstName', minWidth: 200 },
+      { name: 'middleName', minWidth: 200 },
+      { name: 'lastName', minWidth: 200 },
+    ];
+    const tableWidth = 500;
+    expect(calcColumnWidth(0, columns, tableWidth)).toBe(200);
+    expect(calcColumnWidth(1, columns, tableWidth)).toBe(200);
+    expect(calcColumnWidth(2, columns, tableWidth)).toBe(200);
+  });
 });

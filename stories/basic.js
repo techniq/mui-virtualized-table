@@ -183,6 +183,97 @@ storiesOf('Basic', module)
         rowHeight={24}
       />
     )
+  }) 
+
+storiesOf('Column widths', module)
+  .add('fixed width (first column)', () => {
+    const data = createPersonData(100);
+    return (
+      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+        <ParentSize>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[
+                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                { name: 'jobTitle', header: 'Job Title' },
+                { name: 'jobArea', header: 'Job Area' },
+              ]}
+              width={width}
+              maxHeight={height}
+              includeHeaders={true}
+            />
+          )}
+        </ParentSize>
+      </div>
+    )
+  })
+  .add('minWidth (first column)', () => {
+    const data = createPersonData(100);
+    return (
+      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+        <ParentSize>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[
+                { name: 'fullName', header: 'Name', minWidth: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                { name: 'jobTitle', header: 'Job Title' },
+                { name: 'jobArea', header: 'Job Area' },
+              ]}
+              width={width}
+              maxHeight={height}
+              includeHeaders={true}
+            />
+          )}
+        </ParentSize>
+      </div>
+    )
+  })
+  .add('minWidth (all columns)', () => {
+    const data = createPersonData(100);
+    return (
+      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+        <ParentSize>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[
+                { name: 'fullName', header: 'Name', minWidth: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                { name: 'jobTitle', header: 'Job Title', minWidth: 300 },
+                { name: 'jobArea', header: 'Job Area', minWidth: 200 },
+              ]}
+              width={width}
+              maxHeight={height}
+              includeHeaders={true}
+            />
+          )}
+        </ParentSize>
+      </div>
+    )
+  })
+
+  .add('percentage widths exceeding table width (50% each)', () => {
+    const data = createPersonData(100);
+    return (
+      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+        <ParentSize>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[
+                { name: 'fullName', header: 'Name', width: '40%', cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                { name: 'jobTitle', header: 'Job Title', width: '40%' },
+                { name: 'jobArea', header: 'Job Area', width: '40%' },
+              ]}
+              width={width}
+              maxHeight={height}
+              includeHeaders={true}
+            />
+          )}
+        </ParentSize>
+      </div>
+    )
   })
 
 storiesOf('Performance', module)

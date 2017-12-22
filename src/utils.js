@@ -7,11 +7,10 @@ export function calcColumnWidth (index, columns, tableWidth) {
     return width;
   }
 
-  // Evenly distribute remaining width amoungst columns
-  const variableWidthColumns = columns.filter(c => typeof c.width !== 'number' && typeof c.width !== 'string');
-
   const totalAllocatedWidth = columns.reduce((result, c) => result + (getDeterministicColumnWidth(c, tableWidth) || 0), 0)
 
+  // Evenly distribute remaining width amoungst columns (accounting for minWidths)
+  const variableWidthColumns = columns.filter(c => typeof c.width !== 'number' && typeof c.width !== 'string');
   const initialDistributedWidthPerColumn = (tableWidth - totalAllocatedWidth) / variableWidthColumns.length;
   const activeMinWidthColumns = variableWidthColumns.filter(c => c.minWidth > initialDistributedWidthPerColumn ? c.minWidth : 0);
   const allocatedMinWidth = activeMinWidthColumns.reduce((result, c) => result + c.minWidth, 0);

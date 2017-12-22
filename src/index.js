@@ -61,6 +61,7 @@ const styles = theme => ({
     '& .bottomRightGrid': {
       color: theme.palette.text.primary,
       fontSize: theme.typography.pxToRem(13),
+      outline: 'none', // See: https://github.com/bvaughn/react-virtualized/issues/381
     }
   },
   cell: {

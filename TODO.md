@@ -6,6 +6,15 @@
   - Loading progress (spiner in footer, linear, overlay, ...)
   - Account for <TablePagination> when setting height/maxHeight
   - Add PropTypes
+  - Investigate using ColumnSizer
+    - Might be unneeded with current `columnWidth` function
+      - Consider adding `maxWidth` to column definition to allow columns to grow as well
+      - Consider adding `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
+  - Remove scrollbars from all but bottomRightGrid
+    - Currently only working for Chrome, Safari, IE, and Edge
+    - Might want to consider
+      - https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
+  - Fix scrolling performance on IE
 
 - Stories
   - All fixed width columns

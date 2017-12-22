@@ -24,6 +24,12 @@ const styles = theme => ({
       borderRight: `2px solid ${theme.palette.text.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
+
+      // Hide scrollbars on Chrome/Safari/IE
+      '&::-webkit-scrollbar': {
+        display: 'none'
+      },
+      '-ms-overflow-style': 'none'
     },
 
     '& .topRightGrid': {
@@ -31,6 +37,12 @@ const styles = theme => ({
       borderBottom: `2px solid ${theme.palette.text.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
+
+      // Hide scrollbars on Chrome/Safari/IE
+      '&::-webkit-scrollbar': {
+        display: 'none'
+      },
+      '-ms-overflow-style': 'none',
     },
 
     '& .bottomLeftGrid': {
@@ -38,6 +50,12 @@ const styles = theme => ({
       borderRight: `2px solid ${theme.palette.text.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
+
+      // Hide scrollbars on Chrome/Safari/IE
+      '&::-webkit-scrollbar': {
+        display: 'none'
+      },
+      '-ms-overflow-style': 'none',
     },
 
     '& .bottomRightGrid': {

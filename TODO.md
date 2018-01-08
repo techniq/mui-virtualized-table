@@ -1,7 +1,8 @@
 - Table
-  - Widths
+  - Column widths
     - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
     - Support maxWidth
+    - Consider adding `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
     - http://schrodinger.github.io/fixed-data-table-2/api-column.html
     - https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
@@ -13,12 +14,12 @@
   - Investigate using ColumnSizer
     - Might be unneeded with current `columnWidth` function
       - Consider adding `maxWidth` to column definition to allow columns to grow as well
-      - Consider adding `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
   - Remove scrollbars from all but bottomRightGrid
     - Currently working for Chrome, Safari, IE, and Edge
     - Might want to consider
       - https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
   - Fix scrolling performance on IE
+  - Colspan/rowspan - https://github.com/bvaughn/react-virtualized/issues/123
 
 - Stories
   - All fixed width columns

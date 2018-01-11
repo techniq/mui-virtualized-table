@@ -8,7 +8,6 @@
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
   - Ability to style each grid (top left, bottom right) and per cell
   - Loading progress (spiner in footer, linear, overlay, ...)
-  - Account for <TablePagination> when setting height/maxHeight
   - Add PropTypes
   - Investigate using ColumnSizer
     - Might be unneeded with current `columnWidth` function

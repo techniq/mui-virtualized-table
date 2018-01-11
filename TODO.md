@@ -1,4 +1,5 @@
 - Table
+  - Add PropTypes
   - Column widths
     - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
     - Support maxWidth
@@ -8,7 +9,7 @@
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
   - Ability to style each grid (top left, bottom right) and per cell
   - Loading progress (spiner in footer, linear, overlay, ...)
-  - Add PropTypes
+  - Fix scrolling performance on IE
   - Investigate using ColumnSizer
     - Might be unneeded with current `columnWidth` function
       - Consider adding `maxWidth` to column definition to allow columns to grow as well
@@ -16,8 +17,15 @@
     - Currently working for Chrome, Safari, IE, and Edge
     - Might want to consider
       - https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
-  - Fix scrolling performance on IE
   - Colspan/rowspan - https://github.com/bvaughn/react-virtualized/issues/123
+  - Responsive strategy/strategies
+    - https://elvery.net/demo/responsive-tables/
+    - https://github.com/filamentgroup/tablesaw
+    - https://css-tricks.com/responsive-data-tables/
+    - https://www.sitepoint.com/responsive-data-tables-comprehensive-list-solutions/
+    - https://zurb.com/playground/playground/responsive-tables/index.html
+    - https://codepen.io/paghdalyogesh/pen/qNzGVx
+    - https://github.com/google/material-design-lite/issues/1504
 
 - Stories
   - All fixed width columns

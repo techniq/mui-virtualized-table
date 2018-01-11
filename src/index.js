@@ -168,10 +168,11 @@ class MuiTable extends Component {
       orderBy,
       orderDirection,
       onHeaderClick,
+      style,
       ...props
     } = this.props;
 
-    let calculatedHeight = 300; // TODO: Arbitrary default height.  Maybe not needed if we just use '0' when no data
+    let calculatedHeight = 0;
     if (height) {
       calculatedHeight = height; // fixed height
     } else if (pagination && pagination.rowsPerPage) {
@@ -186,7 +187,7 @@ class MuiTable extends Component {
     }
 
     return (
-      <Table component="div" style={{ width }} className={classes.table} {...props}>
+      <Table component="div" style={{ width, height: calculatedHeight + (!maxHeight && pagination ? 56 : 2), ...style }} className={classes.table} {...props}>
         <MultiGrid
           cellRenderer={this.cellRenderer}
           ref={el => this.multiGrid = el}
@@ -197,7 +198,7 @@ class MuiTable extends Component {
           fixedColumnCount={fixedColumnCount}
           enableFixedColumnScroll={fixedColumnCount > 0}
 
-          height={calculatedHeight}
+          height={calculatedHeight - (maxHeight && pagination ? 56 : 0)}
           rowHeight={rowHeight}
           rowCount={Array.isArray(data) ? data.length + (includeHeaders ? 1 : 0) : 0}
           fixedRowCount={fixedRowCount}

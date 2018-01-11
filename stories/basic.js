@@ -7,7 +7,7 @@ import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data'
 
 storiesOf('Basic', module)
-  .add('default (empty)', () => <MuiTable width={500} />)
+  .add('default (empty)', () => <MuiTable width={500} style={{ backgroundColor: 'white' }} />)
 
   .add('simple', () => {
     const data = createPersonData(5);
@@ -19,6 +19,7 @@ storiesOf('Basic', module)
           { name: 'lastName' }
         ]}
         width={500}
+        style={{ backgroundColor: 'white' }}
       />
     )
   })
@@ -35,6 +36,7 @@ storiesOf('Basic', module)
               { name: 'lastName' }
             ]}
             width={width}
+            style={{ backgroundColor: 'white' }}
           />
         )}
       </ParentSize>
@@ -43,7 +45,7 @@ storiesOf('Basic', module)
   .add('composite cells', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -56,6 +58,7 @@ storiesOf('Basic', module)
               width={width}
               maxHeight={height}
               includeHeaders={true}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -73,6 +76,7 @@ storiesOf('Basic', module)
         ]}
         includeHeaders={true}
         width={500}
+        style={{ backgroundColor: 'white' }}
       />
     )
   })
@@ -88,6 +92,7 @@ storiesOf('Basic', module)
         ]}
         includeHeaders={true}
         width={500}
+        style={{ backgroundColor: 'white' }}
       />
     )
   })
@@ -95,7 +100,7 @@ storiesOf('Basic', module)
   .add('fixed/freeze row(s)', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -109,6 +114,7 @@ storiesOf('Basic', module)
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -118,7 +124,7 @@ storiesOf('Basic', module)
   .add('fixed/freeze column(s)', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -133,6 +139,7 @@ storiesOf('Basic', module)
               maxHeight={height}
               includeHeaders={true}
               fixedColumnCount={1}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -142,7 +149,7 @@ storiesOf('Basic', module)
   .add('fixed/freeze both', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -158,6 +165,7 @@ storiesOf('Basic', module)
               includeHeaders={true}
               fixedRowCount={1}
               fixedColumnCount={1}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -181,15 +189,36 @@ storiesOf('Basic', module)
         includeHeaders={true}
         width={900}
         rowHeight={24}
+        style={{ backgroundColor: 'white' }}
       />
     )
   }) 
+.add('pagination', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <PaginatedTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            includeHeaders={true}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
+    )
+  })
 
 storiesOf('Column widths', module)
   .add('fixed width (first column)', () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -202,6 +231,7 @@ storiesOf('Column widths', module)
               width={width}
               maxHeight={height}
               includeHeaders={true}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -211,7 +241,7 @@ storiesOf('Column widths', module)
   .add('minWidth (first column)', () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -224,6 +254,7 @@ storiesOf('Column widths', module)
               width={width}
               maxHeight={height}
               includeHeaders={true}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -233,7 +264,7 @@ storiesOf('Column widths', module)
   .add('minWidth (all columns)', () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -246,6 +277,7 @@ storiesOf('Column widths', module)
               width={width}
               maxHeight={height}
               includeHeaders={true}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -253,10 +285,10 @@ storiesOf('Column widths', module)
     )
   })
 
-  .add('percentage widths exceeding table width (50% each)', () => {
+  .add('percentage widths exceeding table width (40% each)', () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <MuiTable
@@ -269,10 +301,97 @@ storiesOf('Column widths', module)
               width={width}
               maxHeight={height}
               includeHeaders={true}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
       </div>
+    )
+  })
+
+storiesOf('maxHeight', module)
+  .add('basic', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            maxHeight={500}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
+    )
+  })
+  .add('headers', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            maxHeight={500}
+            includeHeaders={true}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
+    )
+  })
+  .add('fixed headers', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            maxHeight={500}
+            includeHeaders={true}
+            fixedRowCount={1}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
+    )
+  })
+.add('pagination', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <PaginatedTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            maxHeight={500}
+            includeHeaders={true}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
     )
   })
 
@@ -289,6 +408,7 @@ storiesOf('Performance', module)
               { name: 'lastName' }
             ]}
             width={width}
+            style={{ backgroundColor: 'white' }}
           />
         )}
       </ParentSize>
@@ -308,6 +428,7 @@ storiesOf('Performance', module)
             ]}
             width={width}
             height={400}
+            style={{ backgroundColor: 'white' }}
           />
         )}
       </ParentSize>
@@ -317,7 +438,7 @@ storiesOf('Performance', module)
   .add('1000 rows (viewport height)', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
       <ParentSize>
         {({ width, height }) => (
           <MuiTable
@@ -328,6 +449,7 @@ storiesOf('Performance', module)
             ]}
             width={width}
             height={height}
+            style={{ backgroundColor: 'white' }}
           />
         )}
       </ParentSize>
@@ -339,7 +461,7 @@ storiesOf('Examples', module)
   .add('dessert', () => {
     const data = createDessertData();
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <PaginatedTable
@@ -358,6 +480,7 @@ storiesOf('Examples', module)
               // fixedRowCount={1}
               // fixedColumnCount={1}
               defaultPagination={{ rowsPerPage: 5 }}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>
@@ -367,7 +490,7 @@ storiesOf('Examples', module)
   .add('all the things', () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh - 16px - 50px - 8px)' }}>
+      <div style={{ height: 'calc(100vh)' }}>
         <ParentSize>
           {({ width, height }) => (
             <PaginatedTable
@@ -383,6 +506,7 @@ storiesOf('Examples', module)
               includeHeaders={true}
               fixedRowCount={1}
               fixedColumnCount={1}
+              style={{ backgroundColor: 'white' }}
             />
           )}
         </ParentSize>

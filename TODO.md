@@ -6,7 +6,6 @@
     - http://schrodinger.github.io/fixed-data-table-2/api-column.html
     - https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
-  - Support sortable column headers (use TableSortLabel ?) ,onHeaderClick()?
   - Ability to style each grid (top left, bottom right) and per cell
   - Loading progress (spiner in footer, linear, overlay, ...)
   - Account for <TablePagination> when setting height/maxHeight

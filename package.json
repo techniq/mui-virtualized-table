@@ -10,7 +10,7 @@
   "author": "Sean Lynch <techniq35@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "material-ui": "^1.0.0-beta.21",
+    "material-ui": "^1.0.0-beta.27",
     "react": ">=15"
   },
   "dependencies": {
@@ -27,7 +27,7 @@
     "babel-preset-env": "^1.6.1",
     "gh-pages": "^1.1.0",
     "jest": "^22.0.4",
-    "material-ui": "^1.0.0-beta.21",
+    "material-ui": "^1.0.0-beta.27",
     "react": "^16.1.1",
     "react-dom": "^16.1.1"
   },

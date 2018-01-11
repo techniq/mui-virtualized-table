@@ -5,8 +5,8 @@ For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui
 
 ### Features
 - Uses windowing for performance (via [react-virtualized](https://github.com/bvaughn/react-virtualized))
-- Fixed / freeze as many rows or columns
-- Fixed for variable column widths
+- Freeze rows and/or columns
+- Fixed or variable (%) column widths
 
 ### Props
 Property | Type | Required | Default | Description

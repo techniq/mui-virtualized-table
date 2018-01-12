@@ -14,7 +14,7 @@ import Table, {
 } from 'material-ui/Table';
 import { calcColumnWidth } from './utils';
 
-const styles = theme => ({
+export const styles = theme => ({
   table: {
     boxSizing: 'border-box',
     border: `1px solid ${theme.palette.text.lightDivider}`,

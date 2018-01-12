@@ -6,9 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import Table, {
   TableBody,
   TableCell,
-  // TableHead,
   TableFooter,
-  // TableRow,
   TablePagination,
   TableSortLabel
 } from 'material-ui/Table';

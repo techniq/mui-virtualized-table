@@ -26,6 +26,7 @@
     - https://zurb.com/playground/playground/responsive-tables/index.html
     - https://codepen.io/paghdalyogesh/pen/qNzGVx
     - https://github.com/google/material-design-lite/issues/1504
+    - Maybe consider using https://material-ui-next.com/demos/stepper/#mobile-stepper for stepping through data
 
 - Stories
   - All fixed width columns

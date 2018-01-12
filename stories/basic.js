@@ -394,6 +394,27 @@ storiesOf('maxHeight', module)
       </ParentSize>
     )
   })
+  .add('pagination (maxHeight > calculatedHeight)', () => {
+    const data = createPersonData(100);
+    return (
+      <ParentSize>
+        {({ width, height }) => (
+          <PaginatedTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            maxHeight={800}
+            includeHeaders={true}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </ParentSize>
+    )
+  })
 
 storiesOf('Performance', module)
   .add('1000 rows (no virtualizaiton)', () => {
@@ -517,7 +538,7 @@ storiesOf('Examples', module)
 class PaginatedTable extends Component {
   state = {
     page: 1,
-    perPage: this.props.defaultPagination && this.props.defaultPagination.rowsPerPage || 10
+    perPage: this.props.defaultPagination && this.props.defaultPagination.rowsPerPage || 10 
   }
 
   render() {

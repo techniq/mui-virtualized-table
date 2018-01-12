@@ -94,7 +94,7 @@ class MuiTable extends Component {
 
   static defaultProps = {
     rowHeight: 48,
-    maxHeight: 0,
+    maxHeight: null,
     includeHeaders: false,
     fixedRowCount: 0,
     fixedColumnCount: 0,
@@ -182,12 +182,13 @@ class MuiTable extends Component {
       const rowCount = data.length + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0)
       calculatedHeight = rowCount * rowHeight;
     }
-    if (maxHeight) {
-      calculatedHeight = Math.min(calculatedHeight, maxHeight);
-    }
+
+    const calculatedHeightWithFooter = calculatedHeight + (pagination ? 56 : 2);
+    const containerHeight = maxHeight ? Math.min(calculatedHeightWithFooter, maxHeight) : calculatedHeightWithFooter;
+    const multiGridHeight = containerHeight - (pagination ? 56 : 2);
 
     return (
-      <Table component="div" style={{ width, height: calculatedHeight + (!maxHeight && pagination ? 56 : 2), ...style }} className={classes.table} {...props}>
+      <Table component="div" style={{ width, height: containerHeight, ...style }} className={classes.table} {...props}>
         <MultiGrid
           cellRenderer={this.cellRenderer}
           ref={el => this.multiGrid = el}
@@ -198,7 +199,7 @@ class MuiTable extends Component {
           fixedColumnCount={fixedColumnCount}
           enableFixedColumnScroll={fixedColumnCount > 0}
 
-          height={calculatedHeight - (maxHeight && pagination ? 56 : 0)}
+          height={multiGridHeight}
           rowHeight={rowHeight}
           rowCount={Array.isArray(data) ? data.length + (includeHeaders ? 1 : 0) : 0}
           fixedRowCount={fixedRowCount}

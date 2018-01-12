@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { MultiGrid } from 'react-virtualized';
+import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
 import classNames from 'classnames';
 import { withStyles } from 'material-ui/styles';
 import Table, {

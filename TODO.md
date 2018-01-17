@@ -3,12 +3,15 @@
   - Column widths
     - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
     - Support maxWidth
-    - Consider adding `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
+    - Consider adding `columnWidth`, `columnMinWidth` and `columnMaxWidth` to table for defaults if not defined within each column definition
+      - Maybe just `columnDefaults: { width, ... }`
     - http://schrodinger.github.io/fixed-data-table-2/api-column.html
     - https://github.com/bvaughn/react-virtualized/blob/master/docs/Column.md
     - http://allenfang.github.io/react-bootstrap-table/docs.html#width
   - Ability to style each grid (top left, bottom right) and per cell
+    - Now export `style`, might be helpful
   - Loading progress (spiner in footer, linear, overlay, ...)
+    - Useful?: https://github.com/mui-org/material-ui/pull/9785 (waiting for beta-28)
   - Fix scrolling performance on IE
   - Investigate using ColumnSizer
     - Might be unneeded with current `columnWidth` function
@@ -27,6 +30,8 @@
     - https://codepen.io/paghdalyogesh/pen/qNzGVx
     - https://github.com/google/material-design-lite/issues/1504
     - Maybe consider using https://material-ui-next.com/demos/stepper/#mobile-stepper for stepping through data
+  - Resizable columns
+  - Reorder columns
 
 - Stories
   - All fixed width columns

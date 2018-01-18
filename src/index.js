@@ -219,4 +219,23 @@ class MuiTable extends Component {
   }
 }
 
+MuiTable.propTypes = {
+  data: PropTypes.array,
+  columns: PropTypes.array,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  maxHeight: PropTypes.number,
+  pagination: PropTypes.object,
+  fixedRowCount: PropTypes.number,
+  fixedColumnCount: PropTypes.number,
+  rowHeight: PropTypes.number,
+  columnWidth: PropTypes.number,
+  includeHeaders: PropTypes.bool,
+  orderBy: PropTypes.string,
+  orderDirection: PropTypes.string,
+  onHeaderClick: PropTypes.func,
+  classes: PropTypes.object,
+  style: PropTypes.object
+}
+
 export default withStyles(styles)(MuiTable);

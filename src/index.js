@@ -123,7 +123,7 @@ class MuiTable extends Component {
     const className = classNames(classes.cell, {
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
-      [classes.cellInLastRow]: rowIndex === data.length
+      [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
     })
 
     return (

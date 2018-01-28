@@ -21,7 +21,7 @@ Property | Type | Required | Default | Description
 `fixedRowCount` | number | | 0 | Number of rows to remain fixed at the top of the viewport (freeze rows).  Based on `columns` definition order
 `fixedColumnCount` | number | | 0 | Number of columns to remain fixed at the left of the viewport (freeze columns).  Based on `columns` definition order
 `includeHeaders` | bool | | false | Add header row to top of data.  Useful to also set `fixedRowCount` to `1`
-`onHeaderClick` | func | | | 
+`onHeaderClick` | func | | | Called with column definition of header clicked on.  Useful to set sort data and set `orderBy` and `orderDirection`
 `pagination` | object | | | If defined, will add pagination to bottom of table and pass props to Material-UI's [TablePagination](https://material-ui-next.com/api/table-pagination/) component.  Must set `count`, `onChangePage`, `page`, and `rowsPerPage` if defined.
 `orderBy` | string | | | If defined, will show column's header with matching `name` using [TableSortLabel](https://material-ui-next.com/api/table-sort-label/)
 `orderDirection` | string | | 'desc' | The order of the sort direction

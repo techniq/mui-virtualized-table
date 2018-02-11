@@ -134,11 +134,11 @@ class MuiTable extends Component {
         style={{ ...style, ...cellStyle }}
         {...cellProps}
       >
-        { isHeader ? (
+        { isHeader && (column.onHeaderClick || onHeaderClick) ? (
           <TableSortLabel
             active={orderBy && orderBy === column.name && rowIndex === 0}
             direction={orderDirection}
-            onClick={() => onHeaderClick && onHeaderClick(column)}
+            onClick={() => column.onHeaderClick ? column.onHeaderClick() : onHeaderClick(column)}
           >
             {contents}
           </TableSortLabel>

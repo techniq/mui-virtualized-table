@@ -12,7 +12,7 @@ For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui
 Property | Type | Required | Default | Description
 -------- | ---- | -------- | ------- | -----------
 `data` | array | ✓ |  | Data to render using defined `columns`
-`columns` | array | ✓ |  | Defines the columns in the table.<br/>Column format: {'name', 'header', 'width', 'cell', ...cellProps }<br/>`name`: Name of header<br/>`header`: (optional) Name to display instead 'name'<br/>`width`: (optional) Width of cell<br/>`cell`: (optional) Callback for rendering associated column cell data.  Passes the row data for the associated cell.    
+`columns` | array | ✓ |  | Defines the columns in the table.<br/>Column format: {'name', 'header', 'onHeaderClick', 'width', 'cell', ...cellProps }<br/>`name`: Name of header<br/>`header`: (optional) Name to display instead 'name'<br/>`onHeaderClick`: (optional) Callback when header is clicked on (has precendence over `onHeaderClick` on table<br/>`width`: (optional) Width of cell<br/>`cell`: (optional) Callback for rendering associated column cell data.  Passes the row data for the associated cell.    
 `width` | number | ✓ |  | Visible width of table.  Will scroll horizontally if sum of column widths are greater than defined width
 `columnWidth` | number or func | | | Static column widths if number, calulated based on `columns` definitons if not specificed, or can pass in a function to peform own calcuation based on data
 `height` | number | | calculted from `data.length` or `pagination.rowsPerPage` if defined | Visible height of table.  Will scroll vertically if sum of column heights are great than defined height

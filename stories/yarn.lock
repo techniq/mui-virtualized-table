@@ -2,21 +2,6 @@
 # yarn lockfile v1
 
 
-"@vx/responsive@^0.0.147":
-  version "0.0.147"
-  resolved "https://registry.yarnpkg.com/@vx/responsive/-/responsive-0.0.147.tgz#c94adbb41ad1e21b5d1ebde241b00463903fc79c"
-  dependencies:
-    lodash "^4.0.8"
-    resize-observer-polyfill "1.4.2"
-
 faker@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/faker/-/faker-4.1.0.tgz#1e45bbbecc6774b3c195fad2835109c6d748cc3f"
-
-lodash@^4.0.8:
-  version "4.17.4"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
-
-resize-observer-polyfill@1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.4.2.tgz#a37198e6209e888acb1532a9968e06d38b6788e5"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
-import { ParentSize } from '@vx/responsive';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data'
@@ -27,7 +27,7 @@ storiesOf('Basic', module)
   .add('responsive', () => {
     const data = createPersonData(5);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -39,14 +39,14 @@ storiesOf('Basic', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
   .add('composite cells', () => {
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -61,7 +61,7 @@ storiesOf('Basic', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -101,7 +101,7 @@ storiesOf('Basic', module)
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -117,7 +117,7 @@ storiesOf('Basic', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -125,7 +125,7 @@ storiesOf('Basic', module)
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -142,7 +142,7 @@ storiesOf('Basic', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -150,7 +150,7 @@ storiesOf('Basic', module)
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -168,7 +168,7 @@ storiesOf('Basic', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -196,7 +196,7 @@ storiesOf('Basic', module)
 .add('pagination', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <PaginatedTable
             data={data}
@@ -210,7 +210,7 @@ storiesOf('Basic', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
 
@@ -219,7 +219,7 @@ storiesOf('Column widths', module)
     const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -234,7 +234,7 @@ storiesOf('Column widths', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -242,7 +242,7 @@ storiesOf('Column widths', module)
     const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -257,7 +257,7 @@ storiesOf('Column widths', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -265,7 +265,7 @@ storiesOf('Column widths', module)
     const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -280,7 +280,7 @@ storiesOf('Column widths', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -289,7 +289,7 @@ storiesOf('Column widths', module)
     const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
@@ -304,7 +304,7 @@ storiesOf('Column widths', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -313,7 +313,7 @@ storiesOf('maxHeight', module)
   .add('basic', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -327,13 +327,13 @@ storiesOf('maxHeight', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
   .add('headers', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -348,13 +348,13 @@ storiesOf('maxHeight', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
   .add('fixed headers', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -370,13 +370,13 @@ storiesOf('maxHeight', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
 .add('pagination', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <PaginatedTable
             data={data}
@@ -391,13 +391,13 @@ storiesOf('maxHeight', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
   .add('pagination (maxHeight > calculatedHeight)', () => {
     const data = createPersonData(100);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <PaginatedTable
             data={data}
@@ -412,7 +412,7 @@ storiesOf('maxHeight', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
 
@@ -420,7 +420,7 @@ storiesOf('Performance', module)
   .add('1000 rows (no virtualizaiton)', () => {
     const data = createPersonData(1000);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width }) => (
           <MuiTable
             data={data}
@@ -432,14 +432,14 @@ storiesOf('Performance', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
 
   .add('1000 rows (fixed height)', () => {
     const data = createPersonData(1000);
     return (
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -452,7 +452,7 @@ storiesOf('Performance', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
     )
   })
 
@@ -460,7 +460,7 @@ storiesOf('Performance', module)
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-      <ParentSize>
+      <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
@@ -473,7 +473,7 @@ storiesOf('Performance', module)
             style={{ backgroundColor: 'white' }}
           />
         )}
-      </ParentSize>
+      </AutoSizer>
       </div>
     )
   })
@@ -483,7 +483,7 @@ storiesOf('Examples', module)
     const data = createDessertData();
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <PaginatedTable
               data={data}
@@ -504,7 +504,7 @@ storiesOf('Examples', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })
@@ -512,7 +512,7 @@ storiesOf('Examples', module)
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-        <ParentSize>
+        <AutoSizer>
           {({ width, height }) => (
             <PaginatedTable
               data={data}
@@ -530,7 +530,7 @@ storiesOf('Examples', module)
               style={{ backgroundColor: 'white' }}
             />
           )}
-        </ParentSize>
+        </AutoSizer>
       </div>
     )
   })

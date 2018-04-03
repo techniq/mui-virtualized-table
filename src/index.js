@@ -105,18 +105,18 @@ class MuiTable extends Component {
   }
 
   cellRenderer = ({columnIndex, rowIndex, key, style}) => {
-    const { data, columns, includeHeaders, classes, orderBy, orderDirection, onHeaderClick, cellProps: defaultCellProps } = this.props;
+    const { data, columns, includeHeaders, classes, orderBy, orderDirection, onHeaderClick, onCellClick, cellProps: defaultCellProps } = this.props;
     const column = columns[columnIndex];
     const { style: cellStyle, ...cellProps} = { ...defaultCellProps, ...column.cellProps };
 
     let contents;
     const isHeader = includeHeaders && rowIndex === 0;
+    const headerOffset = includeHeaders ? 1 : 0;
+    const rowData = data[rowIndex - headerOffset];
 
     if (isHeader) {
       contents = column.header || column.name;
     } else {
-      const headerOffset = includeHeaders ? 1 : 0;
-      const rowData = data[rowIndex - headerOffset];
       contents = column.cell ? column.cell(rowData) : rowData[column.name]
     }
 
@@ -126,12 +126,15 @@ class MuiTable extends Component {
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
     })
 
+    console.log('onCellClick', onCellClick);
+
     return (
       <TableCell
         component="div"
         className={className}
         key={key}
         style={{ ...style, ...cellStyle }}
+        { ...(!isHeader && onCellClick) && { onClick: () => onCellClick(column, rowData)} } // Can be overridden by cellProps.onClick on column definition
         {...cellProps}
       >
         { isHeader && (column.onHeaderClick || onHeaderClick) ? (
@@ -234,6 +237,7 @@ MuiTable.propTypes = {
   orderBy: PropTypes.string,
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
+  onCellClick: PropTypes.func,
   classes: PropTypes.object,
   cellProps: PropTypes.object,
   style: PropTypes.object

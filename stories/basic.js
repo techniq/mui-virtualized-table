@@ -214,6 +214,27 @@ storiesOf('Basic', module)
       />
     )
   }) 
+  .add('clickable headers and cells', () => {
+    const data = createPersonData(5);
+    return (
+      <AutoSizer>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'firstName', header: 'First Name' },
+              { name: 'lastName', header: 'Last Name' }
+            ]}
+            width={width}
+            style={{ backgroundColor: 'white' }}
+            includeHeaders={true}
+            onHeaderClick={(column) => alert(`Clicked '${column.name}' header in column'`)}
+            onCellClick={(column, data) => alert(`Clicked cell in column '${column.name}' containing '${data[column.name]}'`)}
+          />
+        )}
+      </AutoSizer>
+    );
+  })
 .add('pagination', () => {
     const data = createPersonData(100);
     return (

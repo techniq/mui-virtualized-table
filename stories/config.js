@@ -1,16 +1,16 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from 'material-ui/CssBaseline';
 
 const theme = createMuiTheme();
 
 addDecorator(storyFn => (
-  <Reboot>
+  <CssBaseline>
     <MuiThemeProvider theme={theme}>
       {storyFn()}
     </MuiThemeProvider>
-  </Reboot>
+  </CssBaseline>
 ));
 
 function loadStories() {

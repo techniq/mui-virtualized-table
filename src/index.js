@@ -18,9 +18,9 @@ export const styles = theme => ({
     border: `1px solid ${theme.palette.text.lightDivider}`,
 
     '& .topLeftGrid': {
-      backgroundColor: theme.palette.background.contentFrame,
-      borderBottom: `2px solid ${theme.palette.text.divider}`,
-      borderRight: `2px solid ${theme.palette.text.divider}`,
+      backgroundColor: theme.palette.grey['200'],
+      borderBottom: `2px solid ${theme.palette.divider}`,
+      borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
@@ -32,8 +32,8 @@ export const styles = theme => ({
     },
 
     '& .topRightGrid': {
-      backgroundColor: theme.palette.background.contentFrame,
-      borderBottom: `2px solid ${theme.palette.text.divider}`,
+      backgroundColor: theme.palette.grey['200'],
+      borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
@@ -45,8 +45,8 @@ export const styles = theme => ({
     },
 
     '& .bottomLeftGrid': {
-      backgroundColor: theme.palette.background.contentFrame,
-      borderRight: `2px solid ${theme.palette.text.divider}`,
+      backgroundColor: theme.palette.grey['200'],
+      borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
 
@@ -81,7 +81,7 @@ export const styles = theme => ({
     borderBottom: 'none'
   },
   footer: {
-    borderTop: `1px solid ${theme.palette.text.divider}`,
+    borderTop: `1px solid ${theme.palette.divider}`,
   }
 });
 

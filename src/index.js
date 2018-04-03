@@ -126,8 +126,6 @@ class MuiTable extends Component {
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
     })
 
-    console.log('onCellClick', onCellClick);
-
     return (
       <TableCell
         component="div"

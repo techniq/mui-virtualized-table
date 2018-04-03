@@ -1,5 +1,4 @@
 - Table
-  - Add PropTypes
   - Column widths
     - Support flexGrow / flexShink (applies to remaining width (after fixed widths, after percentage-based?))
     - Support maxWidth
@@ -32,6 +31,12 @@
     - Maybe consider using https://material-ui-next.com/demos/stepper/#mobile-stepper for stepping through data
   - Resizable columns
   - Reorder columns
+  - Scrollbars
+    - Look into handling scrollbar width (Windows IE and Chrome) better?
+      - https://github.com/STORIS/react-scrollbar-size/blob/master/src/ScrollbarSize.jsx
+      - https://github.com/turnerniles/react-virtualized-pivot/blob/140693f0b4dd00c7ca2c003b2c9b682684c1414a/src/components/Table/Table.jsx
+    - Verify / support react-custom-scrollbars
+      - https://github.com/bvaughn/react-virtualized/issues/692
 
 - Stories
   - All fixed width columns

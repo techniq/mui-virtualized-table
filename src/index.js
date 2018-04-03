@@ -167,6 +167,8 @@ class MuiTable extends Component {
       orderBy,
       orderDirection,
       onHeaderClick,
+      onCellClick,
+      cellProps,
       style,
       ...props
     } = this.props;

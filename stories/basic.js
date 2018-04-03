@@ -193,6 +193,27 @@ storiesOf('Basic', module)
       />
     )
   }) 
+  .add('default cellProps', () => {
+    const data = createDessertData();
+    const orderBy = "FullName desc";
+    const [orderProp, orderDirection] = orderBy;
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          { name: 'name', header: 'Dessert (100g serving)', cellProps: { style: { paddingRight: 0 } }},
+          { name: 'calories', header: 'Calories', cellProps: { numeric: true } },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true }},
+          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: 'protein', header: 'Protein (g)', cellProps: { numeric: true } },
+        ]}
+        includeHeaders={true}
+        width={900}
+        cellProps={{ padding: 'dense' }}
+        style={{ backgroundColor: 'white' }}
+      />
+    )
+  }) 
 .add('pagination', () => {
     const data = createPersonData(100);
     return (

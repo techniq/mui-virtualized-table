@@ -105,9 +105,9 @@ class MuiTable extends Component {
   }
 
   cellRenderer = ({columnIndex, rowIndex, key, style}) => {
-    const { data, columns, includeHeaders, classes, orderBy, orderDirection, onHeaderClick } = this.props;
+    const { data, columns, includeHeaders, classes, orderBy, orderDirection, onHeaderClick, cellProps: defaultCellProps } = this.props;
     const column = columns[columnIndex];
-    const { style: cellStyle, ...cellProps} = column.cellProps || {};
+    const { style: cellStyle, ...cellProps} = { ...defaultCellProps, ...column.cellProps };
 
     let contents;
     const isHeader = includeHeaders && rowIndex === 0;
@@ -235,6 +235,7 @@ MuiTable.propTypes = {
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
   classes: PropTypes.object,
+  cellProps: PropTypes.object,
   style: PropTypes.object
 }
 

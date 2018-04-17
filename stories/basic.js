@@ -416,7 +416,7 @@ storiesOf('maxHeight', module)
     )
   })
 .add('pagination', () => {
-    const data = createPersonData(100);
+    const data = createPersonData(15);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -428,7 +428,7 @@ storiesOf('maxHeight', module)
               { name: 'jobArea', header: 'Job Area' },
             ]}
             width={width}
-            maxHeight={500}
+            maxHeight={400}
             includeHeaders={true}
             style={{ backgroundColor: 'white' }}
           />
@@ -437,7 +437,7 @@ storiesOf('maxHeight', module)
     )
   })
   .add('pagination (maxHeight > calculatedHeight)', () => {
-    const data = createPersonData(100);
+    const data = createPersonData(15);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -450,6 +450,27 @@ storiesOf('maxHeight', module)
             ]}
             width={width}
             maxHeight={800}
+            includeHeaders={true}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </AutoSizer>
+    )
+  })
+  .add('pagination (fitHeightToRows)', () => {
+    const data = createPersonData(15);
+    return (
+      <AutoSizer>
+        {({ width, height }) => (
+          <PaginatedTable
+            data={data}
+            columns={[
+              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobArea', header: 'Job Area' },
+            ]}
+            width={width}
+            fitHeightToRows={true}
             includeHeaders={true}
             style={{ backgroundColor: 'white' }}
           />

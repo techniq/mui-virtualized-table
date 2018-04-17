@@ -18,6 +18,7 @@ Property | Type | Required | Default | Description
 `columnWidth` | number or func | | | Static column widths if number, calulated based on `columns` definitons if not specificed, or can pass in a function to peform own calcuation based on data
 `height` | number | | calculted from `data.length` or `pagination.rowsPerPage` if defined | Visible height of table.  Will scroll vertically if sum of column heights are great than defined height
 `maxHeight` | number | | 0 | Maximum height of table.  Useful when using calculated 
+`fitHeightToRows` | boolean | | false | Always fit the content height to row data.  Only useful when using pagination and you want to reduce the height on non-full pages (will move paginator on different length results)
 `rowHeight` | number | | 48 | Height of rows
 `fixedRowCount` | number | | 0 | Number of rows to remain fixed at the top of the viewport (freeze rows).  Based on `columns` definition order
 `fixedColumnCount` | number | | 0 | Number of columns to remain fixed at the left of the viewport (freeze columns).  Based on `columns` definition order

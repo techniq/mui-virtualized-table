@@ -160,6 +160,7 @@ class MuiTable extends Component {
       height,
       maxHeight,
       pagination,
+      fitHeightToRows,
       fixedRowCount,
       fixedColumnCount,
       rowHeight,
@@ -179,7 +180,7 @@ class MuiTable extends Component {
     let calculatedHeight = 0;
     if (height) {
       calculatedHeight = height; // fixed height
-    } else if (pagination && pagination.rowsPerPage) {
+    } else if (pagination && pagination.rowsPerPage && !fitHeightToRows) {
       const rowCount = pagination.rowsPerPage + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0)
       calculatedHeight = rowCount * rowHeight;
     } else if (Array.isArray(data)) {
@@ -234,6 +235,7 @@ MuiTable.propTypes = {
   height: PropTypes.number,
   maxHeight: PropTypes.number,
   pagination: PropTypes.object,
+  fitHeightToRows: PropTypes.fitHeightToRows,
   fixedRowCount: PropTypes.number,
   fixedColumnCount: PropTypes.number,
   rowHeight: PropTypes.number,

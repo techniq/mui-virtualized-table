@@ -12,6 +12,8 @@ import Table, {
 } from 'material-ui/Table';
 import { calcColumnWidth } from './utils';
 
+const FOOTER_BORDER_HEIGHT = 1;
+
 export const styles = theme => ({
   table: {
     boxSizing: 'border-box',
@@ -81,7 +83,7 @@ export const styles = theme => ({
     borderBottom: 'none'
   },
   footer: {
-    borderTop: `1px solid ${theme.palette.divider}`,
+    borderTop: `${FOOTER_BORDER_HEIGHT}px solid ${theme.palette.divider}`,
   }
 });
 
@@ -170,6 +172,7 @@ class MuiTable extends Component {
       onCellClick,
       cellProps,
       style,
+      theme,
       ...props
     } = this.props;
 
@@ -184,9 +187,11 @@ class MuiTable extends Component {
       calculatedHeight = rowCount * rowHeight;
     }
 
-    const calculatedHeightWithFooter = calculatedHeight + (pagination ? 56 : 2);
+    const paginationHeight = theme.mixins.toolbar.minHeight + FOOTER_BORDER_HEIGHT;
+
+    const calculatedHeightWithFooter = calculatedHeight + (pagination ? paginationHeight : 0);
     const containerHeight = maxHeight != null ? Math.min(calculatedHeightWithFooter, maxHeight) : calculatedHeightWithFooter;
-    const multiGridHeight = containerHeight - (pagination ? 56 : 2);
+    const multiGridHeight = containerHeight - (pagination ? paginationHeight : 0);
 
     return (
       <Table component="div" style={{ width, height: containerHeight, ...style }} className={classes.table} {...props}>
@@ -243,4 +248,4 @@ MuiTable.propTypes = {
   style: PropTypes.object
 }
 
-export default withStyles(styles)(MuiTable);
+export default withStyles(styles, { withTheme: true })(MuiTable);

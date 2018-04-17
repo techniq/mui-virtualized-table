@@ -185,7 +185,7 @@ class MuiTable extends Component {
     }
 
     const calculatedHeightWithFooter = calculatedHeight + (pagination ? 56 : 2);
-    const containerHeight = maxHeight ? Math.min(calculatedHeightWithFooter, maxHeight) : calculatedHeightWithFooter;
+    const containerHeight = maxHeight != null ? Math.min(calculatedHeightWithFooter, maxHeight) : calculatedHeightWithFooter;
     const multiGridHeight = containerHeight - (pagination ? 56 : 2);
 
     return (

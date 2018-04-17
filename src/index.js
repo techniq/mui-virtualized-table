@@ -235,7 +235,7 @@ MuiTable.propTypes = {
   height: PropTypes.number,
   maxHeight: PropTypes.number,
   pagination: PropTypes.object,
-  fitHeightToRows: PropTypes.fitHeightToRows,
+  fitHeightToRows: PropTypes.bool,
   fixedRowCount: PropTypes.number,
   fixedColumnCount: PropTypes.number,
   rowHeight: PropTypes.number,

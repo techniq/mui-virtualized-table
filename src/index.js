@@ -71,6 +71,11 @@ export const styles = theme => ({
     alignItems: 'center',
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
+  cellContents: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
+  },
   cellHeader: {
     fontSize: theme.typography.pxToRem(12),
     fontWeight: theme.typography.fontWeightMedium,
@@ -109,18 +114,21 @@ class MuiTable extends Component {
   cellRenderer = ({columnIndex, rowIndex, key, style}) => {
     const { data, columns, includeHeaders, classes, orderBy, orderDirection, onHeaderClick, onCellClick, cellProps: defaultCellProps } = this.props;
     const column = columns[columnIndex];
-    const { style: cellStyle, ...cellProps} = { ...defaultCellProps, ...column.cellProps };
+    const { style: cellStyle, ...cellProps} = { ...defaultCellProps, ...column.cellProps }; // TODO: Deep merge (do not override all defaultCellProps styles if column.cellProps.styles defined?)
 
-    let contents;
     const isHeader = includeHeaders && rowIndex === 0;
     const headerOffset = includeHeaders ? 1 : 0;
     const rowData = data[rowIndex - headerOffset];
 
-    if (isHeader) {
-      contents = column.header || column.name;
-    } else {
-      contents = column.cell ? column.cell(rowData) : rowData[column.name]
-    }
+    const contents = (
+      <span className={classes.cellContents}>
+        { isHeader ? (
+          column.header || column.name
+        ) : (
+          column.cell ? column.cell(rowData) : rowData[column.name]
+        )}
+      </span>
+    )
 
     const className = classNames(classes.cell, {
       [classes.cellHeader]: isHeader,
@@ -212,6 +220,7 @@ class MuiTable extends Component {
           fixedRowCount={fixedRowCount}
           enableFixedRowScroll={fixedRowCount > 0}
 
+          // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
           classNameTopLeftGrid={'topLeftGrid'}
           classNameTopRightGrid={'topRightGrid'}
           classNameBottomLeftGrid={'bottomLeftGrid'}

@@ -214,6 +214,25 @@ storiesOf('Basic', module)
       />
     )
   }) 
+  .add('text overflow', () => {
+    const data = createPersonData(10);
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          { name: 'fullName', header: 'Name', width: 100, cell: d => `${d.firstName} ${d.lastName}`},
+          { name: 'jobTitle', header: 'Job Title', width: 100 },
+          { name: 'jobArea', header: 'Job Area', width: 100 },
+        ]}
+        width={300}
+        includeHeaders={true}
+        rowHeight={24}
+        style={{ backgroundColor: 'white' }}
+        // cellProps={{ padding: 'dense' }}
+        cellProps={{ style: { paddingRight: 0 } }}
+      />
+    )
+  })
   .add('clickable headers and cells', () => {
     const data = createPersonData(5);
     return (

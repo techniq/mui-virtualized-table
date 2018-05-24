@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
-import Table, {
-  TableBody,
-  TableCell,
-  TableFooter,
-  TablePagination,
-  TableSortLabel
-} from 'material-ui/Table';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { calcColumnWidth } from './utils';
 
 const FOOTER_BORDER_HEIGHT = 1;

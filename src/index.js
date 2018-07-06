@@ -154,14 +154,21 @@ class MuiTable extends Component {
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
     });
 
+    const hasCellClick = !isHeader && onCellClick;
+
     return (
       <TableCell
         component="div"
         className={className}
         key={key}
-        style={{ ...style, ...cellStyle }}
-        {...!isHeader &&
-          onCellClick && { onClick: () => onCellClick(column, rowData) }} // Can be overridden by cellProps.onClick on column definition
+        style={{
+          ...style,
+          ...cellStyle,
+          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
+        }}
+        {...hasCellClick && {
+          onClick: () => onCellClick(column, rowData)
+        }} // Can be overridden by cellProps.onClick on column definition
         {...cellProps}
       >
         {isHeader && (column.onHeaderClick || onHeaderClick) ? (

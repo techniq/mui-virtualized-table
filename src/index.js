@@ -171,7 +171,7 @@ class MuiTable extends Component {
         }} // Can be overridden by cellProps.onClick on column definition
         {...cellProps}
       >
-        {isHeader && (column.onHeaderClick || onHeaderClick) ? (
+        {isHeader && column.onHeaderClick !== false && (column.onHeaderClick || onHeaderClick) ? (
           <TableSortLabel
             active={orderBy && orderBy === column.name && rowIndex === 0}
             direction={orderDirection}

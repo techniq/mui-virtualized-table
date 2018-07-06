@@ -325,7 +325,7 @@ storiesOf('Basic', module)
             data={data}
             columns={[
               { name: 'firstName', header: 'First Name' },
-              { name: 'lastName', header: 'Last Name' }
+              { name: 'lastName', header: 'Last Name', onHeaderClick: false }
             ]}
             width={width}
             style={{ backgroundColor: 'white' }}

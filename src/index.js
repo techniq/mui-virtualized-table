@@ -294,7 +294,7 @@ MuiTable.propTypes = {
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
   classes: PropTypes.object,
-  cellProps: PropTypes.object,
+  cellProps: PropTypes.oneOf([PropTypes.object, PropTypes.func]),
   style: PropTypes.object
 };
 

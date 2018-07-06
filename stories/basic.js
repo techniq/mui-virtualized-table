@@ -4,24 +4,23 @@ import { storiesOf } from '@storybook/react';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 
 import MuiTable from '../src';
-import { createPersonData, createDessertData } from './data'
+import { createPersonData, createDessertData } from './data';
 
 storiesOf('Basic', module)
-  .add('default (empty)', () => <MuiTable width={500} style={{ backgroundColor: 'white' }} />)
+  .add('default (empty)', () => (
+    <MuiTable width={500} style={{ backgroundColor: 'white' }} />
+  ))
 
   .add('simple', () => {
     const data = createPersonData(5);
-    return ( 
+    return (
       <MuiTable
         data={data}
-        columns={[
-          { name: 'firstName' },
-          { name: 'lastName' }
-        ]}
+        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
 
   .add('responsive', () => {
@@ -31,16 +30,13 @@ storiesOf('Basic', module)
         {({ width, height }) => (
           <MuiTable
             data={data}
-            columns={[
-              { name: 'firstName' },
-              { name: 'lastName' }
-            ]}
+            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
             width={width}
             style={{ backgroundColor: 'white' }}
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('composite cells', () => {
     const data = createPersonData(1000);
@@ -51,9 +47,15 @@ storiesOf('Basic', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' },
+                { name: 'jobArea', header: 'Job Area' }
               ]}
               width={width}
               maxHeight={height}
@@ -63,27 +65,24 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('include headers', () => {
     const data = createPersonData(5);
-    return ( 
+    return (
       <MuiTable
         data={data}
-        columns={[
-          { name: 'firstName' },
-          { name: 'lastName' }
-        ]}
+        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
         includeHeaders={true}
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
 
   .add('custom headers', () => {
     const data = createPersonData(5);
-    return ( 
+    return (
       <MuiTable
         data={data}
         columns={[
@@ -94,7 +93,7 @@ storiesOf('Basic', module)
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
 
   .add('fixed/freeze row(s)', () => {
@@ -106,9 +105,15 @@ storiesOf('Basic', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' },
+                { name: 'jobArea', header: 'Job Area' }
               ]}
               width={width}
               maxHeight={height}
@@ -119,7 +124,7 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('fixed/freeze column(s)', () => {
     const data = createPersonData(1000);
@@ -130,10 +135,16 @@ storiesOf('Basic', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title', width: 400 },
                 { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 },
+                { name: 'jobType', header: 'Job Type', width: 400 }
               ]}
               width={width}
               maxHeight={height}
@@ -144,7 +155,7 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('fixed/freeze both', () => {
     const data = createPersonData(1000);
@@ -155,10 +166,16 @@ storiesOf('Basic', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title', width: 400 },
                 { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 },
+                { name: 'jobType', header: 'Job Type', width: 400 }
               ]}
               width={width}
               maxHeight={height}
@@ -170,59 +187,125 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('row height', () => {
     const data = createDessertData();
-    const orderBy = "FullName desc";
+    const orderBy = 'FullName desc';
     const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
         columns={[
-          { name: 'name', header: 'Dessert (100g serving)', cellProps: { style: { paddingRight: 0 } }},
-          { name: 'calories', header: 'Calories', cellProps: { numeric: true } },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true }},
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
           { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
-          { name: 'protein', header: 'Protein (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
         ]}
         includeHeaders={true}
         width={900}
         rowHeight={24}
         style={{ backgroundColor: 'white' }}
       />
-    )
-  }) 
+    );
+  })
   .add('default cellProps', () => {
     const data = createDessertData();
-    const orderBy = "FullName desc";
+    const orderBy = 'FullName desc';
     const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
         columns={[
-          { name: 'name', header: 'Dessert (100g serving)', cellProps: { style: { paddingRight: 0 } }},
-          { name: 'calories', header: 'Calories', cellProps: { numeric: true } },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true }},
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
           { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
-          { name: 'protein', header: 'Protein (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
         ]}
         includeHeaders={true}
         width={900}
         cellProps={{ padding: 'dense' }}
         style={{ backgroundColor: 'white' }}
       />
-    )
-  }) 
+    );
+  })
+  .add('cellProps as function', () => {
+    const data = createDessertData();
+    const orderBy = 'FullName desc';
+    const [orderProp, orderDirection] = orderBy;
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
+        ]}
+        includeHeaders={true}
+        width={900}
+        cellProps={(column, rowData) =>
+          column.name === 'fat' && rowData && rowData[column.name] > 10
+            ? { style: { backgroundColor: 'rgba(255,0,0,.5)', color: 'white' } }
+            : {}
+        }
+        style={{ backgroundColor: 'white' }}
+      />
+    );
+  })
   .add('text overflow', () => {
     const data = createPersonData(10);
     return (
       <MuiTable
         data={data}
         columns={[
-          { name: 'fullName', header: 'Name', width: 100, cell: d => `${d.firstName} ${d.lastName}`},
+          {
+            name: 'fullName',
+            header: 'Name',
+            width: 100,
+            cell: d => `${d.firstName} ${d.lastName}`
+          },
           { name: 'jobTitle', header: 'Job Title', width: 100 },
-          { name: 'jobArea', header: 'Job Area', width: 100 },
+          { name: 'jobArea', header: 'Job Area', width: 100 }
         ]}
         width={300}
         includeHeaders={true}
@@ -231,7 +314,7 @@ storiesOf('Basic', module)
         // cellProps={{ padding: 'dense' }}
         cellProps={{ style: { paddingRight: 0 } }}
       />
-    )
+    );
   })
   .add('clickable headers and cells', () => {
     const data = createPersonData(5);
@@ -247,14 +330,22 @@ storiesOf('Basic', module)
             width={width}
             style={{ backgroundColor: 'white' }}
             includeHeaders={true}
-            onHeaderClick={(column) => alert(`Clicked '${column.name}' header in column'`)}
-            onCellClick={(column, data) => alert(`Clicked cell in column '${column.name}' containing '${data[column.name]}'`)}
+            onHeaderClick={column =>
+              alert(`Clicked '${column.name}' header in column'`)
+            }
+            onCellClick={(column, data) =>
+              alert(
+                `Clicked cell in column '${column.name}' containing '${
+                  data[column.name]
+                }'`
+              )
+            }
           />
         )}
       </AutoSizer>
     );
   })
-.add('pagination', () => {
+  .add('pagination', () => {
     const data = createPersonData(100);
     return (
       <AutoSizer>
@@ -262,9 +353,15 @@ storiesOf('Basic', module)
           <PaginatedTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             includeHeaders={true}
@@ -272,8 +369,8 @@ storiesOf('Basic', module)
           />
         )}
       </AutoSizer>
-    )
-  })
+    );
+  });
 
 storiesOf('Column widths', module)
   .add('fixed width (first column)', () => {
@@ -285,9 +382,15 @@ storiesOf('Column widths', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' },
+                { name: 'jobArea', header: 'Job Area' }
               ]}
               width={width}
               maxHeight={height}
@@ -297,7 +400,7 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('minWidth (first column)', () => {
     const data = createPersonData(100);
@@ -308,9 +411,15 @@ storiesOf('Column widths', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', minWidth: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  minWidth: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' },
+                { name: 'jobArea', header: 'Job Area' }
               ]}
               width={width}
               maxHeight={height}
@@ -320,7 +429,7 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('minWidth (all columns)', () => {
     const data = createPersonData(100);
@@ -331,9 +440,15 @@ storiesOf('Column widths', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', minWidth: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  minWidth: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title', minWidth: 300 },
-                { name: 'jobArea', header: 'Job Area', minWidth: 200 },
+                { name: 'jobArea', header: 'Job Area', minWidth: 200 }
               ]}
               width={width}
               maxHeight={height}
@@ -343,7 +458,7 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
 
   .add('percentage widths exceeding table width (40% each)', () => {
@@ -355,9 +470,15 @@ storiesOf('Column widths', module)
             <MuiTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: '40%', cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: '40%',
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title', width: '40%' },
-                { name: 'jobArea', header: 'Job Area', width: '40%' },
+                { name: 'jobArea', header: 'Job Area', width: '40%' }
               ]}
               width={width}
               maxHeight={height}
@@ -367,8 +488,8 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 storiesOf('maxHeight', module)
   .add('basic', () => {
@@ -379,9 +500,15 @@ storiesOf('maxHeight', module)
           <MuiTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             maxHeight={500}
@@ -389,7 +516,7 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('headers', () => {
     const data = createPersonData(100);
@@ -399,9 +526,15 @@ storiesOf('maxHeight', module)
           <MuiTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             maxHeight={500}
@@ -410,7 +543,7 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('fixed headers', () => {
     const data = createPersonData(100);
@@ -420,9 +553,15 @@ storiesOf('maxHeight', module)
           <MuiTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             maxHeight={500}
@@ -432,9 +571,9 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
-.add('pagination', () => {
+  .add('pagination', () => {
     const data = createPersonData(15);
     return (
       <AutoSizer>
@@ -442,9 +581,15 @@ storiesOf('maxHeight', module)
           <PaginatedTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             maxHeight={400}
@@ -453,7 +598,7 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination (maxHeight > calculatedHeight)', () => {
     const data = createPersonData(15);
@@ -463,9 +608,15 @@ storiesOf('maxHeight', module)
           <PaginatedTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             maxHeight={800}
@@ -474,7 +625,7 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination (fitHeightToRows)', () => {
     const data = createPersonData(15);
@@ -484,9 +635,15 @@ storiesOf('maxHeight', module)
           <PaginatedTable
             data={data}
             columns={[
-              { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+              {
+                name: 'fullName',
+                header: 'Name',
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
               { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' },
+              { name: 'jobArea', header: 'Job Area' }
             ]}
             width={width}
             fitHeightToRows={true}
@@ -495,8 +652,8 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
-  })
+    );
+  });
 
 storiesOf('Performance', module)
   .add('1000 rows (no virtualizaiton)', () => {
@@ -506,16 +663,13 @@ storiesOf('Performance', module)
         {({ width }) => (
           <MuiTable
             data={data}
-            columns={[
-              { name: 'firstName' },
-              { name: 'lastName' }
-            ]}
+            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
             width={width}
             style={{ backgroundColor: 'white' }}
           />
         )}
       </AutoSizer>
-    )
+    );
   })
 
   .add('1000 rows (fixed height)', () => {
@@ -525,40 +679,34 @@ storiesOf('Performance', module)
         {({ width, height }) => (
           <MuiTable
             data={data}
-            columns={[
-              { name: 'firstName' },
-              { name: 'lastName' }
-            ]}
+            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
             width={width}
             height={400}
             style={{ backgroundColor: 'white' }}
           />
         )}
       </AutoSizer>
-    )
+    );
   })
 
   .add('1000 rows (viewport height)', () => {
     const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
-      <AutoSizer>
-        {({ width, height }) => (
-          <MuiTable
-            data={data}
-            columns={[
-              { name: 'firstName' },
-              { name: 'lastName' }
-            ]}
-            width={width}
-            height={height}
-            style={{ backgroundColor: 'white' }}
-          />
-        )}
-      </AutoSizer>
+        <AutoSizer>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+              width={width}
+              height={height}
+              style={{ backgroundColor: 'white' }}
+            />
+          )}
+        </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 storiesOf('Examples', module)
   .add('dessert', () => {
@@ -570,11 +718,32 @@ storiesOf('Examples', module)
             <PaginatedTable
               data={data}
               columns={[
-                { name: 'name', header: 'Dessert (100g serving)', width: 200, cellProps: { style: { paddingRight: 0 } } },
-                { name: 'calories', header: 'Calories', cellProps: { numeric: true } },
-                { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true }},
-                { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
-                { name: 'protein', header: 'Protein (g)', cellProps: { numeric: true } },
+                {
+                  name: 'name',
+                  header: 'Dessert (100g serving)',
+                  width: 200,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
+                {
+                  name: 'calories',
+                  header: 'Calories',
+                  cellProps: { numeric: true }
+                },
+                {
+                  name: 'fat',
+                  header: 'Fat (g)',
+                  cellProps: { numeric: true }
+                },
+                {
+                  name: 'carbs',
+                  header: 'Carbs (g)',
+                  cellProps: { numeric: true }
+                },
+                {
+                  name: 'protein',
+                  header: 'Protein (g)',
+                  cellProps: { numeric: true }
+                }
               ]}
               width={width}
               // width={800}
@@ -588,7 +757,7 @@ storiesOf('Examples', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('all the things', () => {
     const data = createPersonData(1000);
@@ -599,10 +768,16 @@ storiesOf('Examples', module)
             <PaginatedTable
               data={data}
               columns={[
-                { name: 'fullName', header: 'Name', width: 180, cell: d => `${d.firstName} ${d.lastName}`, cellProps: { style: { paddingRight: 0 } }},
+                {
+                  name: 'fullName',
+                  header: 'Name',
+                  width: 180,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
                 { name: 'jobTitle', header: 'Job Title', width: 400 },
                 { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 },
+                { name: 'jobType', header: 'Job Type', width: 400 }
               ]}
               width={width}
               maxHeight={height}
@@ -614,14 +789,17 @@ storiesOf('Examples', module)
           )}
         </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 class PaginatedTable extends Component {
   state = {
     page: 1,
-    perPage: this.props.defaultPagination && this.props.defaultPagination.rowsPerPage || 10 
-  }
+    perPage:
+      (this.props.defaultPagination &&
+        this.props.defaultPagination.rowsPerPage) ||
+      10
+  };
 
   render() {
     const { data, defaultPagination, ...props } = this.props;
@@ -638,13 +816,11 @@ class PaginatedTable extends Component {
           rowsPerPage: perPage,
           page: page - 1, // material-ui's <TablePagination /> is 0-based
           // rowsPerPageOptions: [5, 10, 25, 100, 1000],
-          onChangePage: (e, page) =>
-            this.setState({ page: page + 1 }),
-          onChangeRowsPerPage: e =>
-            this.setState({ perPage: e.target.value }),
+          onChangePage: (e, page) => this.setState({ page: page + 1 }),
+          onChangeRowsPerPage: e => this.setState({ perPage: e.target.value })
         }}
         {...props}
       />
-    )
+    );
   }
 }

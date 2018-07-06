@@ -173,7 +173,7 @@ class MuiTable extends Component {
       >
         {isHeader && column.onHeaderClick !== false && (column.onHeaderClick || onHeaderClick) ? (
           <TableSortLabel
-            active={orderBy && orderBy === column.name && rowIndex === 0}
+            active={orderBy && (orderBy === column.name || orderBy === column.orderBy) && rowIndex === 0}
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick

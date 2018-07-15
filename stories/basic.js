@@ -370,6 +370,18 @@ storiesOf('Basic', module)
         )}
       </AutoSizer>
     );
+  })
+  .add('null data and include headers', () => {
+    return (
+      <PaginatedTable
+        data={undefined}
+        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+        includeHeaders
+        fixedRowCount={1}
+        width={500}
+        style={{ backgroundColor: 'white' }}
+      />
+    );
   });
 
 storiesOf('Column widths', module)
@@ -806,13 +818,13 @@ class PaginatedTable extends Component {
     const { page, perPage } = this.state;
 
     const start = perPage * (page - 1);
-    const pageData = data.slice(start, start + perPage);
+    const pageData = data && data.slice(start, start + perPage);
 
     return (
       <MuiTable
         data={pageData}
         pagination={{
-          count: data.length,
+          count: data ? data.length: 0,
           rowsPerPage: perPage,
           page: page - 1, // material-ui's <TablePagination /> is 0-based
           // rowsPerPageOptions: [5, 10, 25, 100, 1000],

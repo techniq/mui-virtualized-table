@@ -128,7 +128,7 @@ class MuiTable extends Component {
 
     const isHeader = includeHeaders && rowIndex === 0;
     const headerOffset = includeHeaders ? 1 : 0;
-    const rowData = data[rowIndex - headerOffset];
+    const rowData = data && data[rowIndex - headerOffset];
 
     const resolveCellProps = cellProps =>
       typeof cellProps === 'function' ? cellProps(column, rowData) : cellProps;

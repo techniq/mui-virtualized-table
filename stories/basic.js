@@ -1,7 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 // import { action } from '@storybook/addon-actions';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import Component from '@reactions/component';
+
+import Checkbox from '@material-ui/core/Checkbox';
 
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data';
@@ -22,7 +25,6 @@ storiesOf('Basic', module)
       />
     );
   })
-
   .add('responsive', () => {
     const data = createPersonData(5);
     return (
@@ -667,6 +669,321 @@ storiesOf('maxHeight', module)
     );
   });
 
+storiesOf('Hover', module)
+  .add('row', () => {
+    const data = createDessertData();
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
+        ]}
+        isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
+          rowData && rowData.id === hoveredRowData.id
+        }
+        includeHeaders={true}
+        width={900}
+        style={{ backgroundColor: 'white' }}
+      />
+    );
+  })
+  .add('column', () => {
+    const data = createDessertData();
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
+        ]}
+        isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
+          column.name === hoveredColumn.name
+        }
+        includeHeaders={true}
+        width={900}
+        style={{ backgroundColor: 'white' }}
+      />
+    );
+  })
+  .add('both', () => {
+    const data = createDessertData();
+    return (
+      <MuiTable
+        data={data}
+        columns={[
+          {
+            name: 'name',
+            header: 'Dessert (100g serving)',
+            cellProps: { style: { paddingRight: 0 } }
+          },
+          {
+            name: 'calories',
+            header: 'Calories',
+            cellProps: { numeric: true }
+          },
+          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          {
+            name: 'protein',
+            header: 'Protein (g)',
+            cellProps: { numeric: true }
+          }
+        ]}
+        isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
+          (rowData && rowData.id === hoveredRowData.id) ||
+          column.name === hoveredColumn.name
+        }
+        includeHeaders={true}
+        width={900}
+        style={{ backgroundColor: 'white' }}
+      />
+    );
+  });
+
+storiesOf('Selected', module)
+  .add('basic', () => {
+    const data = createDessertData();
+    return (
+      <Component initialState={{ selectedRowIds: [] }}>
+        {({ state, setState }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              {
+                name: 'name',
+                header: 'Dessert (100g serving)',
+                cellProps: { style: { paddingRight: 0 } }
+              },
+              {
+                name: 'calories',
+                header: 'Calories',
+                cellProps: { numeric: true }
+              },
+              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              {
+                name: 'carbs',
+                header: 'Carbs (g)',
+                cellProps: { numeric: true }
+              },
+              {
+                name: 'protein',
+                header: 'Protein (g)',
+                cellProps: { numeric: true }
+              }
+            ]}
+            isCellSelected={(column, rowData) =>
+              state.selectedRowIds.some(id => rowData && rowData.id === id)
+            }
+            onCellClick={(column, rowData) => {
+              setState(prevState => {
+                if (prevState.selectedRowIds.some(id => rowData.id === id)) {
+                  // remove
+                  return {
+                    selectedRowIds: prevState.selectedRowIds.filter(
+                      id => id !== rowData.id
+                    )
+                  };
+                } else {
+                  // add
+                  return {
+                    selectedRowIds: [...prevState.selectedRowIds, rowData.id]
+                  };
+                }
+              });
+            }}
+            includeHeaders={true}
+            width={900}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </Component>
+    );
+  })
+  .add('with hover', () => {
+    const data = createDessertData();
+    return (
+      <Component initialState={{ selectedRowIds: [] }}>
+        {({ state, setState }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              {
+                name: 'name',
+                header: 'Dessert (100g serving)',
+                cellProps: { style: { paddingRight: 0 } }
+              },
+              {
+                name: 'calories',
+                header: 'Calories',
+                cellProps: { numeric: true }
+              },
+              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              {
+                name: 'carbs',
+                header: 'Carbs (g)',
+                cellProps: { numeric: true }
+              },
+              {
+                name: 'protein',
+                header: 'Protein (g)',
+                cellProps: { numeric: true }
+              }
+            ]}
+            isCellSelected={(column, rowData) =>
+              state.selectedRowIds.some(id => rowData && rowData.id === id)
+            }
+            isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
+              rowData && rowData.id === hoveredRowData.id
+            }
+            onCellClick={(column, rowData) => {
+              setState(prevState => {
+                if (prevState.selectedRowIds.some(id => rowData.id === id)) {
+                  // remove
+                  return {
+                    selectedRowIds: prevState.selectedRowIds.filter(
+                      id => id !== rowData.id
+                    )
+                  };
+                } else {
+                  // add
+                  return {
+                    selectedRowIds: [...prevState.selectedRowIds, rowData.id]
+                  };
+                }
+              });
+            }}
+            includeHeaders={true}
+            width={900}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </Component>
+    );
+  })
+  .add('with checkbox', () => {
+    const data = createDessertData();
+    return (
+      <Component initialState={{ selectedRowIds: [] }}>
+        {({ state, setState }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              {
+                name: 'checkbox',
+                header: (
+                  <Checkbox
+                    checked={state.selectedRowIds.length > 0}
+                    onChange={e =>
+                      setState(prevState => {
+                        if (prevState.selectedRowIds.length === data.length) {
+                          // deselect all
+                          return { selectedRowIds: [] };
+                        } else {
+                          // select all
+                          return { selectedRowIds: data.map(d => d.id) };
+                        }
+                      })
+                    }
+                    {...state.selectedRowIds.length > 0 &&
+                      state.selectedRowIds.length !== data.length && {
+                        indeterminate: true,
+                        color: 'default'
+                      }}
+                  />
+                ),
+                cell: rowData => (
+                  <Checkbox
+                    checked={state.selectedRowIds.some(id => rowData.id === id)}
+                  />
+                ),
+                cellProps: { style: { paddingRight: 0 } },
+                width: 72
+              },
+              {
+                name: 'name',
+                header: 'Dessert (100g serving)',
+                cellProps: { style: { paddingRight: 0 } }
+              },
+              {
+                name: 'calories',
+                header: 'Calories',
+                cellProps: { numeric: true }
+              },
+              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              {
+                name: 'carbs',
+                header: 'Carbs (g)',
+                cellProps: { numeric: true }
+              },
+              {
+                name: 'protein',
+                header: 'Protein (g)',
+                cellProps: { numeric: true }
+              }
+            ]}
+            isCellSelected={(column, rowData) =>
+              state.selectedRowIds.some(id => rowData && rowData.id === id)
+            }
+            isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
+              rowData && rowData.id === hoveredRowData.id
+            }
+            onCellClick={(column, rowData) => {
+              setState(prevState => {
+                if (prevState.selectedRowIds.some(id => rowData.id === id)) {
+                  // remove
+                  return {
+                    selectedRowIds: prevState.selectedRowIds.filter(
+                      id => id !== rowData.id
+                    )
+                  };
+                } else {
+                  // add
+                  return {
+                    selectedRowIds: [...prevState.selectedRowIds, rowData.id]
+                  };
+                }
+              });
+            }}
+            includeHeaders={true}
+            width={900}
+            style={{ backgroundColor: 'white' }}
+          />
+        )}
+      </Component>
+    );
+  });
+
 storiesOf('Performance', module)
   .add('1000 rows (no virtualizaiton)', () => {
     const data = createPersonData(1000);
@@ -804,7 +1121,7 @@ storiesOf('Examples', module)
     );
   });
 
-class PaginatedTable extends Component {
+class PaginatedTable extends React.Component {
   state = {
     page: 1,
     perPage:
@@ -824,7 +1141,7 @@ class PaginatedTable extends Component {
       <MuiTable
         data={pageData}
         pagination={{
-          count: data ? data.length: 0,
+          count: data ? data.length : 0,
           rowsPerPage: perPage,
           page: page - 1, // material-ui's <TablePagination /> is 0-based
           // rowsPerPageOptions: [5, 10, 25, 100, 1000],

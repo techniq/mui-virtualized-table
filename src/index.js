@@ -72,6 +72,12 @@ export const styles = theme => ({
     alignItems: 'center'
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
+  cellSelected: {
+    backgroundColor: theme.palette.grey[100]
+  },
+  cellHovered: {
+    backgroundColor: theme.palette.grey[200]
+  },
   cellContents: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -106,6 +112,11 @@ class MuiTable extends Component {
     fixedColumnCount: 0
   };
 
+  state = {
+    hoveredColumn: null,
+    hoveredRowData: null
+  };
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.width !== this.props.width) {
       this.multiGrid.recomputeGridSize();
@@ -117,6 +128,8 @@ class MuiTable extends Component {
       data,
       columns,
       includeHeaders,
+      isCellHovered,
+      isCellSelected,
       classes,
       orderBy,
       orderDirection,
@@ -124,14 +137,26 @@ class MuiTable extends Component {
       onCellClick,
       cellProps: defaultCellProps
     } = this.props;
-    const column = columns[columnIndex];
 
+    const { hoveredColumn, hoveredRowData } = this.state;
+
+    const column = columns[columnIndex];
     const isHeader = includeHeaders && rowIndex === 0;
     const headerOffset = includeHeaders ? 1 : 0;
     const rowData = data && data[rowIndex - headerOffset];
 
+    const isSelected = isCellSelected && isCellSelected(column, rowData);
+
+    const isHovered =
+      hoveredColumn &&
+      hoveredRowData &&
+      isCellHovered &&
+      isCellHovered(column, rowData, hoveredColumn, hoveredRowData);
+
     const resolveCellProps = cellProps =>
-      typeof cellProps === 'function' ? cellProps(column, rowData) : cellProps;
+      typeof cellProps === 'function'
+        ? cellProps(column, rowData, hoveredColumn, hoveredRowData)
+        : cellProps;
     // TODO: Deep merge (do not override all defaultCellProps styles if column.cellProps.styles defined?)
     const { style: cellStyle, ...cellProps } = {
       ...resolveCellProps(defaultCellProps),
@@ -141,7 +166,9 @@ class MuiTable extends Component {
     const contents = (
       <span className={classes.cellContents}>
         {isHeader
-          ? column.header || column.name
+          ? column.header != null
+            ? column.header
+            : column.name
           : column.cell
             ? column.cell(rowData)
             : rowData[column.name]}
@@ -149,6 +176,8 @@ class MuiTable extends Component {
     );
 
     const className = classNames(classes.cell, {
+      [classes.cellHovered]: isHovered,
+      [classes.cellSelected]: isSelected,
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
@@ -161,6 +190,12 @@ class MuiTable extends Component {
         component="div"
         className={className}
         key={key}
+        {...!isHeader && {
+          onMouseEnter: () =>
+            this.setState({ hoveredColumn: column, hoveredRowData: rowData }),
+          onMouseLeave: () =>
+            this.setState({ hoveredColumn: null, hoveredRowData: null })
+        }}
         style={{
           ...style,
           ...cellStyle,
@@ -171,9 +206,15 @@ class MuiTable extends Component {
         }} // Can be overridden by cellProps.onClick on column definition
         {...cellProps}
       >
-        {isHeader && column.onHeaderClick !== false && (column.onHeaderClick || onHeaderClick) ? (
+        {isHeader &&
+        column.onHeaderClick !== false &&
+        (column.onHeaderClick || onHeaderClick) ? (
           <TableSortLabel
-            active={orderBy && (orderBy === column.name || orderBy === column.orderBy) && rowIndex === 0}
+            active={
+              orderBy &&
+              (orderBy === column.name || orderBy === column.orderBy) &&
+              rowIndex === 0
+            }
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick
@@ -209,6 +250,8 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      isCellHovered,
+      isCellSelected,
       cellProps,
       style,
       theme,
@@ -300,6 +343,8 @@ MuiTable.propTypes = {
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
+  isCellHovered: PropTypes.func,
+  isCellSelected: PropTypes.func,
   classes: PropTypes.object,
   cellProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   style: PropTypes.object

@@ -143,7 +143,7 @@ class MuiTable extends Component {
     const column = columns[columnIndex];
     const isHeader = includeHeaders && rowIndex === 0;
     const headerOffset = includeHeaders ? 1 : 0;
-    const rowData = data && data[rowIndex - headerOffset];
+    const rowData = (data && data[rowIndex - headerOffset]) || {};
 
     const isSelected = isCellSelected && isCellSelected(column, rowData);
 
@@ -190,12 +190,12 @@ class MuiTable extends Component {
         component="div"
         className={className}
         key={key}
-        {...!isHeader && {
-          onMouseEnter: () =>
-            this.setState({ hoveredColumn: column, hoveredRowData: rowData }),
-          onMouseLeave: () =>
-            this.setState({ hoveredColumn: null, hoveredRowData: null })
+        onMouseEnter={() => {
+          this.setState({ hoveredColumn: column, hoveredRowData: rowData });
         }}
+        onMouseLeave={() =>
+          this.setState({ hoveredColumn: null, hoveredRowData: null })
+        }
         style={{
           ...style,
           ...cellStyle,

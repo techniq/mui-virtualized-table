@@ -695,7 +695,7 @@ storiesOf('Hover', module)
           }
         ]}
         isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
-          rowData && rowData.id === hoveredRowData.id
+          rowData.id && rowData.id === hoveredRowData.id
         }
         includeHeaders={true}
         width={900}
@@ -761,7 +761,7 @@ storiesOf('Hover', module)
           }
         ]}
         isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
-          (rowData && rowData.id === hoveredRowData.id) ||
+          (rowData.id && rowData.id === hoveredRowData.id) ||
           column.name === hoveredColumn.name
         }
         includeHeaders={true}
@@ -864,7 +864,7 @@ storiesOf('Selected', module)
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
-              rowData && rowData.id === hoveredRowData.id
+              rowData.id && rowData.id === hoveredRowData.id
             }
             onCellClick={(column, rowData) => {
               setState(prevState => {
@@ -891,7 +891,7 @@ storiesOf('Selected', module)
       </Component>
     );
   })
-  .add('with checkbox', () => {
+  .add('with hover and checkbox', () => {
     const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
@@ -956,7 +956,7 @@ storiesOf('Selected', module)
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
-              rowData && rowData.id === hoveredRowData.id
+              rowData.id && rowData.id === hoveredRowData.id
             }
             onCellClick={(column, rowData) => {
               setState(prevState => {

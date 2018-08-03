@@ -503,6 +503,37 @@ storiesOf('Column widths', module)
         </AutoSizer>
       </div>
     );
+  })
+  .add('fixed width (long headers)', () => {
+    const data = createPersonData(100);
+    return (
+      <div style={{ height: 'calc(100vh)' }}>
+        <AutoSizer>
+          {({ width, height }) => (
+            <MuiTable
+              data={data}
+              columns={[
+                { name: 'jobTitle', header: 'Job Title' },
+                {
+                  name: 'fullName',
+                  header: 'Person Full Name',
+                  width: 100,
+                  cell: d => `${d.firstName} ${d.lastName}`,
+                  cellProps: { style: { paddingRight: 0 } }
+                },
+                { name: 'jobArea', header: 'Job Area' }
+              ]}
+              width={width}
+              maxHeight={height}
+              includeHeaders={true}
+              fixedRowCount={1}
+              onHeaderClick={column => console.log({ column })}
+              style={{ backgroundColor: 'white' }}
+            />
+          )}
+        </AutoSizer>
+      </div>
+    );
   });
 
 storiesOf('maxHeight', module)

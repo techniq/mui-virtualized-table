@@ -215,6 +215,7 @@ class MuiTable extends Component {
               (orderBy === column.name || orderBy === column.orderBy) &&
               rowIndex === 0
             }
+            style={{ width: 'inherit' }} // fix text overflowing
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick

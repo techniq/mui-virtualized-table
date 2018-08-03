@@ -118,7 +118,10 @@ class MuiTable extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.width !== this.props.width) {
+    if (
+      nextProps.width !== this.props.width ||
+      nextProps.columns !== this.props.columns
+    ) {
       this.multiGrid.recomputeGridSize();
     }
   }

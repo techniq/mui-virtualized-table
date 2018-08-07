@@ -28,3 +28,21 @@ Property | Type | Required | Default | Description
 `pagination` | object | | | If defined, will add pagination to bottom of table and pass props to Material-UI's [TablePagination](https://material-ui.com/api/table-pagination/) component.  Must set `count`, `onChangePage`, `page`, and `rowsPerPage` if defined.
 `orderBy` | string | | | If defined, will show column's header with matching `name` using [TableSortLabel](https://material-ui.com/api/table-sort-label/)
 `orderDirection` | string | | 'desc' | The order of the sort direction
+
+### Running Storybook
+
+This project has some [storybook](https://github.com/storybooks/storybook) stories.
+
+To run storybook, you have to install the story dependencies first:
+
+```bash
+$ cd stories
+$ yarn install
+$ cd ..
+```
+
+Then use yarn to run the `storybook` script:
+
+```bash
+$ yarn storybook
+```

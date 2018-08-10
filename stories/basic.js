@@ -327,7 +327,18 @@ storiesOf('Basic', module)
             data={data}
             columns={[
               { name: 'firstName', header: 'First Name' },
-              { name: 'lastName', header: 'Last Name', onHeaderClick: false }
+              {
+                name: 'lastName',
+                header: 'Last Name (disabled)',
+                onHeaderClick: false
+              },
+              {
+                name: 'jobTitle',
+                header: 'Job Title (custom)',
+                onHeaderClick: () => {
+                  alert('Job Title header clicked');
+                }
+              }
             ]}
             width={width}
             style={{ backgroundColor: 'white' }}

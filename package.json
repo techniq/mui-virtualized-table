@@ -1,12 +1,12 @@
 {
-  "name": "mui-table",
-  "version": "1.2.2",
+  "name": "mui-virtualized-table",
+  "version": "1.0.0",
   "description": "Material-UI table with windowing, row/column freezing, and more",
   "main": "dist/index.js",
   "files": [
     "dist"
   ],
-  "repository": "https://github.com/techniq/mui-table",
+  "repository": "https://github.com/techniq/mui-virtualized-table",
   "author": "Sean Lynch <techniq35@gmail.com>",
   "license": "MIT",
   "peerDependencies": {

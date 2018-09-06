@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import MultiGrid from "react-virtualized/dist/commonjs/MultiGrid";
 import classNames from "classnames";
-import "./style.css";
 import { withStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -80,6 +79,7 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[200]
   },
   cellContents: {
+    width: "100%",
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis"
@@ -97,6 +97,23 @@ export const styles = theme => ({
   },
   footer: {
     borderTop: `${FOOTER_BORDER_HEIGHT}px solid ${theme.palette.divider}`
+  },
+  dragHandle: {
+    flex: "0 0 16px",
+    zIndex: 2,
+    cursor: "col-resize",
+    color: "#0085ff"
+  },
+  DragHandleActive: {
+    color: "#0b6fcc",
+    zIndex: 3
+  },
+  DragHandleIcon: {
+    flex: "0 0 12px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
@@ -212,8 +229,8 @@ class MuiTable extends Component {
             columnIndex < columns.length - 1 && (
               <Draggable
                 axis="x"
-                defaultClassName="DragHandle"
-                defaultClassNameDragging="DragHandleActive"
+                defaultClassName={classes.dragHandle}
+                defaultClassNameDragging={classes.DragHandleActive}
                 onDrag={(event, { deltaX }) =>
                   this.resizeRow({
                     dataKey: column.name,
@@ -223,7 +240,7 @@ class MuiTable extends Component {
                 position={{ x: 0 }}
                 zIndex={999}
               >
-                <span className="DragHandleIcon">⋮</span>
+                <span className={classes.DragHandleIcon}>⋮</span>
               </Draggable>
             )}
         </span>

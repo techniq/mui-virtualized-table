@@ -1,78 +1,78 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import MultiGrid from "react-virtualized/dist/commonjs/MultiGrid";
-import classNames from "classnames";
-import { withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
-import Draggable from "react-draggable";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
+import classNames from 'classnames';
+import { withStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Draggable from 'react-draggable';
 
-import { calcColumnWidth } from "./utils";
+import { calcColumnWidth } from './utils';
 
 const FOOTER_BORDER_HEIGHT = 1;
 
 export const styles = theme => ({
   table: {
-    boxSizing: "border-box",
+    boxSizing: 'border-box',
     border: `1px solid ${theme.palette.text.lightDivider}`,
 
-    "& .topLeftGrid": {
-      backgroundColor: theme.palette.grey["200"],
+    '& .topLeftGrid': {
+      backgroundColor: theme.palette.grey['200'],
       borderBottom: `2px solid ${theme.palette.divider}`,
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
       // Hide scrollbars on Chrome/Safari/IE
-      "&::-webkit-scrollbar": {
-        display: "none"
+      '&::-webkit-scrollbar': {
+        display: 'none'
       },
-      "-ms-overflow-style": "none"
+      '-ms-overflow-style': 'none'
     },
 
-    "& .topRightGrid": {
-      backgroundColor: theme.palette.grey["200"],
+    '& .topRightGrid': {
+      backgroundColor: theme.palette.grey['200'],
       borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
       // Hide scrollbars on Chrome/Safari/IE
-      "&::-webkit-scrollbar": {
-        display: "none"
+      '&::-webkit-scrollbar': {
+        display: 'none'
       },
-      "-ms-overflow-style": "none"
+      '-ms-overflow-style': 'none'
     },
 
-    "& .bottomLeftGrid": {
-      backgroundColor: theme.palette.grey["200"],
+    '& .bottomLeftGrid': {
+      backgroundColor: theme.palette.grey['200'],
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
 
       // Hide scrollbars on Chrome/Safari/IE
-      "&::-webkit-scrollbar": {
-        display: "none"
+      '&::-webkit-scrollbar': {
+        display: 'none'
       },
-      "-ms-overflow-style": "none"
+      '-ms-overflow-style': 'none'
     },
 
-    "& .bottomRightGrid": {
+    '& .bottomRightGrid': {
       color: theme.palette.text.primary,
       fontSize: theme.typography.pxToRem(13),
-      outline: "none" // See: https://github.com/bvaughn/react-virtualized/issues/381
+      outline: 'none' // See: https://github.com/bvaughn/react-virtualized/issues/381
     }
   },
   cell: {
-    boxSizing: "border-box",
-    display: "flex",
-    alignItems: "center",
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignItems: 'center',
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
-    paddingLeft: "16px",
-    paddingRight: "16px"
+    paddingLeft: '16px',
+    paddingRight: '16px'
   },
   cellSelected: {
     backgroundColor: theme.palette.grey[100]
@@ -81,10 +81,10 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[200]
   },
   cellContents: {
-    width: "100%",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
+    width: '100%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'
   },
   cellHeader: {
     fontSize: theme.typography.pxToRem(12),
@@ -95,27 +95,27 @@ export const styles = theme => ({
     paddingRight: theme.spacing.unit * 3
   },
   cellInLastRow: {
-    borderBottom: "none"
+    borderBottom: 'none'
   },
   footer: {
     borderTop: `${FOOTER_BORDER_HEIGHT}px solid ${theme.palette.divider}`
   },
   dragHandle: {
-    flex: "0 0 16px",
+    flex: '0 0 16px',
     zIndex: 2,
-    cursor: "col-resize",
-    color: "#0085ff"
+    cursor: 'col-resize',
+    color: '#0085ff'
   },
   DragHandleActive: {
-    color: "#0b6fcc",
+    color: '#0b6fcc',
     zIndex: 3
   },
   DragHandleIcon: {
-    flex: "0 0 12px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center"
+    flex: '0 0 12px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
@@ -219,7 +219,7 @@ class MuiTable extends Component {
       isCellHovered(column, rowData, hoveredColumn, hoveredRowData);
 
     const resolveCellProps = cellProps =>
-      typeof cellProps === "function"
+      typeof cellProps === 'function'
         ? cellProps(column, rowData, hoveredColumn, hoveredRowData)
         : cellProps;
     // TODO: Deep merge (do not override all defaultCellProps styles if column.cellProps.styles defined?)
@@ -230,7 +230,7 @@ class MuiTable extends Component {
 
     const contents = (
       <div className={classes.cellContents}>
-        <span style={{ flex: "auto" }}>
+        <span style={{ flex: 'auto' }}>
           {isHeader
             ? column.header != null
               ? column.header
@@ -239,7 +239,7 @@ class MuiTable extends Component {
               ? column.cell(rowData)
               : rowData[column.name]}
         </span>
-        <span style={{ float: "right" }}>
+        <span style={{ float: 'right' }}>
           {isHeader &&
             resizable &&
             columnIndex < columns.length - 1 && (
@@ -287,7 +287,7 @@ class MuiTable extends Component {
         style={{
           ...style,
           ...cellStyle,
-          ...((hasCellClick || column.onClick) && { cursor: "pointer" })
+          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
           onClick: () => onCellClick(column, rowData)
@@ -303,7 +303,7 @@ class MuiTable extends Component {
               (orderBy === column.name || orderBy === column.orderBy) &&
               rowIndex === 0
             }
-            style={{ width: "inherit" }} // fix text overflowing
+            style={{ width: 'inherit' }} // fix text overflowing
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick
@@ -426,10 +426,10 @@ class MuiTable extends Component {
           fixedRowCount={fixedRowCount}
           enableFixedRowScroll={fixedRowCount > 0}
           // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
-          classNameTopLeftGrid={"topLeftGrid"}
-          classNameTopRightGrid={"topRightGrid"}
-          classNameBottomLeftGrid={"bottomLeftGrid"}
-          classNameBottomRightGrid={"bottomRightGrid"}
+          classNameTopLeftGrid={'topLeftGrid'}
+          classNameTopRightGrid={'topRightGrid'}
+          classNameBottomLeftGrid={'bottomLeftGrid'}
+          classNameBottomRightGrid={'bottomRightGrid'}
         />
 
         {pagination && (

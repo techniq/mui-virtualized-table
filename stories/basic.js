@@ -1,324 +1,324 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 // import { action } from '@storybook/addon-actions';
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
-import Component from '@reactions/component';
+import AutoSizer from "react-virtualized/dist/commonjs/AutoSizer";
+import Component from "@reactions/component";
 
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from "@material-ui/core/Checkbox";
 
-import MuiTable from '../src';
-import { createPersonData, createDessertData } from './data';
+import MuiTable from "../src";
+import { createPersonData, createDessertData } from "./data";
 
-storiesOf('Basic', module)
-  .add('default (empty)', () => (
-    <MuiTable width={500} style={{ backgroundColor: 'white' }} />
+storiesOf("Basic", module)
+  .add("default (empty)", () => (
+    <MuiTable width={500} style={{ backgroundColor: "white" }} />
   ))
 
-  .add('simple', () => {
+  .add("simple", () => {
     const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
-        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+        columns={[{ name: "firstName" }, { name: "lastName" }]}
         width={500}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('responsive', () => {
+  .add("responsive", () => {
     const data = createPersonData(5);
     return (
       <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
-            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+            columns={[{ name: "firstName" }, { name: "lastName" }]}
             width={width}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('composite cells', () => {
+  .add("composite cells", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' }
+                { name: "jobTitle", header: "Job Title" },
+                { name: "jobArea", header: "Job Area" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('include headers', () => {
+  .add("include headers", () => {
     const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
-        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+        columns={[{ name: "firstName" }, { name: "lastName" }]}
         includeHeaders={true}
         width={500}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
 
-  .add('custom headers', () => {
+  .add("custom headers", () => {
     const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
         columns={[
-          { name: 'firstName', header: 'First Name' },
-          { name: 'lastName', header: 'Last Name' }
+          { name: "firstName", header: "First Name" },
+          { name: "lastName", header: "Last Name" }
         ]}
         includeHeaders={true}
         width={500}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
 
-  .add('fixed/freeze row(s)', () => {
+  .add("fixed/freeze row(s)", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' }
+                { name: "jobTitle", header: "Job Title" },
+                { name: "jobArea", header: "Job Area" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('fixed/freeze column(s)', () => {
+  .add("fixed/freeze column(s)", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title', width: 400 },
-                { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 }
+                { name: "jobTitle", header: "Job Title", width: 400 },
+                { name: "jobArea", header: "Job Area", width: 400 },
+                { name: "jobType", header: "Job Type", width: 400 }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
               fixedColumnCount={1}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('fixed/freeze both', () => {
+  .add("fixed/freeze both", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title', width: 400 },
-                { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 }
+                { name: "jobTitle", header: "Job Title", width: 400 },
+                { name: "jobArea", header: "Job Area", width: 400 },
+                { name: "jobType", header: "Job Type", width: 400 }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
               fixedColumnCount={1}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('row height', () => {
+  .add("row height", () => {
     const data = createDessertData();
-    const orderBy = 'FullName desc';
+    const orderBy = "FullName desc";
     const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
         includeHeaders={true}
         width={900}
         rowHeight={24}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('default cellProps', () => {
+  .add("default cellProps", () => {
     const data = createDessertData();
-    const orderBy = 'FullName desc';
+    const orderBy = "FullName desc";
     const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
         includeHeaders={true}
         width={900}
-        cellProps={{ padding: 'dense' }}
-        style={{ backgroundColor: 'white' }}
+        cellProps={{ padding: "dense" }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('cellProps as function', () => {
+  .add("cellProps as function", () => {
     const data = createDessertData();
-    const orderBy = 'FullName desc';
+    const orderBy = "FullName desc";
     const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
         includeHeaders={true}
         width={900}
         cellProps={(column, rowData) =>
-          column.name === 'fat' && rowData && rowData[column.name] > 10
-            ? { style: { backgroundColor: 'rgba(255,0,0,.5)', color: 'white' } }
+          column.name === "fat" && rowData && rowData[column.name] > 10
+            ? { style: { backgroundColor: "rgba(255,0,0,.5)", color: "white" } }
             : {}
         }
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('text overflow', () => {
+  .add("text overflow", () => {
     const data = createPersonData(10);
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'fullName',
-            header: 'Name',
+            name: "fullName",
+            header: "Name",
             width: 100,
             cell: d => `${d.firstName} ${d.lastName}`
           },
-          { name: 'jobTitle', header: 'Job Title', width: 100 },
-          { name: 'jobArea', header: 'Job Area', width: 100 }
+          { name: "jobTitle", header: "Job Title", width: 100 },
+          { name: "jobArea", header: "Job Area", width: 100 }
         ]}
         width={300}
         includeHeaders={true}
         rowHeight={24}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
         // cellProps={{ padding: 'dense' }}
         cellProps={{ style: { paddingRight: 0 } }}
       />
     );
   })
-  .add('clickable headers and cells', () => {
+  .add("clickable headers and cells", () => {
     const data = createPersonData(5);
     return (
       <AutoSizer>
@@ -326,22 +326,22 @@ storiesOf('Basic', module)
           <MuiTable
             data={data}
             columns={[
-              { name: 'firstName', header: 'First Name' },
+              { name: "firstName", header: "First Name" },
               {
-                name: 'lastName',
-                header: 'Last Name (disabled)',
+                name: "lastName",
+                header: "Last Name (disabled)",
                 onHeaderClick: false
               },
               {
-                name: 'jobTitle',
-                header: 'Job Title (custom)',
+                name: "jobTitle",
+                header: "Job Title (custom)",
                 onHeaderClick: () => {
-                  alert('Job Title header clicked');
+                  alert("Job Title header clicked");
                 }
               }
             ]}
             width={width}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
             includeHeaders={true}
             onHeaderClick={column =>
               alert(`Clicked '${column.name}' header in column'`)
@@ -358,7 +358,7 @@ storiesOf('Basic', module)
       </AutoSizer>
     );
   })
-  .add('pagination', () => {
+  .add("pagination", () => {
     const data = createPersonData(100);
     return (
       <AutoSizer>
@@ -367,118 +367,118 @@ storiesOf('Basic', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             includeHeaders={true}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('null data and include headers', () => {
+  .add("null data and include headers", () => {
     return (
       <PaginatedTable
         data={undefined}
-        columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+        columns={[{ name: "firstName" }, { name: "lastName" }]}
         includeHeaders
         fixedRowCount={1}
         width={500}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   });
 
-storiesOf('Column widths', module)
-  .add('fixed width (first column)', () => {
+storiesOf("Column widths", module)
+  .add("fixed width (first column)", () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' }
+                { name: "jobTitle", header: "Job Title" },
+                { name: "jobArea", header: "Job Area" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('minWidth (first column)', () => {
+  .add("minWidth (first column)", () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   minWidth: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title' },
-                { name: 'jobArea', header: 'Job Area' }
+                { name: "jobTitle", header: "Job Title" },
+                { name: "jobArea", header: "Job Area" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('minWidth (all columns)', () => {
+  .add("minWidth (all columns)", () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   minWidth: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title', minWidth: 300 },
-                { name: 'jobArea', header: 'Job Area', minWidth: 200 }
+                { name: "jobTitle", header: "Job Title", minWidth: 300 },
+                { name: "jobArea", header: "Job Area", minWidth: 200 }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
@@ -486,60 +486,60 @@ storiesOf('Column widths', module)
     );
   })
 
-  .add('percentage widths exceeding table width (40% each)', () => {
+  .add("percentage widths exceeding table width (40% each)", () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
-                  width: '40%',
+                  name: "fullName",
+                  header: "Name",
+                  width: "40%",
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title', width: '40%' },
-                { name: 'jobArea', header: 'Job Area', width: '40%' }
+                { name: "jobTitle", header: "Job Title", width: "40%" },
+                { name: "jobArea", header: "Job Area", width: "40%" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('fixed width (long headers)', () => {
+  .add("fixed width (long headers)", () => {
     const data = createPersonData(100);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
               columns={[
-                { name: 'jobTitle', header: 'Job Title' },
+                { name: "jobTitle", header: "Job Title" },
                 {
-                  name: 'fullName',
-                  header: 'Person Full Name',
+                  name: "fullName",
+                  header: "Person Full Name",
                   width: 100,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobArea', header: 'Job Area' }
+                { name: "jobArea", header: "Job Area" }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
               onHeaderClick={column => console.log({ column })}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
@@ -547,8 +547,8 @@ storiesOf('Column widths', module)
     );
   });
 
-storiesOf('maxHeight', module)
-  .add('basic', () => {
+storiesOf("maxHeight", module)
+  .add("basic", () => {
     const data = createPersonData(100);
     return (
       <AutoSizer>
@@ -557,24 +557,24 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             maxHeight={500}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('headers', () => {
+  .add("headers", () => {
     const data = createPersonData(100);
     return (
       <AutoSizer>
@@ -583,25 +583,25 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             maxHeight={500}
             includeHeaders={true}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('fixed headers', () => {
+  .add("fixed headers", () => {
     const data = createPersonData(100);
     return (
       <AutoSizer>
@@ -610,26 +610,26 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             maxHeight={500}
             includeHeaders={true}
             fixedRowCount={1}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('pagination', () => {
+  .add("pagination", () => {
     const data = createPersonData(15);
     return (
       <AutoSizer>
@@ -638,25 +638,25 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             maxHeight={400}
             includeHeaders={true}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('pagination (maxHeight > calculatedHeight)', () => {
+  .add("pagination (maxHeight > calculatedHeight)", () => {
     const data = createPersonData(15);
     return (
       <AutoSizer>
@@ -665,25 +665,25 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             maxHeight={800}
             includeHeaders={true}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
-  .add('pagination (fitHeightToRows)', () => {
+  .add("pagination (fitHeightToRows)", () => {
     const data = createPersonData(15);
     return (
       <AutoSizer>
@@ -692,47 +692,47 @@ storiesOf('maxHeight', module)
             data={data}
             columns={[
               {
-                name: 'fullName',
-                header: 'Name',
+                name: "fullName",
+                header: "Name",
                 width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: 'jobTitle', header: 'Job Title' },
-              { name: 'jobArea', header: 'Job Area' }
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
             ]}
             width={width}
             fitHeightToRows={true}
             includeHeaders={true}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   });
 
-storiesOf('Hover', module)
-  .add('row', () => {
+storiesOf("Hover", module)
+  .add("row", () => {
     const data = createDessertData();
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
@@ -741,31 +741,31 @@ storiesOf('Hover', module)
         }
         includeHeaders={true}
         width={900}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('column', () => {
+  .add("column", () => {
     const data = createDessertData();
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
@@ -774,31 +774,31 @@ storiesOf('Hover', module)
         }
         includeHeaders={true}
         width={900}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   })
-  .add('both', () => {
+  .add("both", () => {
     const data = createDessertData();
     return (
       <MuiTable
         data={data}
         columns={[
           {
-            name: 'name',
-            header: 'Dessert (100g serving)',
+            name: "name",
+            header: "Dessert (100g serving)",
             cellProps: { style: { paddingRight: 0 } }
           },
           {
-            name: 'calories',
-            header: 'Calories',
+            name: "calories",
+            header: "Calories",
             cellProps: { numeric: true }
           },
-          { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
-          { name: 'carbs', header: 'Carbs (g)', cellProps: { numeric: true } },
+          { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
+          { name: "carbs", header: "Carbs (g)", cellProps: { numeric: true } },
           {
-            name: 'protein',
-            header: 'Protein (g)',
+            name: "protein",
+            header: "Protein (g)",
             cellProps: { numeric: true }
           }
         ]}
@@ -808,13 +808,13 @@ storiesOf('Hover', module)
         }
         includeHeaders={true}
         width={900}
-        style={{ backgroundColor: 'white' }}
+        style={{ backgroundColor: "white" }}
       />
     );
   });
 
-storiesOf('Selected', module)
-  .add('basic', () => {
+storiesOf("Selected", module)
+  .add("basic", () => {
     const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
@@ -823,24 +823,24 @@ storiesOf('Selected', module)
             data={data}
             columns={[
               {
-                name: 'name',
-                header: 'Dessert (100g serving)',
+                name: "name",
+                header: "Dessert (100g serving)",
                 cellProps: { style: { paddingRight: 0 } }
               },
               {
-                name: 'calories',
-                header: 'Calories',
+                name: "calories",
+                header: "Calories",
                 cellProps: { numeric: true }
               },
-              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
               {
-                name: 'carbs',
-                header: 'Carbs (g)',
+                name: "carbs",
+                header: "Carbs (g)",
                 cellProps: { numeric: true }
               },
               {
-                name: 'protein',
-                header: 'Protein (g)',
+                name: "protein",
+                header: "Protein (g)",
                 cellProps: { numeric: true }
               }
             ]}
@@ -866,13 +866,13 @@ storiesOf('Selected', module)
             }}
             includeHeaders={true}
             width={900}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </Component>
     );
   })
-  .add('with hover', () => {
+  .add("with hover", () => {
     const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
@@ -881,24 +881,24 @@ storiesOf('Selected', module)
             data={data}
             columns={[
               {
-                name: 'name',
-                header: 'Dessert (100g serving)',
+                name: "name",
+                header: "Dessert (100g serving)",
                 cellProps: { style: { paddingRight: 0 } }
               },
               {
-                name: 'calories',
-                header: 'Calories',
+                name: "calories",
+                header: "Calories",
                 cellProps: { numeric: true }
               },
-              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
               {
-                name: 'carbs',
-                header: 'Carbs (g)',
+                name: "carbs",
+                header: "Carbs (g)",
                 cellProps: { numeric: true }
               },
               {
-                name: 'protein',
-                header: 'Protein (g)',
+                name: "protein",
+                header: "Protein (g)",
                 cellProps: { numeric: true }
               }
             ]}
@@ -927,13 +927,13 @@ storiesOf('Selected', module)
             }}
             includeHeaders={true}
             width={900}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </Component>
     );
   })
-  .add('with hover and checkbox', () => {
+  .add("with hover and checkbox", () => {
     const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
@@ -942,7 +942,7 @@ storiesOf('Selected', module)
             data={data}
             columns={[
               {
-                name: 'checkbox',
+                name: "checkbox",
                 header: (
                   <Checkbox
                     checked={state.selectedRowIds.length > 0}
@@ -960,7 +960,7 @@ storiesOf('Selected', module)
                     {...state.selectedRowIds.length > 0 &&
                       state.selectedRowIds.length !== data.length && {
                         indeterminate: true,
-                        color: 'default'
+                        color: "default"
                       }}
                   />
                 ),
@@ -973,24 +973,24 @@ storiesOf('Selected', module)
                 width: 72
               },
               {
-                name: 'name',
-                header: 'Dessert (100g serving)',
+                name: "name",
+                header: "Dessert (100g serving)",
                 cellProps: { style: { paddingRight: 0 } }
               },
               {
-                name: 'calories',
-                header: 'Calories',
+                name: "calories",
+                header: "Calories",
                 cellProps: { numeric: true }
               },
-              { name: 'fat', header: 'Fat (g)', cellProps: { numeric: true } },
+              { name: "fat", header: "Fat (g)", cellProps: { numeric: true } },
               {
-                name: 'carbs',
-                header: 'Carbs (g)',
+                name: "carbs",
+                header: "Carbs (g)",
                 cellProps: { numeric: true }
               },
               {
-                name: 'protein',
-                header: 'Protein (g)',
+                name: "protein",
+                header: "Protein (g)",
                 cellProps: { numeric: true }
               }
             ]}
@@ -1019,59 +1019,59 @@ storiesOf('Selected', module)
             }}
             includeHeaders={true}
             width={900}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </Component>
     );
   });
 
-storiesOf('Performance', module)
-  .add('1000 rows (no virtualizaiton)', () => {
+storiesOf("Performance", module)
+  .add("1000 rows (no virtualizaiton)", () => {
     const data = createPersonData(1000);
     return (
       <AutoSizer>
         {({ width }) => (
           <MuiTable
             data={data}
-            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+            columns={[{ name: "firstName" }, { name: "lastName" }]}
             width={width}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
 
-  .add('1000 rows (fixed height)', () => {
+  .add("1000 rows (fixed height)", () => {
     const data = createPersonData(1000);
     return (
       <AutoSizer>
         {({ width, height }) => (
           <MuiTable
             data={data}
-            columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+            columns={[{ name: "firstName" }, { name: "lastName" }]}
             width={width}
             height={400}
-            style={{ backgroundColor: 'white' }}
+            style={{ backgroundColor: "white" }}
           />
         )}
       </AutoSizer>
     );
   })
 
-  .add('1000 rows (viewport height)', () => {
+  .add("1000 rows (viewport height)", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <MuiTable
               data={data}
-              columns={[{ name: 'firstName' }, { name: 'lastName' }]}
+              columns={[{ name: "firstName" }, { name: "lastName" }]}
               width={width}
               height={height}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
@@ -1079,40 +1079,72 @@ storiesOf('Performance', module)
     );
   });
 
-storiesOf('Examples', module)
-  .add('dessert', () => {
+storiesOf("Resizable Columns", module).add("Simple table", () => {
+  const data = createPersonData(1000);
+  return (
+    <div style={{ height: "calc(100vh)" }}>
+      <AutoSizer>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              {
+                name: "fullName",
+                header: "Name",
+                width: 180,
+                cell: d => `${d.firstName} ${d.lastName}`,
+                cellProps: { style: { paddingRight: 0 } }
+              },
+              { name: "jobTitle", header: "Job Title" },
+              { name: "jobArea", header: "Job Area" }
+            ]}
+            width={width}
+            resizable
+            maxHeight={height}
+            includeHeaders={true}
+            fixedRowCount={1}
+            style={{ backgroundColor: "white" }}
+          />
+        )}
+      </AutoSizer>
+    </div>
+  );
+});
+
+storiesOf("Examples", module)
+  .add("dessert", () => {
     const data = createDessertData();
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <PaginatedTable
               data={data}
               columns={[
                 {
-                  name: 'name',
-                  header: 'Dessert (100g serving)',
+                  name: "name",
+                  header: "Dessert (100g serving)",
                   width: 200,
                   cellProps: { style: { paddingRight: 0 } }
                 },
                 {
-                  name: 'calories',
-                  header: 'Calories',
+                  name: "calories",
+                  header: "Calories",
                   cellProps: { numeric: true }
                 },
                 {
-                  name: 'fat',
-                  header: 'Fat (g)',
+                  name: "fat",
+                  header: "Fat (g)",
                   cellProps: { numeric: true }
                 },
                 {
-                  name: 'carbs',
-                  header: 'Carbs (g)',
+                  name: "carbs",
+                  header: "Carbs (g)",
                   cellProps: { numeric: true }
                 },
                 {
-                  name: 'protein',
-                  header: 'Protein (g)',
+                  name: "protein",
+                  header: "Protein (g)",
                   cellProps: { numeric: true }
                 }
               ]}
@@ -1123,39 +1155,39 @@ storiesOf('Examples', module)
               // fixedRowCount={1}
               // fixedColumnCount={1}
               defaultPagination={{ rowsPerPage: 5 }}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>
       </div>
     );
   })
-  .add('all the things', () => {
+  .add("all the things", () => {
     const data = createPersonData(1000);
     return (
-      <div style={{ height: 'calc(100vh)' }}>
+      <div style={{ height: "calc(100vh)" }}>
         <AutoSizer>
           {({ width, height }) => (
             <PaginatedTable
               data={data}
               columns={[
                 {
-                  name: 'fullName',
-                  header: 'Name',
+                  name: "fullName",
+                  header: "Name",
                   width: 180,
                   cell: d => `${d.firstName} ${d.lastName}`,
                   cellProps: { style: { paddingRight: 0 } }
                 },
-                { name: 'jobTitle', header: 'Job Title', width: 400 },
-                { name: 'jobArea', header: 'Job Area', width: 400 },
-                { name: 'jobType', header: 'Job Type', width: 400 }
+                { name: "jobTitle", header: "Job Title", width: 400 },
+                { name: "jobArea", header: "Job Area", width: 400 },
+                { name: "jobType", header: "Job Type", width: 400 }
               ]}
               width={width}
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
               fixedColumnCount={1}
-              style={{ backgroundColor: 'white' }}
+              style={{ backgroundColor: "white" }}
             />
           )}
         </AutoSizer>

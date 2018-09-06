@@ -1,75 +1,76 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
-import classNames from 'classnames';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import MultiGrid from "react-virtualized/dist/commonjs/MultiGrid";
+import classNames from "classnames";
+import "./style.css";
+import { withStyles } from "@material-ui/core/styles";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableFooter from "@material-ui/core/TableFooter";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
+import Draggable from "react-draggable";
 
-import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-
-import { calcColumnWidth } from './utils';
+import { calcColumnWidth } from "./utils";
 
 const FOOTER_BORDER_HEIGHT = 1;
 
 export const styles = theme => ({
   table: {
-    boxSizing: 'border-box',
+    boxSizing: "border-box",
     border: `1px solid ${theme.palette.text.lightDivider}`,
 
-    '& .topLeftGrid': {
-      backgroundColor: theme.palette.grey['200'],
+    "& .topLeftGrid": {
+      backgroundColor: theme.palette.grey["200"],
       borderBottom: `2px solid ${theme.palette.divider}`,
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
       // Hide scrollbars on Chrome/Safari/IE
-      '&::-webkit-scrollbar': {
-        display: 'none'
+      "&::-webkit-scrollbar": {
+        display: "none"
       },
-      '-ms-overflow-style': 'none'
+      "-ms-overflow-style": "none"
     },
 
-    '& .topRightGrid': {
-      backgroundColor: theme.palette.grey['200'],
+    "& .topRightGrid": {
+      backgroundColor: theme.palette.grey["200"],
       borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
 
       // Hide scrollbars on Chrome/Safari/IE
-      '&::-webkit-scrollbar': {
-        display: 'none'
+      "&::-webkit-scrollbar": {
+        display: "none"
       },
-      '-ms-overflow-style': 'none'
+      "-ms-overflow-style": "none"
     },
 
-    '& .bottomLeftGrid': {
-      backgroundColor: theme.palette.grey['200'],
+    "& .bottomLeftGrid": {
+      backgroundColor: theme.palette.grey["200"],
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
 
       // Hide scrollbars on Chrome/Safari/IE
-      '&::-webkit-scrollbar': {
-        display: 'none'
+      "&::-webkit-scrollbar": {
+        display: "none"
       },
-      '-ms-overflow-style': 'none'
+      "-ms-overflow-style": "none"
     },
 
-    '& .bottomRightGrid': {
+    "& .bottomRightGrid": {
       color: theme.palette.text.primary,
       fontSize: theme.typography.pxToRem(13),
-      outline: 'none' // See: https://github.com/bvaughn/react-virtualized/issues/381
+      outline: "none" // See: https://github.com/bvaughn/react-virtualized/issues/381
     }
   },
   cell: {
-    boxSizing: 'border-box',
-    display: 'flex',
-    alignItems: 'center'
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "center"
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
   cellSelected: {
@@ -79,9 +80,9 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[200]
   },
   cellContents: {
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis'
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
   },
   cellHeader: {
     fontSize: theme.typography.pxToRem(12),
@@ -92,7 +93,7 @@ export const styles = theme => ({
     paddingRight: theme.spacing.unit * 3
   },
   cellInLastRow: {
-    borderBottom: 'none'
+    borderBottom: "none"
   },
   footer: {
     borderTop: `${FOOTER_BORDER_HEIGHT}px solid ${theme.palette.divider}`
@@ -114,7 +115,12 @@ class MuiTable extends Component {
 
   state = {
     hoveredColumn: null,
-    hoveredRowData: null
+    hoveredRowData: null,
+    widths: {
+      fullName: 0.33,
+      jobTitle: 0.33,
+      jobArea: 0.33
+    }
   };
 
   componentWillReceiveProps(nextProps) {
@@ -125,6 +131,23 @@ class MuiTable extends Component {
       this.multiGrid.recomputeGridSize();
     }
   }
+
+  resizeRow = ({ dataKey, deltaX }) =>
+    this.setState(prevState => {
+      const prevWidths = prevState.widths;
+      const percentDelta = deltaX / this.props.width;
+
+      // This is me being lazy :)
+      const nextDataKey = dataKey === "fullName" ? "jobTitle" : "jobArea";
+
+      return {
+        widths: {
+          ...prevWidths,
+          [dataKey]: prevWidths[dataKey] + percentDelta,
+          [nextDataKey]: prevWidths[nextDataKey] - percentDelta
+        }
+      };
+    });
 
   cellRenderer = ({ columnIndex, rowIndex, key, style }) => {
     const {
@@ -138,6 +161,7 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      resizable,
       cellProps: defaultCellProps
     } = this.props;
 
@@ -157,7 +181,7 @@ class MuiTable extends Component {
       isCellHovered(column, rowData, hoveredColumn, hoveredRowData);
 
     const resolveCellProps = cellProps =>
-      typeof cellProps === 'function'
+      typeof cellProps === "function"
         ? cellProps(column, rowData, hoveredColumn, hoveredRowData)
         : cellProps;
     // TODO: Deep merge (do not override all defaultCellProps styles if column.cellProps.styles defined?)
@@ -167,15 +191,37 @@ class MuiTable extends Component {
     };
 
     const contents = (
-      <span className={classes.cellContents}>
-        {isHeader
-          ? column.header != null
-            ? column.header
-            : column.name
-          : column.cell
-            ? column.cell(rowData)
-            : rowData[column.name]}
-      </span>
+      <div className={classes.cellContents}>
+        <span style={{ flex: "auto" }}>
+          {isHeader
+            ? column.header != null
+              ? column.header
+              : column.name
+            : column.cell
+              ? column.cell(rowData)
+              : rowData[column.name]}
+        </span>
+        <span style={{ float: "right" }}>
+          {isHeader &&
+            resizable && (
+              <Draggable
+                axis="x"
+                defaultClassName="DragHandle"
+                defaultClassNameDragging="DragHandleActive"
+                onDrag={(event, { deltaX }) =>
+                  this.resizeRow({
+                    dataKey: column.name,
+                    deltaX
+                  })
+                }
+                position={{ x: 0 }}
+                zIndex={999}
+              >
+                <span className="DragHandleIcon">⋮</span>
+              </Draggable>
+            )}
+        </span>
+      </div>
     );
 
     const className = classNames(classes.cell, {
@@ -202,7 +248,7 @@ class MuiTable extends Component {
         style={{
           ...style,
           ...cellStyle,
-          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...((hasCellClick || column.onClick) && { cursor: "pointer" })
         }}
         {...hasCellClick && {
           onClick: () => onCellClick(column, rowData)
@@ -218,7 +264,7 @@ class MuiTable extends Component {
               (orderBy === column.name || orderBy === column.orderBy) &&
               rowIndex === 0
             }
-            style={{ width: 'inherit' }} // fix text overflowing
+            style={{ width: "inherit" }} // fix text overflowing
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick
@@ -228,12 +274,37 @@ class MuiTable extends Component {
           >
             {contents}
           </TableSortLabel>
+        ) : isHeader && column.resizable ? (
+          <React.Fragment>
+            {contents}
+
+            <Draggable
+              axis="x"
+              defaultClassName="DragHandle"
+              defaultClassNameDragging="DragHandleActive"
+              onDrag={(event, { deltaX }) =>
+                this.resizeRow({
+                  dataKey,
+                  deltaX
+                })
+              }
+              position={{ x: 0 }}
+              zIndex={999}
+            >
+              <span className="DragHandleIcon">⋮</span>
+            </Draggable>
+          </React.Fragment>
         ) : (
           contents
         )}
       </TableCell>
     );
   };
+
+  resizableColumnWidths(index, columns, tableWidth) {
+    const column = columns[index];
+    return this.state.widths[column.name] * this.props.width;
+  }
 
   render() {
     const {
@@ -259,6 +330,7 @@ class MuiTable extends Component {
       cellProps,
       style,
       theme,
+      resizable,
       ...props
     } = this.props;
 
@@ -300,8 +372,9 @@ class MuiTable extends Component {
           ref={el => (this.multiGrid = el)}
           width={width}
           columnWidth={
-            columnWidth ||
-            (({ index }) => calcColumnWidth(index, columns, width))
+            columnWidth || resizable
+              ? ({ index }) => this.resizableColumnWidths(index, columns, width)
+              : ({ index }) => calcColumnWidth(index, columns, width)
           }
           columnCount={Array.isArray(columns) ? columns.length : 0}
           fixedColumnCount={fixedColumnCount}
@@ -314,10 +387,10 @@ class MuiTable extends Component {
           fixedRowCount={fixedRowCount}
           enableFixedRowScroll={fixedRowCount > 0}
           // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
-          classNameTopLeftGrid={'topLeftGrid'}
-          classNameTopRightGrid={'topRightGrid'}
-          classNameBottomLeftGrid={'bottomLeftGrid'}
-          classNameBottomRightGrid={'bottomRightGrid'}
+          classNameTopLeftGrid={"topLeftGrid"}
+          classNameTopRightGrid={"topRightGrid"}
+          classNameBottomLeftGrid={"bottomLeftGrid"}
+          classNameBottomRightGrid={"bottomRightGrid"}
         />
 
         {pagination && (

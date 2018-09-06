@@ -1091,11 +1091,11 @@ storiesOf("Resizable Columns", module).add("Simple table", () => {
               {
                 name: "fullName",
                 header: "Name",
-                width: 180,
+                // width: 180,
                 cell: d => `${d.firstName} ${d.lastName}`,
                 cellProps: { style: { paddingRight: 0 } }
               },
-              { name: "jobTitle", header: "Job Title" },
+              { name: "jobTitle", header: "Job Title", width: 10 },
               { name: "jobArea", header: "Job Area" }
             ]}
             width={width}

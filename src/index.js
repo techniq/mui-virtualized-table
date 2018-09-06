@@ -135,9 +135,21 @@ class MuiTable extends Component {
   constructor(props) {
     super(props);
     var widths = {};
-    props.columns.forEach(c => {
-      widths[c.name] = 1 / props.columns.length;
-    });
+    if (props.resizable) {
+      var initialWidth = 1;
+      var columns = [];
+      props.columns.forEach(c => {
+        if (c.width) {
+          widths[c.name] = 0.1;
+          initialWidth = initialWidth - 0.1;
+        } else {
+          columns.push(c);
+        }
+      });
+      columns.forEach(c => {
+        widths[c.name] = initialWidth / columns.length;
+      });
+    }
     this.state = {
       hoveredColumn: null,
       hoveredRowData: null,

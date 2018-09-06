@@ -133,21 +133,26 @@ class MuiTable extends Component {
   }
 
   resizeRow = ({ dataKey, deltaX }) =>
-    this.setState(prevState => {
-      const prevWidths = prevState.widths;
-      const percentDelta = deltaX / this.props.width;
+    this.setState(
+      prevState => {
+        const prevWidths = prevState.widths;
+        const percentDelta = deltaX / this.props.width;
 
-      // This is me being lazy :)
-      const nextDataKey = dataKey === "fullName" ? "jobTitle" : "jobArea";
+        // This is me being lazy :)
+        const nextDataKey = dataKey === "fullName" ? "jobTitle" : "jobArea";
 
-      return {
-        widths: {
-          ...prevWidths,
-          [dataKey]: prevWidths[dataKey] + percentDelta,
-          [nextDataKey]: prevWidths[nextDataKey] - percentDelta
-        }
-      };
-    });
+        return {
+          widths: {
+            ...prevWidths,
+            [dataKey]: prevWidths[dataKey] + percentDelta,
+            [nextDataKey]: prevWidths[nextDataKey] - percentDelta
+          }
+        };
+      },
+      () => {
+        this.multiGrid.recomputeGridSize();
+      }
+    );
 
   cellRenderer = ({ columnIndex, rowIndex, key, style }) => {
     const {
@@ -203,7 +208,8 @@ class MuiTable extends Component {
         </span>
         <span style={{ float: "right" }}>
           {isHeader &&
-            resizable && (
+            resizable &&
+            columnIndex < columns.length - 1 && (
               <Draggable
                 axis="x"
                 defaultClassName="DragHandle"

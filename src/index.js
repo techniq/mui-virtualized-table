@@ -130,15 +130,18 @@ class MuiTable extends Component {
     fixedColumnCount: 0
   };
 
-  state = {
-    hoveredColumn: null,
-    hoveredRowData: null,
-    widths: {
-      fullName: 0.33,
-      jobTitle: 0.33,
-      jobArea: 0.33
-    }
-  };
+  constructor(props) {
+    super(props);
+    var widths = {};
+    props.columns.forEach(c => {
+      widths[c.name] = 1 / props.columns.length;
+    });
+    this.state = {
+      hoveredColumn: null,
+      hoveredRowData: null,
+      widths
+    };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -154,10 +157,9 @@ class MuiTable extends Component {
       prevState => {
         const prevWidths = prevState.widths;
         const percentDelta = deltaX / this.props.width;
-
-        // This is me being lazy :)
-        const nextDataKey = dataKey === "fullName" ? "jobTitle" : "jobArea";
-
+        const columns = this.props.columns;
+        const index = columns.findIndex(c => c.name === dataKey);
+        const nextDataKey = columns[index + 1].name;
         return {
           widths: {
             ...prevWidths,

@@ -9,6 +9,7 @@ For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui
 - Uses windowing for performance (via [react-virtualized](https://github.com/bvaughn/react-virtualized))
 - Freeze rows and/or columns
 - Fixed or variable (%) column widths
+- Resizable columns
 
 ### Props
 
@@ -31,6 +32,7 @@ For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui
 | `pagination`       | object         |          |                                                                     | If defined, will add pagination to bottom of table and pass props to Material-UI's [TablePagination](https://material-ui.com/api/table-pagination/) component. Must set `count`, `onChangePage`, `page`, and `rowsPerPage` if defined.                                                                                                                                                                                                                                                      |
 | `orderBy`          | string         |          |                                                                     | If defined, will show column's header with matching `name` using [TableSortLabel](https://material-ui.com/api/table-sort-label/)                                                                                                                                                                                                                                                                                                                                                            |
 | `orderDirection`   | string         |          | 'desc'                                                              | The order of the sort direction                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `resizable`        | bool           |          |                                                                     | Enable column resizing handles                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
 ### Running Storybook
 

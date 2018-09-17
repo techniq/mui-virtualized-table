@@ -69,10 +69,8 @@ export const styles = theme => ({
   cell: {
     boxSizing: 'border-box',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'center'
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
-    paddingLeft: '16px',
-    paddingRight: '16px'
   },
   cellSelected: {
     backgroundColor: theme.palette.grey[100]

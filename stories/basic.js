@@ -1103,6 +1103,7 @@ storiesOf('Resizable Columns', module).add('Simple table', () => {
             maxHeight={height}
             includeHeaders={true}
             fixedRowCount={1}
+            cellProps={{ style: { paddingRight: 16, paddingRight: 0 } }}
             style={{ backgroundColor: 'white' }}
           />
         )}

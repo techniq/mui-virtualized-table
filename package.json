@@ -16,6 +16,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.6.1",
+    "react-draggable": "^3.0.5",
     "react-virtualized": "^9.18.0"
   },
   "devDependencies": {

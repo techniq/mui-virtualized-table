@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
 import classNames from 'classnames';
-
 import { withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,6 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Draggable from 'react-draggable';
 
 import { calcColumnWidth } from './utils';
 
@@ -79,6 +79,7 @@ export const styles = theme => ({
     backgroundColor: theme.palette.grey[200]
   },
   cellContents: {
+    width: '100%',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis'
@@ -96,6 +97,23 @@ export const styles = theme => ({
   },
   footer: {
     borderTop: `${FOOTER_BORDER_HEIGHT}px solid ${theme.palette.divider}`
+  },
+  dragHandle: {
+    flex: '0 0 16px',
+    zIndex: 2,
+    cursor: 'col-resize',
+    color: '#0085ff'
+  },
+  DragHandleActive: {
+    color: '#0b6fcc',
+    zIndex: 3
+  },
+  DragHandleIcon: {
+    flex: '0 0 12px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
@@ -112,10 +130,30 @@ class MuiTable extends Component {
     fixedColumnCount: 0
   };
 
-  state = {
-    hoveredColumn: null,
-    hoveredRowData: null
-  };
+  constructor(props) {
+    super(props);
+    var widths = {};
+    if (props.resizable) {
+      var initialWidth = 1;
+      var columns = [];
+      props.columns.forEach(c => {
+        if (c.width) {
+          widths[c.name] = 0.1;
+          initialWidth = initialWidth - 0.1;
+        } else {
+          columns.push(c);
+        }
+      });
+      columns.forEach(c => {
+        widths[c.name] = initialWidth / columns.length;
+      });
+    }
+    this.state = {
+      hoveredColumn: null,
+      hoveredRowData: null,
+      widths
+    };
+  }
 
   componentWillReceiveProps(nextProps) {
     if (
@@ -125,6 +163,27 @@ class MuiTable extends Component {
       this.multiGrid.recomputeGridSize();
     }
   }
+
+  resizeRow = ({ dataKey, deltaX }) =>
+    this.setState(
+      prevState => {
+        const prevWidths = prevState.widths;
+        const percentDelta = deltaX / this.props.width;
+        const columns = this.props.columns;
+        const index = columns.findIndex(c => c.name === dataKey);
+        const nextDataKey = columns[index + 1].name;
+        return {
+          widths: {
+            ...prevWidths,
+            [dataKey]: prevWidths[dataKey] + percentDelta,
+            [nextDataKey]: prevWidths[nextDataKey] - percentDelta
+          }
+        };
+      },
+      () => {
+        this.multiGrid.recomputeGridSize();
+      }
+    );
 
   cellRenderer = ({ columnIndex, rowIndex, key, style }) => {
     const {
@@ -138,6 +197,7 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      resizable,
       cellProps: defaultCellProps
     } = this.props;
 
@@ -167,15 +227,38 @@ class MuiTable extends Component {
     };
 
     const contents = (
-      <span className={classes.cellContents}>
-        {isHeader
-          ? column.header != null
-            ? column.header
-            : column.name
-          : column.cell
-            ? column.cell(rowData)
-            : rowData[column.name]}
-      </span>
+      <div className={classes.cellContents}>
+        <span style={{ flex: 'auto' }}>
+          {isHeader
+            ? column.header != null
+              ? column.header
+              : column.name
+            : column.cell
+              ? column.cell(rowData)
+              : rowData[column.name]}
+        </span>
+        <span style={{ float: 'right' }}>
+          {isHeader &&
+            resizable &&
+            columnIndex < columns.length - 1 && (
+              <Draggable
+                axis="x"
+                defaultClassName={classes.dragHandle}
+                defaultClassNameDragging={classes.DragHandleActive}
+                onDrag={(event, { deltaX }) =>
+                  this.resizeRow({
+                    dataKey: column.name,
+                    deltaX
+                  })
+                }
+                position={{ x: 0 }}
+                zIndex={999}
+              >
+                <span className={classes.DragHandleIcon}>⋮</span>
+              </Draggable>
+            )}
+        </span>
+      </div>
     );
 
     const className = classNames(classes.cell, {
@@ -228,12 +311,37 @@ class MuiTable extends Component {
           >
             {contents}
           </TableSortLabel>
+        ) : isHeader && column.resizable ? (
+          <React.Fragment>
+            {contents}
+
+            <Draggable
+              axis="x"
+              defaultClassName="DragHandle"
+              defaultClassNameDragging="DragHandleActive"
+              onDrag={(event, { deltaX }) =>
+                this.resizeRow({
+                  dataKey,
+                  deltaX
+                })
+              }
+              position={{ x: 0 }}
+              zIndex={999}
+            >
+              <span className="DragHandleIcon">⋮</span>
+            </Draggable>
+          </React.Fragment>
         ) : (
           contents
         )}
       </TableCell>
     );
   };
+
+  resizableColumnWidths(index, columns, tableWidth) {
+    const column = columns[index];
+    return this.state.widths[column.name] * this.props.width;
+  }
 
   render() {
     const {
@@ -259,6 +367,7 @@ class MuiTable extends Component {
       cellProps,
       style,
       theme,
+      resizable,
       ...props
     } = this.props;
 
@@ -300,8 +409,9 @@ class MuiTable extends Component {
           ref={el => (this.multiGrid = el)}
           width={width}
           columnWidth={
-            columnWidth ||
-            (({ index }) => calcColumnWidth(index, columns, width))
+            columnWidth || resizable
+              ? ({ index }) => this.resizableColumnWidths(index, columns, width)
+              : ({ index }) => calcColumnWidth(index, columns, width)
           }
           columnCount={Array.isArray(columns) ? columns.length : 0}
           fixedColumnCount={fixedColumnCount}

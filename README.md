@@ -2,7 +2,7 @@
 
 Combination of [Material UI](http://www.material-ui.com) visual components with react-virtualized for improved performance and features with a simple API.
 
-For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui-table/) or view the [source](https://github.com/techniq/mui-table/tree/master/stories)
+For examples of `<MuiTable>` in action, see [demo](https://techniq.github.io/mui-virtualized-table/) or view the [source](https://github.com/techniq/mui-virtualized-table/tree/master/stories)
 
 ### Features
 

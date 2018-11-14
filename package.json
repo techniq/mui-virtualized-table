@@ -1,6 +1,6 @@
 {
   "name": "mui-virtualized-table",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Material-UI table with windowing, row/column freezing, and more",
   "main": "dist/index.js",
   "files": [

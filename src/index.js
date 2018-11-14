@@ -234,29 +234,27 @@ class MuiTable extends Component {
               ? column.header
               : column.name
             : column.cell
-              ? column.cell(rowData)
-              : rowData[column.name]}
+            ? column.cell(rowData)
+            : rowData[column.name]}
         </span>
         <span style={{ float: 'right' }}>
-          {isHeader &&
-            resizable &&
-            columnIndex < columns.length - 1 && (
-              <Draggable
-                axis="x"
-                defaultClassName={classes.dragHandle}
-                defaultClassNameDragging={classes.DragHandleActive}
-                onDrag={(event, { deltaX }) =>
-                  this.resizeRow({
-                    dataKey: column.name,
-                    deltaX
-                  })
-                }
-                position={{ x: 0 }}
-                zIndex={999}
-              >
-                <span className={classes.DragHandleIcon}>⋮</span>
-              </Draggable>
-            )}
+          {isHeader && resizable && columnIndex < columns.length - 1 && (
+            <Draggable
+              axis="x"
+              defaultClassName={classes.dragHandle}
+              defaultClassNameDragging={classes.DragHandleActive}
+              onDrag={(event, { deltaX }) =>
+                this.resizeRow({
+                  dataKey: column.name,
+                  deltaX
+                })
+              }
+              position={{ x: 0 }}
+              zIndex={999}
+            >
+              <span className={classes.DragHandleIcon}>⋮</span>
+            </Draggable>
+          )}
         </span>
       </div>
     );
@@ -343,6 +341,17 @@ class MuiTable extends Component {
     return this.state.widths[column.name] * this.props.width;
   }
 
+  getColumnWidthFunction() {
+    const { columnWidth, resizable, columns, width } = this.props;
+    if (typeof columnWidth === 'function') {
+      return ({ index }) => columnWidth({ index, columns, width });
+    } else if (resizable) {
+      return ({ index }) => this.resizableColumnWidths(index, columns, width);
+    } else {
+      return ({ index }) => calcColumnWidth(index, columns, width);
+    }
+  }
+
   render() {
     const {
       data,
@@ -408,11 +417,7 @@ class MuiTable extends Component {
           cellRenderer={this.cellRenderer}
           ref={el => (this.multiGrid = el)}
           width={width}
-          columnWidth={
-            columnWidth || resizable
-              ? ({ index }) => this.resizableColumnWidths(index, columns, width)
-              : ({ index }) => calcColumnWidth(index, columns, width)
-          }
+          columnWidth={this.getColumnWidthFunction()}
           columnCount={Array.isArray(columns) ? columns.length : 0}
           fixedColumnCount={fixedColumnCount}
           enableFixedColumnScroll={fixedColumnCount > 0}
@@ -451,7 +456,7 @@ MuiTable.propTypes = {
   fixedRowCount: PropTypes.number,
   fixedColumnCount: PropTypes.number,
   rowHeight: PropTypes.number,
-  columnWidth: PropTypes.number,
+  columnWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.func]),
   includeHeaders: PropTypes.bool,
   orderBy: PropTypes.string,
   orderDirection: PropTypes.string,

@@ -38,6 +38,8 @@ export interface IMuiVirtualizedTableColumn<TRow = any> {
    * Can be a `number`, straight pixel width, or percentage string like `40%`
    */
   width?: number | string;
+
+  cellProps?: ICellPropsProducer<TRow>;
 }
 
 export interface IMuiVirtualizedTableProps<TRow> {
@@ -67,13 +69,11 @@ export interface IMuiVirtualizedTableProps<TRow> {
    */
   columnWidth?:
     | number
-    | ((
-        column: {
-          index: number;
-          columns: Array<IMuiVirtualizedTableColumn<TRow>>;
-          width: number;
-        }
-      ) => number);
+    | ((column: {
+        index: number;
+        columns: Array<IMuiVirtualizedTableColumn<TRow>>;
+        width: number;
+      }) => number);
 
   /**
    * Defines the columns in the table

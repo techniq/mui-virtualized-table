@@ -286,7 +286,7 @@ class MuiTable extends Component {
           ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
-          onClick: () => onCellClick(column, rowData)
+          onClick: (event) => onCellClick(column, rowData, event)
         }} // Can be overridden by cellProps.onClick on column definition
         {...cellProps}
       >
@@ -301,10 +301,10 @@ class MuiTable extends Component {
             }
             style={{ width: 'inherit' }} // fix text overflowing
             direction={orderDirection}
-            onClick={() =>
+            onClick={(event) =>
               column.onHeaderClick
-                ? column.onHeaderClick()
-                : onHeaderClick(column)
+                ? column.onHeaderClick(event)
+                : onHeaderClick(column, event)
             }
           >
             {contents}

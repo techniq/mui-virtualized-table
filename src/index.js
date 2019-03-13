@@ -438,7 +438,7 @@ class MuiTable extends Component {
           }
           fixedRowCount={fixedRowCount}
           enableFixedRowScroll={fixedRowCount > 0}
-          // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
+          // TODO: Read these from `classes` without classes.table inheritance?  How to pass props.classes down to override?
           classNameTopLeftGrid={'topLeftGrid'}
           classNameTopRightGrid={'topRightGrid'}
           classNameBottomLeftGrid={'bottomLeftGrid'}

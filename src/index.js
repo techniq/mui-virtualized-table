@@ -197,6 +197,8 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      onCellDoubleClick,
+      onCellContextMenu,
       resizable,
       cellProps: defaultCellProps
     } = this.props;
@@ -268,6 +270,8 @@ class MuiTable extends Component {
     });
 
     const hasCellClick = !isHeader && onCellClick;
+    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
+    const hasCellContextMenu = !isHeader && onCellContextMenu;
 
     return (
       <TableCell
@@ -286,8 +290,14 @@ class MuiTable extends Component {
           ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
-          onClick: (event) => onCellClick(column, rowData, event)
+          onClick: (event) => onCellClick(event, {column, rowData, data})
         }} // Can be overridden by cellProps.onClick on column definition
+        {...hasCellDoubleClick && {
+          onDoubleClick: (event) => onCellDoubleClick(event, {column, rowData, data})
+        }} // Can be overridden by cellProps.onDoubleClick on column definition
+        {...hasCellContextMenu && {
+          onContextMenu: (event) => onCellContextMenu(event, {column, rowData, data})
+        }} // Can be overridden by cellProps.onContextMenu on column definition
         {...cellProps}
       >
         {isHeader &&
@@ -462,6 +472,8 @@ MuiTable.propTypes = {
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
+  onCellDoubleClick: PropTypes.func,
+  onCellContextMenu: PropTypes.func,
   isCellHovered: PropTypes.func,
   isCellSelected: PropTypes.func,
   classes: PropTypes.object,

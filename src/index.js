@@ -381,6 +381,8 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      onCellDoubleClick,
+      onCellContextMenu,
       isCellHovered,
       isCellSelected,
       cellProps,

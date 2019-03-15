@@ -880,7 +880,7 @@ storiesOf('Selected', module)
             isCellSelected={(column, rowData) =>
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
-            onCellClick={(event, {column, rowData}) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -941,7 +941,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(event, {column, rowData}) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -1033,7 +1033,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(event, {column, rowData}) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove

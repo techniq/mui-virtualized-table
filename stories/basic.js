@@ -358,6 +358,39 @@ storiesOf('Basic', module)
       </AutoSizer>
     );
   })
+  .add('double clicks and context menus', () => {
+    const data = createPersonData(5);
+    return (
+      <AutoSizer>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'firstName', header: 'First Name' },
+              { name: 'lastName', header: 'Last Name' },
+              { name: 'jobTitle', header: 'Job Title' },
+            ]}
+            width={width}
+            style={{ backgroundColor: 'white' }}
+            includeHeaders={true}
+            onCellDoubleClick={(event, {column, rowData}) =>
+                alert(
+                    `Double-clicked cell in column '${column.name}' containing '${
+                        rowData[column.name]
+                    }'`
+                )
+            }
+            onCellContextMenu={(event, {column, rowData}) => {
+                event.preventDefault()
+                alert(`Right-clicked cell in column '${column.name}' containing '${
+                        rowData[column.name]
+                    }'`)
+            }}
+          />
+        )}
+      </AutoSizer>
+      );
+  })
   .add('pagination', () => {
     const data = createPersonData(100);
     return (

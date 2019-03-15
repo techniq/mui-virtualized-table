@@ -346,10 +346,10 @@ storiesOf('Basic', module)
             onHeaderClick={column =>
               alert(`Clicked '${column.name}' header in column'`)
             }
-            onCellClick={(column, data) =>
+            onCellClick={(event, {column, rowData}) =>
               alert(
                 `Clicked cell in column '${column.name}' containing '${
-                  data[column.name]
+                  rowData[column.name]
                 }'`
               )
             }
@@ -847,7 +847,7 @@ storiesOf('Selected', module)
             isCellSelected={(column, rowData) =>
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {column, rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -908,7 +908,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {column, rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -1000,7 +1000,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {column, rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove

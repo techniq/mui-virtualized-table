@@ -314,7 +314,7 @@ class MuiTable extends Component {
             onClick={(event) =>
               column.onHeaderClick
                 ? column.onHeaderClick(event)
-                : onHeaderClick(column, event)
+                : onHeaderClick(event, { column })
             }
           >
             {contents}

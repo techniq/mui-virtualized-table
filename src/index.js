@@ -199,6 +199,7 @@ class MuiTable extends Component {
       onCellClick,
       onCellDoubleClick,
       onCellContextMenu,
+      noPointer,
       resizable,
       cellProps: defaultCellProps
     } = this.props;
@@ -287,7 +288,7 @@ class MuiTable extends Component {
         style={{
           ...style,
           ...cellStyle,
-          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...((!noPointer) && (hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
           onClick: (event) => onCellClick(event, {column, rowData, data})
@@ -386,6 +387,7 @@ class MuiTable extends Component {
       isCellHovered,
       isCellSelected,
       cellProps,
+      noPointer,
       style,
       theme,
       resizable,
@@ -476,6 +478,7 @@ MuiTable.propTypes = {
   onCellClick: PropTypes.func,
   onCellDoubleClick: PropTypes.func,
   onCellContextMenu: PropTypes.func,
+  noPointer: PropTypes.bool,
   isCellHovered: PropTypes.func,
   isCellSelected: PropTypes.func,
   classes: PropTypes.object,

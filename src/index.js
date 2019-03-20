@@ -78,6 +78,9 @@ export const styles = theme => ({
   cellHovered: {
     backgroundColor: theme.palette.grey[200]
   },
+  cellDisabled: {
+    color: theme.palette.grey[500]
+  },
   cellContents: {
     width: '100%',
     whiteSpace: 'nowrap',
@@ -212,6 +215,7 @@ class MuiTable extends Component {
     const rowData = (data && data[rowIndex - headerOffset]) || {};
 
     const isSelected = isCellSelected && isCellSelected(column, rowData);
+    const isDisabled = rowData.disabled;
 
     const isHovered =
       hoveredColumn &&
@@ -265,6 +269,7 @@ class MuiTable extends Component {
     const className = classNames(classes.cell, {
       [classes.cellHovered]: isHovered,
       [classes.cellSelected]: isSelected,
+      [classes.cellDisabled]: isDisabled,
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)

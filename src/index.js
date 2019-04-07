@@ -21,7 +21,7 @@ export const styles = theme => ({
     border: `1px solid ${theme.palette.text.lightDivider}`,
 
     '& .topLeftGrid': {
-      backgroundColor: theme.palette.grey['200'],
+      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
@@ -35,7 +35,7 @@ export const styles = theme => ({
     },
 
     '& .topRightGrid': {
-      backgroundColor: theme.palette.grey['200'],
+      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
@@ -48,7 +48,7 @@ export const styles = theme => ({
     },
 
     '& .bottomLeftGrid': {
-      backgroundColor: theme.palette.grey['200'],
+      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
@@ -73,10 +73,10 @@ export const styles = theme => ({
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
   cellSelected: {
-    backgroundColor: theme.palette.grey[100]
+    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 900 : 100]
   },
   cellHovered: {
-    backgroundColor: theme.palette.grey[200]
+    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200]
   },
   cellContents: {
     width: '100%',

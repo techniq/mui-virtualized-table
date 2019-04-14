@@ -346,10 +346,10 @@ storiesOf('Basic', module)
             onHeaderClick={column =>
               alert(`Clicked '${column.name}' header in column'`)
             }
-            onCellClick={(column, data) =>
+            onCellClick={(event, {column, rowData}) =>
               alert(
                 `Clicked cell in column '${column.name}' containing '${
-                  data[column.name]
+                  rowData[column.name]
                 }'`
               )
             }
@@ -357,6 +357,39 @@ storiesOf('Basic', module)
         )}
       </AutoSizer>
     );
+  })
+  .add('double clicks and context menus', () => {
+    const data = createPersonData(5);
+    return (
+      <AutoSizer>
+        {({ width, height }) => (
+          <MuiTable
+            data={data}
+            columns={[
+              { name: 'firstName', header: 'First Name' },
+              { name: 'lastName', header: 'Last Name' },
+              { name: 'jobTitle', header: 'Job Title' },
+            ]}
+            width={width}
+            style={{ backgroundColor: 'white' }}
+            includeHeaders={true}
+            onCellDoubleClick={(event, {column, rowData}) =>
+                alert(
+                    `Double-clicked cell in column '${column.name}' containing '${
+                        rowData[column.name]
+                    }'`
+                )
+            }
+            onCellContextMenu={(event, {column, rowData}) => {
+                event.preventDefault()
+                alert(`Right-clicked cell in column '${column.name}' containing '${
+                        rowData[column.name]
+                    }'`)
+            }}
+          />
+        )}
+      </AutoSizer>
+      );
   })
   .add('pagination', () => {
     const data = createPersonData(100);
@@ -847,7 +880,7 @@ storiesOf('Selected', module)
             isCellSelected={(column, rowData) =>
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -908,7 +941,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -1000,7 +1033,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(column, rowData) => {
+            onCellClick={(event, {rowData}) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove

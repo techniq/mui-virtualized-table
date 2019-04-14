@@ -78,6 +78,9 @@ export const styles = theme => ({
   cellHovered: {
     backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200]
   },
+  cellDisabled: {
+    color: theme.palette.grey[500]
+  },
   cellContents: {
     width: '100%',
     whiteSpace: 'nowrap',
@@ -197,6 +200,9 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      onCellDoubleClick,
+      onCellContextMenu,
+      noPointer,
       resizable,
       cellProps: defaultCellProps
     } = this.props;
@@ -209,6 +215,7 @@ class MuiTable extends Component {
     const rowData = (data && data[rowIndex - headerOffset]) || {};
 
     const isSelected = isCellSelected && isCellSelected(column, rowData);
+    const isDisabled = rowData.disabled;
 
     const isHovered =
       hoveredColumn &&
@@ -262,12 +269,15 @@ class MuiTable extends Component {
     const className = classNames(classes.cell, {
       [classes.cellHovered]: isHovered,
       [classes.cellSelected]: isSelected,
+      [classes.cellDisabled]: isDisabled,
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
       [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
     });
 
     const hasCellClick = !isHeader && onCellClick;
+    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
+    const hasCellContextMenu = !isHeader && onCellContextMenu;
 
     return (
       <TableCell
@@ -283,11 +293,17 @@ class MuiTable extends Component {
         style={{
           ...style,
           ...cellStyle,
-          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...((!noPointer) && (hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
-          onClick: () => onCellClick(column, rowData)
+          onClick: (event) => onCellClick(event, {column, rowData, data})
         }} // Can be overridden by cellProps.onClick on column definition
+        {...hasCellDoubleClick && {
+          onDoubleClick: (event) => onCellDoubleClick(event, {column, rowData, data})
+        }} // Can be overridden by cellProps.onDoubleClick on column definition
+        {...hasCellContextMenu && {
+          onContextMenu: (event) => onCellContextMenu(event, {column, rowData, data})
+        }} // Can be overridden by cellProps.onContextMenu on column definition
         {...cellProps}
       >
         {isHeader &&
@@ -301,10 +317,10 @@ class MuiTable extends Component {
             }
             style={{ width: 'inherit' }} // fix text overflowing
             direction={orderDirection}
-            onClick={() =>
+            onClick={(event) =>
               column.onHeaderClick
-                ? column.onHeaderClick()
-                : onHeaderClick(column)
+                ? column.onHeaderClick(event)
+                : onHeaderClick(event, { column })
             }
           >
             {contents}
@@ -371,9 +387,12 @@ class MuiTable extends Component {
       orderDirection,
       onHeaderClick,
       onCellClick,
+      onCellDoubleClick,
+      onCellContextMenu,
       isCellHovered,
       isCellSelected,
       cellProps,
+      noPointer,
       style,
       theme,
       resizable,
@@ -428,7 +447,7 @@ class MuiTable extends Component {
           }
           fixedRowCount={fixedRowCount}
           enableFixedRowScroll={fixedRowCount > 0}
-          // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
+          // TODO: Read these from `classes` without classes.table inheritance?  How to pass props.classes down to override?
           classNameTopLeftGrid={'topLeftGrid'}
           classNameTopRightGrid={'topRightGrid'}
           classNameBottomLeftGrid={'bottomLeftGrid'}
@@ -462,6 +481,9 @@ MuiTable.propTypes = {
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
+  onCellDoubleClick: PropTypes.func,
+  onCellContextMenu: PropTypes.func,
+  noPointer: PropTypes.bool,
   isCellHovered: PropTypes.func,
   isCellSelected: PropTypes.func,
   classes: PropTypes.object,

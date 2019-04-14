@@ -24,3 +24,4 @@ yarn-error.log*
 /docs
 /dist
 /.vscode
+/.idea

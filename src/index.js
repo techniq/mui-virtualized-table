@@ -21,7 +21,8 @@ export const styles = theme => ({
     border: `1px solid ${theme.palette.text.lightDivider}`,
 
     '& .topLeftGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
@@ -35,7 +36,8 @@ export const styles = theme => ({
     },
 
     '& .topRightGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
@@ -48,7 +50,8 @@ export const styles = theme => ({
     },
 
     '& .bottomLeftGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
@@ -73,13 +76,15 @@ export const styles = theme => ({
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
   cellSelected: {
-    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 900 : 100]
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === 'dark' ? 900 : 100]
   },
   cellHovered: {
-    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200]
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200]
   },
   cellDisabled: {
-    color: theme.palette.grey[500]
+    opacity: 0.5
   },
   cellContents: {
     width: '100%',
@@ -195,6 +200,7 @@ class MuiTable extends Component {
       includeHeaders,
       isCellHovered,
       isCellSelected,
+      isCellDisabled,
       classes,
       orderBy,
       orderDirection,
@@ -215,7 +221,7 @@ class MuiTable extends Component {
     const rowData = (data && data[rowIndex - headerOffset]) || {};
 
     const isSelected = isCellSelected && isCellSelected(column, rowData);
-    const isDisabled = rowData.disabled;
+    const isDisabled = isCellDisabled && isCellDisabled(column, rowData);
 
     const isHovered =
       hoveredColumn &&
@@ -293,16 +299,19 @@ class MuiTable extends Component {
         style={{
           ...style,
           ...cellStyle,
-          ...((!noPointer) && (hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...(!noPointer &&
+            (hasCellClick || column.onClick) && { cursor: 'pointer' })
         }}
         {...hasCellClick && {
-          onClick: (event) => onCellClick(event, {column, rowData, data})
+          onClick: event => onCellClick(event, { column, rowData, data })
         }} // Can be overridden by cellProps.onClick on column definition
         {...hasCellDoubleClick && {
-          onDoubleClick: (event) => onCellDoubleClick(event, {column, rowData, data})
+          onDoubleClick: event =>
+            onCellDoubleClick(event, { column, rowData, data })
         }} // Can be overridden by cellProps.onDoubleClick on column definition
         {...hasCellContextMenu && {
-          onContextMenu: (event) => onCellContextMenu(event, {column, rowData, data})
+          onContextMenu: event =>
+            onCellContextMenu(event, { column, rowData, data })
         }} // Can be overridden by cellProps.onContextMenu on column definition
         {...cellProps}
       >
@@ -317,7 +326,7 @@ class MuiTable extends Component {
             }
             style={{ width: 'inherit' }} // fix text overflowing
             direction={orderDirection}
-            onClick={(event) =>
+            onClick={event =>
               column.onHeaderClick
                 ? column.onHeaderClick(event)
                 : onHeaderClick(event, { column })
@@ -391,6 +400,7 @@ class MuiTable extends Component {
       onCellContextMenu,
       isCellHovered,
       isCellSelected,
+      isCellDisabled,
       cellProps,
       noPointer,
       style,
@@ -486,6 +496,7 @@ MuiTable.propTypes = {
   noPointer: PropTypes.bool,
   isCellHovered: PropTypes.func,
   isCellSelected: PropTypes.func,
+  isCellDisabled: PropTypes.func,
   classes: PropTypes.object,
   cellProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   style: PropTypes.object

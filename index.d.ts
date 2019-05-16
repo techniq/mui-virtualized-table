@@ -71,19 +71,19 @@ export interface IMuiVirtualizedTableProps<TRow> {
     | number
     | ((column: {
         index: number;
-        columns: Array<IMuiVirtualizedTableColumn<TRow>>;
+        columns: ReadonlyArray<IMuiVirtualizedTableColumn<TRow>>;
         width: number;
       }) => number);
 
   /**
    * Defines the columns in the table
    */
-  columns: Array<IMuiVirtualizedTableColumn<TRow>>;
+  columns: ReadonlyArray<IMuiVirtualizedTableColumn<TRow>>;
 
   /**
    * Data to render using defined `columns`
    */
-  data: TRow[];
+  data: ReadonlyArray<TRow>;
 
   /**
    * Always fit the content height to row data.

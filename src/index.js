@@ -278,7 +278,7 @@ class MuiTable extends Component {
       [classes.cellDisabled]: isDisabled,
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
-      [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
+      [classes.cellInLastRow]: !isHeader && rowIndex === (data ? data.length : 0)
     });
 
     const hasCellClick = !isHeader && onCellClick;

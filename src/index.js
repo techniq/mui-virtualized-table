@@ -330,7 +330,7 @@ class MuiTable extends Component {
             direction={orderDirection}
             onClick={event =>
               column.onHeaderClick
-                ? column.onHeaderClick(event, { column })
+                ? column.onHeaderClick(event)
                 : onHeaderClick(event, { column })
             }
           >

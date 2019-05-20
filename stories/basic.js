@@ -8,6 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data';
+import { withStyles } from '@material-ui/core';
 
 storiesOf('Basic', module)
   .add('default (empty)', () => (
@@ -357,6 +358,52 @@ storiesOf('Basic', module)
         )}
       </AutoSizer>
     );
+  })
+  .add("clickable without pointer", () => {
+    const data = createPersonData(5);
+    const Component = withStyles({
+      cellClickable: {
+        cursor: "auto"
+      }
+    })(props => (
+      <AutoSizer>
+        {({ width }) => (
+          <MuiTable
+            data={data}
+            classes={{ cellClickable: props.classes.cellClickable }}
+            columns={[
+              { name: "firstName", header: "First Name" },
+              {
+                name: "lastName",
+                header: "Last Name (disabled)",
+                onHeaderClick: false
+              },
+              {
+                name: "jobTitle",
+                header: "Job Title (custom)",
+                onHeaderClick: () => {
+                  alert("Job Title header clicked");
+                }
+              }
+            ]}
+            width={width}
+            style={{ backgroundColor: "white" }}
+            includeHeaders={true}
+            onHeaderClick={column =>
+              alert(`Clicked '${column.name}' header in column'`)
+            }
+            onCellClick={(event, { column, rowData }) =>
+              alert(
+                `Clicked cell in column '${column.name}' containing '${
+                  rowData[column.name]
+                }'`
+              )
+            }
+          />
+        )}
+      </AutoSizer>
+    ));
+    return <Component />;
   })
   .add('double clicks and context menus', () => {
     const data = createPersonData(5);

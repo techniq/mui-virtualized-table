@@ -75,6 +75,9 @@ export const styles = theme => ({
     alignItems: 'center'
     // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
+  cellClickable: {
+    cursor: 'pointer'
+  },
   cellSelected: {
     backgroundColor:
       theme.palette.grey[theme.palette.type === 'dark' ? 900 : 100]
@@ -208,7 +211,6 @@ class MuiTable extends Component {
       onCellClick,
       onCellDoubleClick,
       onCellContextMenu,
-      noPointer,
       resizable,
       cellProps: defaultCellProps
     } = this.props;
@@ -272,7 +274,13 @@ class MuiTable extends Component {
       </div>
     );
 
+    const hasCellClick = !isHeader && onCellClick;
+    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
+    const hasCellContextMenu = !isHeader && onCellContextMenu;
+    const isClickable = hasCellClick || hasCellDoubleClick || hasCellContextMenu || column.onClick;
+
     const className = classNames(classes.cell, {
+      [classes.cellClickable]: isClickable,        
       [classes.cellHovered]: isHovered,
       [classes.cellSelected]: isSelected,
       [classes.cellDisabled]: isDisabled,
@@ -280,10 +288,6 @@ class MuiTable extends Component {
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
       [classes.cellInLastRow]: !isHeader && rowIndex === (data ? data.length : 0)
     });
-
-    const hasCellClick = !isHeader && onCellClick;
-    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
-    const hasCellContextMenu = !isHeader && onCellContextMenu;
 
     return (
       <TableCell
@@ -298,9 +302,7 @@ class MuiTable extends Component {
         }
         style={{
           ...style,
-          ...cellStyle,
-          ...(!noPointer &&
-            (hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...cellStyle
         }}
         {...hasCellClick && {
           onClick: event => onCellClick(event, { column, rowData, data })
@@ -402,7 +404,6 @@ class MuiTable extends Component {
       isCellSelected,
       isCellDisabled,
       cellProps,
-      noPointer,
       style,
       theme,
       resizable,

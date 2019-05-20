@@ -344,7 +344,7 @@ storiesOf('Basic', module)
             width={width}
             style={{ backgroundColor: 'white' }}
             includeHeaders={true}
-            onHeaderClick={column =>
+            onHeaderClick={(event, {column}) =>
               alert(`Clicked '${column.name}' header in column'`)
             }
             onCellClick={(event, {column, rowData}) =>
@@ -389,7 +389,7 @@ storiesOf('Basic', module)
             width={width}
             style={{ backgroundColor: "white" }}
             includeHeaders={true}
-            onHeaderClick={column =>
+            onHeaderClick={(event, {column}) =>
               alert(`Clicked '${column.name}' header in column'`)
             }
             onCellClick={(event, { column, rowData }) =>
@@ -618,7 +618,9 @@ storiesOf('Column widths', module)
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
-              onHeaderClick={column => console.log({ column })}
+              onHeaderClick={(event, {column}) =>
+                alert(`Clicked '${column.name}' header in column'`)
+              }
               style={{ backgroundColor: 'white' }}
             />
           )}

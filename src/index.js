@@ -101,7 +101,7 @@ export const styles = theme => ({
     color: theme.palette.text.secondary
   },
   cellInLastColumn: {
-    paddingRight: theme.spacing.unit * 3
+    paddingRight: theme.spacing(3)
   },
   cellInLastRow: {
     borderBottom: 'none'

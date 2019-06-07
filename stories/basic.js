@@ -336,8 +336,8 @@ storiesOf('Basic', module)
               {
                 name: 'jobTitle',
                 header: 'Job Title (custom)',
-                onHeaderClick: () => {
-                  alert('Job Title header clicked');
+                onHeaderClick: (event, { column }) => {
+                  alert(`Job Title header clicked; column.name: ${column.name}`);
                 }
               }
             ]}

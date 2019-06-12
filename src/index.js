@@ -280,7 +280,7 @@ class MuiTable extends Component {
     const isClickable = hasCellClick || hasCellDoubleClick || hasCellContextMenu || column.onClick;
 
     const className = classNames(classes.cell, {
-      [classes.cellClickable]: isClickable,        
+      [classes.cellClickable]: isClickable,
       [classes.cellHovered]: isHovered,
       [classes.cellSelected]: isSelected,
       [classes.cellDisabled]: isDisabled,
@@ -330,7 +330,7 @@ class MuiTable extends Component {
             direction={orderDirection}
             onClick={event =>
               column.onHeaderClick
-                ? column.onHeaderClick(event)
+                ? column.onHeaderClick(event, { column })
                 : onHeaderClick(event, { column })
             }
           >

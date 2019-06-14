@@ -41,7 +41,7 @@ export interface IMuiVirtualizedTableColumn<TRow = any> {
   /**
    * Callback when header is clicked on (has precedence over `onHeaderClick` on table)
    */
-  onHeaderClick?: CellClickEventHandler<HTMLElement, TRow>;
+  onHeaderClick?: CellClickEventHandler<HTMLElement, TRow> | boolean;
 
   /**
    * Width of cell.

@@ -1237,7 +1237,7 @@ storiesOf('Examples', module)
               includeHeaders={true}
               // fixedRowCount={1}
               // fixedColumnCount={1}
-              defaultPagination={{ rowsPerPage: 5 }}
+              defaultPagination={{ rowsPerPage: 10 }}
               style={{ backgroundColor: 'white' }}
             />
           )}

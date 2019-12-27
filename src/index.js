@@ -177,8 +177,6 @@ const useCellRenderer = ({
     calculateWidths({ resizable, columns })
   )
 
-  const [drag, setDrag] = React.useState(false)
-
   React.useEffect(() => {
     recomputeGridSize()
   }, [hoveredColumn, hoveredRowData, widths])

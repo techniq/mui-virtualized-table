@@ -2,14 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid'
 import classNames from 'classnames'
-import { withStyles } from '@material-ui/core/styles'
-import Table from '@material-ui/core/Table'
-import TableCell from '@material-ui/core/TableCell'
-import TableFooter from '@material-ui/core/TableFooter'
-import TablePagination from '@material-ui/core/TablePagination'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import {
+  Table,
+  TableCell,
+  TableFooter,
+  TablePagination,
+  TableSortLabel,
+  withStyles
+} from '@material-ui/core'
 import Draggable from 'react-draggable'
-
 import { calcColumnWidth } from './utils'
 
 const FOOTER_BORDER_HEIGHT = 1
@@ -198,7 +199,7 @@ const useCellRenderer = ({
   )
 
   const resizeRow = React.useCallback(
-    ({ dataKey, deltaX }) => {
+    ({ dataKey, deltaX }) =>
       setWidths(prev => {
         const delta = deltaX / width
         const index = columns.findIndex(c => c.name === dataKey)
@@ -208,18 +209,16 @@ const useCellRenderer = ({
           [dataKey]: prev[dataKey] + delta,
           [nextDataKey]: prev[nextDataKey] - delta
         }
-      })
-    },
+      }),
     [setWidths, columns, width]
   )
 
   const handleDrag = React.useCallback(
-    dataKey => (event, { deltaX }) => {
+    dataKey => (event, { deltaX }) =>
       resizeRow({
         dataKey,
         deltaX
-      })
-    },
+      }),
     [resizeRow]
   )
 
@@ -352,7 +351,6 @@ const useCellRenderer = ({
         ) : isHeader && column.resizable ? (
           <React.Fragment>
             {contents}
-
             <Draggable
               axis='x'
               defaultClassName='DragHandle'
@@ -454,7 +452,6 @@ function MuiTable({
           columns,
           width,
           classes,
-
           includeHeaders,
           columnWidth,
           isCellHovered,
@@ -487,7 +484,6 @@ function MuiTable({
         classNameBottomLeftGrid={'bottomLeftGrid'}
         classNameBottomRightGrid={'bottomRightGrid'}
       />
-
       {pagination && (
         <TableFooter component='div' className={classes.footer}>
           <TablePagination component='div' {...pagination} />

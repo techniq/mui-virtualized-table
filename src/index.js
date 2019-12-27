@@ -222,9 +222,7 @@ const useCellRenderer = ({
     [resizeRow]
   )
 
-  const toggleDrag = React.useCallback(d => () => setDrag(d), [setDrag])
-
-  const handleMouseEnter = React.useCallback(
+  const handleMouse = React.useCallback(
     (hoveredColumn, hoveredRowData) => e =>
       setHovered({
         hoveredColumn,
@@ -276,8 +274,6 @@ const useCellRenderer = ({
               defaultClassName={classes.dragHandle}
               defaultClassNameDragging={classes.DragHandleActive}
               onDrag={handleDrag(column.name)}
-              onStart={toggleDrag(true)}
-              onStop={toggleDrag(false)}
               position={{ x: 0 }}
               zIndex={999}
             >
@@ -310,8 +306,8 @@ const useCellRenderer = ({
         component='div'
         className={className}
         key={key}
-        onMouseEnter={!drag && handleMouseEnter(column, rowData)}
-        onMouseLeave={!drag && handleMouseEnter(null, null)}
+        onMouseEnter={handleMouse(column, rowData)}
+        onMouseLeave={handleMouse(null, null)}
         style={{
           ...style,
           ...cellStyle
@@ -356,8 +352,6 @@ const useCellRenderer = ({
               defaultClassName='DragHandle'
               defaultClassNameDragging='DragHandleActive'
               onDrag={handleDrag(column.name)}
-              onStart={toggleDrag(true)}
-              onStop={toggleDrag(false)}
               position={{ x: 0 }}
               zIndex={999}
             >

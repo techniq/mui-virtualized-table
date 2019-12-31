@@ -46,10 +46,8 @@
     "postpublish": "yarn build-docs && yarn deploy-docs"
   },
   "prettier": {        
-    "tabWidth": 2,
-    "semi": false,
+    
     "singleQuote": true,
-    "jsxSingleQuote": true,
-    "bracketSpacing": true
+    "jsxSingleQuote": true
   }
 }

@@ -1,11 +1,11 @@
-import React from 'react'
-import { storiesOf } from '@storybook/react'
-import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer'
-import Component from '@reactions/component'
-import Checkbox from '@material-ui/core/Checkbox'
-import MuiTable from '../src'
-import { createPersonData, createDessertData } from './data'
-import { withStyles } from '@material-ui/core'
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
+import Component from '@reactions/component';
+import Checkbox from '@material-ui/core/Checkbox';
+import MuiTable from '../src';
+import { createPersonData, createDessertData } from './data';
+import { withStyles } from '@material-ui/core';
 
 storiesOf('Basic', module)
   .add('default (empty)', () => (
@@ -13,7 +13,7 @@ storiesOf('Basic', module)
   ))
 
   .add('simple', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
@@ -21,10 +21,10 @@ storiesOf('Basic', module)
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('responsive', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -36,10 +36,10 @@ storiesOf('Basic', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('composite cells', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -65,10 +65,10 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('include headers', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
@@ -77,11 +77,11 @@ storiesOf('Basic', module)
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
 
   .add('custom headers', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <MuiTable
         data={data}
@@ -93,11 +93,11 @@ storiesOf('Basic', module)
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
 
   .add('fixed/freeze row(s)', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -124,10 +124,10 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('fixed/freeze column(s)', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -155,10 +155,10 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('fixed/freeze both', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -187,12 +187,12 @@ storiesOf('Basic', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('row height', () => {
-    const data = createDessertData()
-    const orderBy = 'FullName desc'
-    const [orderProp, orderDirection] = orderBy
+    const data = createDessertData();
+    const orderBy = 'FullName desc';
+    const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
@@ -220,12 +220,12 @@ storiesOf('Basic', module)
         rowHeight={24}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('default cellProps', () => {
-    const data = createDessertData()
-    const orderBy = 'FullName desc'
-    const [orderProp, orderDirection] = orderBy
+    const data = createDessertData();
+    const orderBy = 'FullName desc';
+    const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
@@ -253,12 +253,12 @@ storiesOf('Basic', module)
         cellProps={{ size: 'small' }}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('cellProps as function', () => {
-    const data = createDessertData()
-    const orderBy = 'FullName desc'
-    const [orderProp, orderDirection] = orderBy
+    const data = createDessertData();
+    const orderBy = 'FullName desc';
+    const [orderProp, orderDirection] = orderBy;
     return (
       <MuiTable
         data={data}
@@ -290,10 +290,10 @@ storiesOf('Basic', module)
         }
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('text overflow', () => {
-    const data = createPersonData(10)
+    const data = createPersonData(10);
     return (
       <MuiTable
         data={data}
@@ -314,10 +314,10 @@ storiesOf('Basic', module)
         // cellProps={{ size="'small"' }}
         cellProps={{ style: { paddingRight: 0 } }}
       />
-    )
+    );
   })
   .add('clickable headers and cells', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -334,7 +334,9 @@ storiesOf('Basic', module)
                 name: 'jobTitle',
                 header: 'Job Title (custom)',
                 onHeaderClick: (event, { column }) => {
-                  alert(`Job Title header clicked; column.name: ${column.name}`)
+                  alert(
+                    `Job Title header clicked; column.name: ${column.name}`
+                  );
                 }
               }
             ]}
@@ -354,10 +356,10 @@ storiesOf('Basic', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('clickable without pointer', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     const Component = withStyles({
       cellClickable: {
         cursor: 'auto'
@@ -379,7 +381,7 @@ storiesOf('Basic', module)
                 name: 'jobTitle',
                 header: 'Job Title (custom)',
                 onHeaderClick: () => {
-                  alert('Job Title header clicked')
+                  alert('Job Title header clicked');
                 }
               }
             ]}
@@ -399,11 +401,11 @@ storiesOf('Basic', module)
           />
         )}
       </AutoSizer>
-    ))
-    return <Component />
+    ));
+    return <Component />;
   })
   .add('double clicks and context menus', () => {
-    const data = createPersonData(5)
+    const data = createPersonData(5);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -425,20 +427,20 @@ storiesOf('Basic', module)
               )
             }
             onCellContextMenu={(event, { column, rowData }) => {
-              event.preventDefault()
+              event.preventDefault();
               alert(
                 `Right-clicked cell in column '${column.name}' containing '${
                   rowData[column.name]
                 }'`
-              )
+              );
             }}
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -461,7 +463,7 @@ storiesOf('Basic', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('null data and include headers', () => {
     return (
@@ -473,12 +475,12 @@ storiesOf('Basic', module)
         width={500}
         style={{ backgroundColor: 'white' }}
       />
-    )
-  })
+    );
+  });
 
 storiesOf('Column widths', module)
   .add('fixed width (first column)', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -504,10 +506,10 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('minWidth (first column)', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -533,10 +535,10 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('minWidth (all columns)', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -562,11 +564,11 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
 
   .add('percentage widths exceeding table width (40% each)', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -592,10 +594,10 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('fixed width (long headers)', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -625,12 +627,12 @@ storiesOf('Column widths', module)
           )}
         </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 storiesOf('maxHeight', module)
   .add('basic', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -653,10 +655,10 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('headers', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -680,10 +682,10 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('fixed headers', () => {
-    const data = createPersonData(100)
+    const data = createPersonData(100);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -708,10 +710,10 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination', () => {
-    const data = createPersonData(15)
+    const data = createPersonData(15);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -735,10 +737,10 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination (maxHeight > calculatedHeight)', () => {
-    const data = createPersonData(15)
+    const data = createPersonData(15);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -762,10 +764,10 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
   .add('pagination (fitHeightToRows)', () => {
-    const data = createPersonData(15)
+    const data = createPersonData(15);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -789,12 +791,12 @@ storiesOf('maxHeight', module)
           />
         )}
       </AutoSizer>
-    )
-  })
+    );
+  });
 
 storiesOf('Hover', module)
   .add('row', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <MuiTable
         data={data}
@@ -824,10 +826,10 @@ storiesOf('Hover', module)
         width={900}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('column', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <MuiTable
         data={data}
@@ -857,10 +859,10 @@ storiesOf('Hover', module)
         width={900}
         style={{ backgroundColor: 'white' }}
       />
-    )
+    );
   })
   .add('both', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <MuiTable
         data={data}
@@ -891,12 +893,12 @@ storiesOf('Hover', module)
         width={900}
         style={{ backgroundColor: 'white' }}
       />
-    )
-  })
+    );
+  });
 
 storiesOf('Selected', module)
   .add('basic', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
         {({ state, setState }) => (
@@ -936,14 +938,14 @@ storiesOf('Selected', module)
                     selectedRowIds: prevState.selectedRowIds.filter(
                       id => id !== rowData.id
                     )
-                  }
+                  };
                 } else {
                   // add
                   return {
                     selectedRowIds: [...prevState.selectedRowIds, rowData.id]
-                  }
+                  };
                 }
-              })
+              });
             }}
             includeHeaders={true}
             width={900}
@@ -951,10 +953,10 @@ storiesOf('Selected', module)
           />
         )}
       </Component>
-    )
+    );
   })
   .add('with hover', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
         {({ state, setState }) => (
@@ -997,14 +999,14 @@ storiesOf('Selected', module)
                     selectedRowIds: prevState.selectedRowIds.filter(
                       id => id !== rowData.id
                     )
-                  }
+                  };
                 } else {
                   // add
                   return {
                     selectedRowIds: [...prevState.selectedRowIds, rowData.id]
-                  }
+                  };
                 }
-              })
+              });
             }}
             includeHeaders={true}
             width={900}
@@ -1012,10 +1014,10 @@ storiesOf('Selected', module)
           />
         )}
       </Component>
-    )
+    );
   })
   .add('with hover and checkbox', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <Component initialState={{ selectedRowIds: [] }}>
         {({ state, setState }) => (
@@ -1031,10 +1033,10 @@ storiesOf('Selected', module)
                       setState(prevState => {
                         if (prevState.selectedRowIds.length === data.length) {
                           // deselect all
-                          return { selectedRowIds: [] }
+                          return { selectedRowIds: [] };
                         } else {
                           // select all
-                          return { selectedRowIds: data.map(d => d.id) }
+                          return { selectedRowIds: data.map(d => d.id) };
                         }
                       })
                     }
@@ -1089,14 +1091,14 @@ storiesOf('Selected', module)
                     selectedRowIds: prevState.selectedRowIds.filter(
                       id => id !== rowData.id
                     )
-                  }
+                  };
                 } else {
                   // add
                   return {
                     selectedRowIds: [...prevState.selectedRowIds, rowData.id]
-                  }
+                  };
                 }
-              })
+              });
             }}
             includeHeaders={true}
             width={900}
@@ -1104,12 +1106,12 @@ storiesOf('Selected', module)
           />
         )}
       </Component>
-    )
-  })
+    );
+  });
 
 storiesOf('Performance', module)
   .add('1000 rows (no virtualizaiton)', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <AutoSizer>
         {({ width }) => (
@@ -1121,11 +1123,11 @@ storiesOf('Performance', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
 
   .add('1000 rows (fixed height)', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <AutoSizer>
         {({ width, height }) => (
@@ -1138,11 +1140,11 @@ storiesOf('Performance', module)
           />
         )}
       </AutoSizer>
-    )
+    );
   })
 
   .add('1000 rows (viewport height)', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -1157,11 +1159,11 @@ storiesOf('Performance', module)
           )}
         </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 storiesOf('Resizable Columns', module).add('Simple table', () => {
-  const data = createPersonData(1000)
+  const data = createPersonData(1000);
   return (
     <div style={{ height: 'calc(100vh)' }}>
       <AutoSizer>
@@ -1190,12 +1192,12 @@ storiesOf('Resizable Columns', module).add('Simple table', () => {
         )}
       </AutoSizer>
     </div>
-  )
-})
+  );
+});
 
 storiesOf('Examples', module)
   .add('dessert', () => {
-    const data = createDessertData()
+    const data = createDessertData();
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -1242,10 +1244,10 @@ storiesOf('Examples', module)
           )}
         </AutoSizer>
       </div>
-    )
+    );
   })
   .add('all the things', () => {
-    const data = createPersonData(1000)
+    const data = createPersonData(1000);
     return (
       <div style={{ height: 'calc(100vh)' }}>
         <AutoSizer>
@@ -1274,8 +1276,8 @@ storiesOf('Examples', module)
           )}
         </AutoSizer>
       </div>
-    )
-  })
+    );
+  });
 
 class PaginatedTable extends React.Component {
   state = {
@@ -1284,14 +1286,14 @@ class PaginatedTable extends React.Component {
       (this.props.defaultPagination &&
         this.props.defaultPagination.rowsPerPage) ||
       10
-  }
+  };
 
   render() {
-    const { data, defaultPagination, ...props } = this.props
-    const { page, perPage } = this.state
+    const { data, defaultPagination, ...props } = this.props;
+    const { page, perPage } = this.state;
 
-    const start = perPage * (page - 1)
-    const pageData = data && data.slice(start, start + perPage)
+    const start = perPage * (page - 1);
+    const pageData = data && data.slice(start, start + perPage);
 
     return (
       <MuiTable
@@ -1306,6 +1308,6 @@ class PaginatedTable extends React.Component {
         }}
         {...props}
       />
-    )
+    );
   }
 }

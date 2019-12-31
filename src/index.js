@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid'
-import classNames from 'classnames'
+import React from 'react';
+import PropTypes from 'prop-types';
+import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
+import classNames from 'classnames';
 import {
   Table,
   TableCell,
@@ -9,11 +9,11 @@ import {
   TablePagination,
   TableSortLabel,
   withStyles
-} from '@material-ui/core'
-import Draggable from 'react-draggable'
-import { calcColumnWidth } from './utils'
+} from '@material-ui/core';
+import Draggable from 'react-draggable';
+import { calcColumnWidth } from './utils';
 
-const FOOTER_BORDER_HEIGHT = 1
+const FOOTER_BORDER_HEIGHT = 1;
 
 export const styles = theme => ({
   table: {
@@ -126,27 +126,27 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center'
   }
-})
+});
 
 const calculateWidths = ({ resizable, columns: Columns }) => {
-  var widths = []
+  var widths = [];
   if (resizable) {
-    var initialWidth = 1
-    var columns = []
+    var initialWidth = 1;
+    var columns = [];
     Columns.forEach(c => {
       if (c.width) {
-        widths[c.name] = 0.1
-        initialWidth = initialWidth - 0.1
+        widths[c.name] = 0.1;
+        initialWidth = initialWidth - 0.1;
       } else {
-        columns.push(c)
+        columns.push(c);
       }
-    })
+    });
     columns.forEach(c => {
-      widths[c.name] = initialWidth / columns.length
-    })
+      widths[c.name] = initialWidth / columns.length;
+    });
   }
-  return widths
-}
+  return widths;
+};
 
 const useCellRenderer = ({
   recomputeGridSize,
@@ -171,20 +171,20 @@ const useCellRenderer = ({
   const [{ hoveredColumn, hoveredRowData }, setHovered] = React.useState({
     hoveredColumn: null,
     hoveredRowData: null
-  })
+  });
 
   const [widths, setWidths] = React.useState(
     calculateWidths({ resizable, columns })
-  )
+  );
 
   React.useEffect(() => {
-    recomputeGridSize()
-  }, [hoveredColumn, hoveredRowData, widths])
+    recomputeGridSize();
+  }, [hoveredColumn, hoveredRowData, widths]);
 
   const resizableColumnWidths = React.useCallback(
     (index, columns, tableWidth) => widths[columns[index].name] * width,
     [widths, width]
-  )
+  );
 
   const getColumnWidth = React.useCallback(
     ({ index }) =>
@@ -194,22 +194,22 @@ const useCellRenderer = ({
         ? resizableColumnWidths(index, columns, width)
         : calcColumnWidth(index, columns, width),
     [columnWidth, resizable, columns, width, resizableColumnWidths]
-  )
+  );
 
   const resizeRow = React.useCallback(
     ({ dataKey, deltaX }) =>
       setWidths(prev => {
-        const delta = deltaX / width
-        const index = columns.findIndex(c => c.name === dataKey)
-        const nextDataKey = columns[index + 1].name
+        const delta = deltaX / width;
+        const index = columns.findIndex(c => c.name === dataKey);
+        const nextDataKey = columns[index + 1].name;
         return {
           ...prev,
           [dataKey]: prev[dataKey] + delta,
           [nextDataKey]: prev[nextDataKey] - delta
-        }
+        };
       }),
     [setWidths, columns, width]
-  )
+  );
 
   const handleDrag = React.useCallback(
     dataKey => (event, { deltaX }) =>
@@ -218,7 +218,7 @@ const useCellRenderer = ({
         deltaX
       }),
     [resizeRow]
-  )
+  );
 
   const handleMouse = React.useCallback(
     (hoveredColumn, hoveredRowData) => e =>
@@ -227,32 +227,32 @@ const useCellRenderer = ({
         hoveredRowData
       }),
     [setHovered]
-  )
+  );
 
   const cellRenderer = ({ columnIndex, rowIndex, key, style }) => {
-    const column = columns[columnIndex]
-    const isHeader = includeHeaders && rowIndex === 0
-    const headerOffset = includeHeaders ? 1 : 0
-    const rowData = (data && data[rowIndex - headerOffset]) || {}
+    const column = columns[columnIndex];
+    const isHeader = includeHeaders && rowIndex === 0;
+    const headerOffset = includeHeaders ? 1 : 0;
+    const rowData = (data && data[rowIndex - headerOffset]) || {};
 
-    const isSelected = isCellSelected && isCellSelected(column, rowData)
-    const isDisabled = isCellDisabled && isCellDisabled(column, rowData)
+    const isSelected = isCellSelected && isCellSelected(column, rowData);
+    const isDisabled = isCellDisabled && isCellDisabled(column, rowData);
 
     const isHovered =
       hoveredColumn &&
       hoveredRowData &&
       isCellHovered &&
-      isCellHovered(column, rowData, hoveredColumn, hoveredRowData)
+      isCellHovered(column, rowData, hoveredColumn, hoveredRowData);
 
     const resolveCellProps = cellProps =>
       typeof cellProps === 'function'
         ? cellProps(column, rowData, hoveredColumn, hoveredRowData)
-        : cellProps
+        : cellProps;
     // TODO: Deep merge (do not override all defaultCellProps styles if column.cellProps.styles defined?)
     const { style: cellStyle, ...cellProps } = {
       ...resolveCellProps(defaultCellProps),
       ...resolveCellProps(column.cellProps)
-    }
+    };
 
     const contents = (
       <div className={classes.cellContents}>
@@ -280,13 +280,16 @@ const useCellRenderer = ({
           )}
         </span>
       </div>
-    )
+    );
 
-    const hasCellClick = !isHeader && onCellClick
-    const hasCellDoubleClick = !isHeader && onCellDoubleClick
-    const hasCellContextMenu = !isHeader && onCellContextMenu
+    const hasCellClick = !isHeader && onCellClick;
+    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
+    const hasCellContextMenu = !isHeader && onCellContextMenu;
     const isClickable =
-      hasCellClick || hasCellDoubleClick || hasCellContextMenu || column.onClick
+      hasCellClick ||
+      hasCellDoubleClick ||
+      hasCellContextMenu ||
+      column.onClick;
 
     const className = classNames(classes.cell, {
       [classes.cellClickable]: isClickable,
@@ -297,7 +300,7 @@ const useCellRenderer = ({
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
       [classes.cellInLastRow]:
         !isHeader && rowIndex === (data ? data.length : 0)
-    })
+    });
 
     return (
       <TableCell
@@ -360,11 +363,11 @@ const useCellRenderer = ({
           contents
         )}
       </TableCell>
-    )
-  }
+    );
+  };
 
-  return { cellRenderer, columnWidth: getColumnWidth }
-}
+  return { cellRenderer, columnWidth: getColumnWidth };
+};
 
 function MuiTable({
   data,
@@ -395,40 +398,41 @@ function MuiTable({
   cellProps,
   ...other
 }) {
-  const multiGrid = React.useRef(null)
+  const multiGrid = React.useRef(null);
 
   const recomputeGridSize = React.useCallback(
     () => multiGrid.current && multiGrid.current.recomputeGridSize(),
     [multiGrid.current]
-  )
+  );
 
   React.useEffect(() => {
-    recomputeGridSize()
-  }, [columns, data, height, width, recomputeGridSize])
+    recomputeGridSize();
+  }, [columns, data, height, width, recomputeGridSize]);
 
-  let calculatedHeight = 0
+  let calculatedHeight = 0;
   if (height) {
-    calculatedHeight = height // fixed height
+    calculatedHeight = height; // fixed height
   } else if (pagination && pagination.rowsPerPage && !fitHeightToRows) {
     const rowCount =
       pagination.rowsPerPage +
-      (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0)
-    calculatedHeight = rowCount * rowHeight
+      (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
+    calculatedHeight = rowCount * rowHeight;
   } else if (Array.isArray(data)) {
     const rowCount =
-      data.length + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0)
-    calculatedHeight = rowCount * rowHeight
+      data.length + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
+    calculatedHeight = rowCount * rowHeight;
   }
 
-  const paginationHeight = theme.mixins.toolbar.minHeight + FOOTER_BORDER_HEIGHT
+  const paginationHeight =
+    theme.mixins.toolbar.minHeight + FOOTER_BORDER_HEIGHT;
 
   const calculatedHeightWithFooter =
-    calculatedHeight + (pagination ? paginationHeight : 0)
+    calculatedHeight + (pagination ? paginationHeight : 0);
   const containerHeight =
     maxHeight != null
       ? Math.min(calculatedHeightWithFooter, maxHeight)
-      : calculatedHeightWithFooter
-  const multiGridHeight = containerHeight - (pagination ? paginationHeight : 0)
+      : calculatedHeightWithFooter;
+  const multiGridHeight = containerHeight - (pagination ? paginationHeight : 0);
 
   return (
     <Table
@@ -482,7 +486,7 @@ function MuiTable({
         </TableFooter>
       )}
     </Table>
-  )
+  );
 }
 
 MuiTable.propTypes = {
@@ -511,6 +515,6 @@ MuiTable.propTypes = {
   classes: PropTypes.object,
   cellProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   style: PropTypes.object
-}
+};
 
-export default withStyles(styles, { withTheme: true })(MuiTable)
+export default withStyles(styles, { withTheme: true })(MuiTable);

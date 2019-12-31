@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
 import classNames from 'classnames';
-import {
-  Table,
-  TableCell,
-  TableFooter,
-  TablePagination,
-  TableSortLabel,
-  withStyles
-} from '@material-ui/core';
+import Table from '@material-ui/core/Table';
+import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { withStyles } from '@material-ui/core';
 import Draggable from 'react-draggable';
 import { calcColumnWidth } from './utils';
 
@@ -182,8 +180,8 @@ const useCellRenderer = ({
   }, [hoveredColumn, hoveredRowData, widths]);
 
   const resizableColumnWidths = React.useCallback(
-    (index, columns, tableWidth) => widths[columns[index].name] * width,
-    [widths, width]
+    (index, columns, tableWidth) => widths[columns[index].name] * tableWidth,
+    [widths]
   );
 
   const getColumnWidth = React.useCallback(

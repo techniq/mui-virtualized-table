@@ -51,5 +51,6 @@ $ cd ..
 Then use yarn to run the `storybook` script:
 
 ```bash
+$ yarn install
 $ yarn storybook
 ```

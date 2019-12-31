@@ -18,8 +18,8 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.6.1",
-    "react-draggable": "^3.0.5",
-    "react-virtualized": "^9.18.0"
+    "react-draggable": "^4.2.0",
+    "react-virtualized": "^9.21.2"
   },
   "devDependencies": {
     "@material-ui/core": "^4.0.1",
@@ -44,5 +44,10 @@
     "deploy-docs": "gh-pages -d docs",
     "preversion": "yarn build",
     "postpublish": "yarn build-docs && yarn deploy-docs"
+  },
+  "prettier": {        
+    
+    "singleQuote": true,
+    "jsxSingleQuote": true
   }
 }

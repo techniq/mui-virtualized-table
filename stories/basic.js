@@ -1,11 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-// import { action } from '@storybook/addon-actions';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Component from '@reactions/component';
-
 import Checkbox from '@material-ui/core/Checkbox';
-
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data';
 import { withStyles } from '@material-ui/core';
@@ -337,17 +334,19 @@ storiesOf('Basic', module)
                 name: 'jobTitle',
                 header: 'Job Title (custom)',
                 onHeaderClick: (event, { column }) => {
-                  alert(`Job Title header clicked; column.name: ${column.name}`);
+                  alert(
+                    `Job Title header clicked; column.name: ${column.name}`
+                  );
                 }
               }
             ]}
             width={width}
             style={{ backgroundColor: 'white' }}
             includeHeaders={true}
-            onHeaderClick={(event, {column}) =>
+            onHeaderClick={(event, { column }) =>
               alert(`Clicked '${column.name}' header in column'`)
             }
-            onCellClick={(event, {column, rowData}) =>
+            onCellClick={(event, { column, rowData }) =>
               alert(
                 `Clicked cell in column '${column.name}' containing '${
                   rowData[column.name]
@@ -359,11 +358,11 @@ storiesOf('Basic', module)
       </AutoSizer>
     );
   })
-  .add("clickable without pointer", () => {
+  .add('clickable without pointer', () => {
     const data = createPersonData(5);
     const Component = withStyles({
       cellClickable: {
-        cursor: "auto"
+        cursor: 'auto'
       }
     })(props => (
       <AutoSizer>
@@ -372,24 +371,24 @@ storiesOf('Basic', module)
             data={data}
             classes={{ cellClickable: props.classes.cellClickable }}
             columns={[
-              { name: "firstName", header: "First Name" },
+              { name: 'firstName', header: 'First Name' },
               {
-                name: "lastName",
-                header: "Last Name (disabled)",
+                name: 'lastName',
+                header: 'Last Name (disabled)',
                 onHeaderClick: false
               },
               {
-                name: "jobTitle",
-                header: "Job Title (custom)",
+                name: 'jobTitle',
+                header: 'Job Title (custom)',
                 onHeaderClick: () => {
-                  alert("Job Title header clicked");
+                  alert('Job Title header clicked');
                 }
               }
             ]}
             width={width}
-            style={{ backgroundColor: "white" }}
+            style={{ backgroundColor: 'white' }}
             includeHeaders={true}
-            onHeaderClick={(event, {column}) =>
+            onHeaderClick={(event, { column }) =>
               alert(`Clicked '${column.name}' header in column'`)
             }
             onCellClick={(event, { column, rowData }) =>
@@ -415,28 +414,30 @@ storiesOf('Basic', module)
             columns={[
               { name: 'firstName', header: 'First Name' },
               { name: 'lastName', header: 'Last Name' },
-              { name: 'jobTitle', header: 'Job Title' },
+              { name: 'jobTitle', header: 'Job Title' }
             ]}
             width={width}
             style={{ backgroundColor: 'white' }}
             includeHeaders={true}
-            onCellDoubleClick={(event, {column, rowData}) =>
-                alert(
-                    `Double-clicked cell in column '${column.name}' containing '${
-                        rowData[column.name]
-                    }'`
-                )
+            onCellDoubleClick={(event, { column, rowData }) =>
+              alert(
+                `Double-clicked cell in column '${column.name}' containing '${
+                  rowData[column.name]
+                }'`
+              )
             }
-            onCellContextMenu={(event, {column, rowData}) => {
-                event.preventDefault()
-                alert(`Right-clicked cell in column '${column.name}' containing '${
-                        rowData[column.name]
-                    }'`)
+            onCellContextMenu={(event, { column, rowData }) => {
+              event.preventDefault();
+              alert(
+                `Right-clicked cell in column '${column.name}' containing '${
+                  rowData[column.name]
+                }'`
+              );
             }}
           />
         )}
       </AutoSizer>
-      );
+    );
   })
   .add('pagination', () => {
     const data = createPersonData(100);
@@ -618,7 +619,7 @@ storiesOf('Column widths', module)
               maxHeight={height}
               includeHeaders={true}
               fixedRowCount={1}
-              onHeaderClick={(event, {column}) =>
+              onHeaderClick={(event, { column }) =>
                 alert(`Clicked '${column.name}' header in column'`)
               }
               style={{ backgroundColor: 'white' }}
@@ -929,7 +930,7 @@ storiesOf('Selected', module)
             isCellSelected={(column, rowData) =>
               state.selectedRowIds.some(id => rowData && rowData.id === id)
             }
-            onCellClick={(event, {rowData}) => {
+            onCellClick={(event, { rowData }) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -990,7 +991,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(event, {rowData}) => {
+            onCellClick={(event, { rowData }) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -1039,11 +1040,11 @@ storiesOf('Selected', module)
                         }
                       })
                     }
-                    {...state.selectedRowIds.length > 0 &&
+                    {...(state.selectedRowIds.length > 0 &&
                       state.selectedRowIds.length !== data.length && {
                         indeterminate: true,
                         color: 'default'
-                      }}
+                      })}
                   />
                 ),
                 cell: rowData => (
@@ -1082,7 +1083,7 @@ storiesOf('Selected', module)
             isCellHovered={(column, rowData, hoveredColumn, hoveredRowData) =>
               rowData.id && rowData.id === hoveredRowData.id
             }
-            onCellClick={(event, {rowData}) => {
+            onCellClick={(event, { rowData }) => {
               setState(prevState => {
                 if (prevState.selectedRowIds.some(id => rowData.id === id)) {
                   // remove
@@ -1237,7 +1238,7 @@ storiesOf('Examples', module)
               includeHeaders={true}
               // fixedRowCount={1}
               // fixedColumnCount={1}
-              defaultPagination={{ rowsPerPage: 5 }}
+              defaultPagination={{ rowsPerPage: 10 }}
               style={{ backgroundColor: 'white' }}
             />
           )}

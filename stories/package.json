@@ -5,5 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "faker": "^4.1.0"
+  },
+  "prettier": {        
+    
+    "singleQuote": true,
+    "jsxSingleQuote": true
   }
 }

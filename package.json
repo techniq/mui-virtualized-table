@@ -1,6 +1,6 @@
 {
   "name": "mui-virtualized-table",
-  "version": "3.0.0-3",
+  "version": "3.0.0-4",
   "description": "Material-UI table with windowing, row/column freezing, and more",
   "main": "dist/index.js",
   "types": "index.d.ts",
@@ -45,8 +45,7 @@
     "preversion": "yarn build",
     "postpublish": "yarn build-docs && yarn deploy-docs"
   },
-  "prettier": {        
-    
+  "prettier": {
     "singleQuote": true,
     "jsxSingleQuote": true
   }

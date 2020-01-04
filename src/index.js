@@ -7,16 +7,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import { withStyles } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Draggable from 'react-draggable';
 import { calcColumnWidth } from './utils';
 
 const FOOTER_BORDER_HEIGHT = 1;
 
-export const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   table: {
     boxSizing: 'border-box',
-    border: `1px solid ${theme.palette.text.lightDivider}`,
 
     '& .topLeftGrid': {
       backgroundColor:
@@ -71,7 +70,6 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center'
-    // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
   },
   cellClickable: {
     cursor: 'pointer'
@@ -124,7 +122,7 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center'
   }
-});
+}));
 
 const calculateWidths = ({ resizable, columns: Columns }) => {
   var widths = [];
@@ -177,7 +175,7 @@ const useCellRenderer = ({
 
   React.useEffect(() => {
     recomputeGridSize();
-  }, [hoveredColumn, hoveredRowData, widths]);
+  }, [recomputeGridSize, hoveredColumn, hoveredRowData, widths]);
 
   const resizableColumnWidths = React.useCallback(
     (index, columns, tableWidth) => widths[columns[index].name] * tableWidth,
@@ -271,7 +269,6 @@ const useCellRenderer = ({
               defaultClassNameDragging={classes.DragHandleActive}
               onDrag={handleDrag(column.name)}
               position={{ x: 0 }}
-              zIndex={999}
             >
               <span className={classes.DragHandleIcon}>⋮</span>
             </Draggable>
@@ -352,7 +349,6 @@ const useCellRenderer = ({
               defaultClassNameDragging='DragHandleActive'
               onDrag={handleDrag(column.name)}
               position={{ x: 0 }}
-              zIndex={999}
             >
               <span className='DragHandleIcon'>⋮</span>
             </Draggable>
@@ -367,7 +363,7 @@ const useCellRenderer = ({
   return { cellRenderer, columnWidth: getColumnWidth };
 };
 
-function MuiTable({
+export default function MuiTable({
   data,
   columns,
   width,
@@ -379,13 +375,12 @@ function MuiTable({
   fixedColumnCount = 0,
   rowHeight = 48,
   style,
-  theme,
   columnWidth,
   includeHeaders = false,
   isCellHovered,
   isCellSelected,
   isCellDisabled,
-  classes,
+  classes: Classes,
   orderBy,
   orderDirection,
   onHeaderClick,
@@ -396,11 +391,14 @@ function MuiTable({
   cellProps,
   ...other
 }) {
+  const classes = useStyles({ classes: Classes });
+  const theme = useTheme();
+
   const multiGrid = React.useRef(null);
 
   const recomputeGridSize = React.useCallback(
     () => multiGrid.current && multiGrid.current.recomputeGridSize(),
-    [multiGrid.current]
+    [multiGrid]
   );
 
   React.useEffect(() => {
@@ -515,4 +513,3 @@ MuiTable.propTypes = {
   style: PropTypes.object
 };
 
-export default withStyles(styles, { withTheme: true })(MuiTable);

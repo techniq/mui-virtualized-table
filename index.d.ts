@@ -2,6 +2,17 @@ import { TableCellProps } from "@material-ui/core/TableCell";
 import { TablePaginationProps } from "@material-ui/core/TablePagination";
 import * as React from "react";
 
+export type CellClickEventHandler<HTMLElement, TRow> = (
+  event: React.MouseEvent<HTMLElement>,
+  props: IHeaderClickProps<TRow>
+) => void;
+
+export interface IHeaderClickProps<TRow> {
+  column: IMuiVirtualizedTableColumn<TRow>;
+  rowData?: TRow;
+  data?: TRow[];
+}
+
 export type ICellPropsProducer<TRow> =
   | TableCellProps
   | ((
@@ -30,7 +41,7 @@ export interface IMuiVirtualizedTableColumn<TRow = any> {
   /**
    * Callback when header is clicked on (has precedence over `onHeaderClick` on table)
    */
-  onHeaderClick?: (column: IMuiVirtualizedTableColumn<TRow>) => void;
+  onHeaderClick?: CellClickEventHandler<HTMLElement, TRow> | boolean;
 
   /**
    * Width of cell.
@@ -71,19 +82,19 @@ export interface IMuiVirtualizedTableProps<TRow> {
     | number
     | ((column: {
         index: number;
-        columns: Array<IMuiVirtualizedTableColumn<TRow>>;
+        columns: ReadonlyArray<IMuiVirtualizedTableColumn<TRow>>;
         width: number;
       }) => number);
 
   /**
    * Defines the columns in the table
    */
-  columns: Array<IMuiVirtualizedTableColumn<TRow>>;
+  columns: ReadonlyArray<IMuiVirtualizedTableColumn<TRow>>;
 
   /**
    * Data to render using defined `columns`
    */
-  data: TRow[];
+  data: ReadonlyArray<TRow>;
 
   /**
    * Always fit the content height to row data.
@@ -134,6 +145,14 @@ export interface IMuiVirtualizedTableProps<TRow> {
   ) => boolean;
 
   /**
+   * Determines if `classes.cellDisabled` should be applied
+   */
+  isCellDisabled?: (
+    column: IMuiVirtualizedTableColumn<TRow>,
+    rowData: TRow
+  ) => boolean;
+
+  /**
    * Maximum height of table. Useful when using calculated
    */
   maxHeight?: number;
@@ -141,16 +160,23 @@ export interface IMuiVirtualizedTableProps<TRow> {
   /**
    * Called with column definition and row data when non-header cell is clicked on
    */
-  onCellClick?: (
-    column: IMuiVirtualizedTableColumn<TRow>,
-    rowData: TRow
-  ) => void;
+  onCellClick?: CellClickEventHandler<HTMLElement, TRow>;
+
+  /**
+   * Called with column definition and row data when non-header cell is double clicked on
+   */
+  onCellDoubleClick?: CellClickEventHandler<HTMLElement, TRow>;
+
+  /**
+   * Called with column definition and row data when non-header cell is right clicked on
+   */
+  onCellContextMenu?: CellClickEventHandler<HTMLElement, TRow>;
 
   /**
    * Called with column definition of header clicked on.
    * Useful to set sort data and set `orderBy` and `orderDirection`.
    */
-  onHeaderClick?: (column: IMuiVirtualizedTableColumn<TRow>) => void;
+  onHeaderClick?: CellClickEventHandler<HTMLElement, TRow>;
 
   /**
    * If defined, will show column's header with matching name using `TableSortLabel`

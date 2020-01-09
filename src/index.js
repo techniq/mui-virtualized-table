@@ -8,11 +8,11 @@ import {
     withStyles
 } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Draggable from 'react-draggable';
 
 import {
@@ -21,14 +21,13 @@ import {
 
 const FOOTER_BORDER_HEIGHT = 1;
 
-/* beautify ignore:start */
 export const styles = theme => ({
   table: {
     boxSizing: 'border-box',
-    border: `1px solid ${theme.palette.text.lightDivider}`,
 
     '& .topLeftGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
@@ -42,7 +41,8 @@ export const styles = theme => ({
     },
 
     '& .topRightGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderBottom: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(12),
@@ -55,7 +55,8 @@ export const styles = theme => ({
     },
 
     '& .bottomLeftGrid': {
-      backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200],
+      backgroundColor:
+        theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200],
       borderRight: `2px solid ${theme.palette.divider}`,
       color: theme.palette.text.secondary,
       fontSize: theme.typography.pxToRem(13),
@@ -77,13 +78,20 @@ export const styles = theme => ({
     boxSizing: 'border-box',
     display: 'flex',
     alignItems: 'center'
-    // borderRight: `1px solid ${theme.palette.text.lightDivider}`,
+  },
+  cellClickable: {
+    cursor: 'pointer'
   },
   cellSelected: {
-    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 900 : 100]
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === 'dark' ? 900 : 100]
   },
   cellHovered: {
-    backgroundColor: theme.palette.grey[(theme.palette.type === 'dark') ? 800 : 200]
+    backgroundColor:
+      theme.palette.grey[theme.palette.type === 'dark' ? 800 : 200]
+  },
+  cellDisabled: {
+    opacity: 0.5
   },
   cellContents: {
     width: '100%',
@@ -97,7 +105,7 @@ export const styles = theme => ({
     color: theme.palette.text.secondary
   },
   cellInLastColumn: {
-    paddingRight: theme.spacing.unit * 3
+    paddingRight: theme.spacing(3)
   },
   cellInLastRow: {
     borderBottom: 'none'
@@ -122,69 +130,86 @@ export const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center'
   }
-});
+}));
 
-class MuiTable extends Component {
-  static propTypes = {
-    width: PropTypes.number.isRequired
-  };
-
-  static defaultProps = {
-    rowHeight: 48,
-    maxHeight: null,
-    includeHeaders: false,
-    fixedRowCount: 0,
-    fixedColumnCount: 0
-  };
-
-  constructor(props) {
-    super(props);
-    var widths = {};
-    if (props.resizable) {
-      var initialWidth = 1;
-      var columns = [];
-      props.columns.forEach(c => {
-        if (c.width) {
-          widths[c.name] = 0.1;
-          initialWidth = initialWidth - 0.1;
-        } else {
-          columns.push(c);
-        }
-      });
-      columns.forEach(c => {
-        widths[c.name] = initialWidth / columns.length;
-      });
-    }
-    this.state = {
-      hoveredColumn: null,
-      hoveredRowData: null,
-      widths
-    };
+const calculateWidths = ({ resizable, columns: Columns }) => {
+  var widths = [];
+  if (resizable) {
+    var initialWidth = 1;
+    var columns = [];
+    Columns.forEach(c => {
+      if (c.width) {
+        widths[c.name] = 0.1;
+        initialWidth = initialWidth - 0.1;
+      } else {
+        columns.push(c);
+      }
+    });
+    columns.forEach(c => {
+      widths[c.name] = initialWidth / columns.length;
+    });
   }
+  return widths;
+};
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.width !== this.props.width ||
-      nextProps.columns !== this.props.columns
-    ) {
-      this.multiGrid.recomputeGridSize();
-    }
-  }
+const useCellRenderer = ({
+  recomputeGridSize,
+  columns,
+  width,
+  includeHeaders,
+  data,
+  columnWidth,
+  isCellHovered,
+  isCellSelected,
+  isCellDisabled,
+  classes,
+  orderBy,
+  orderDirection,
+  onHeaderClick,
+  onCellClick,
+  onCellDoubleClick,
+  onCellContextMenu,
+  resizable,
+  cellProps: defaultCellProps
+}) => {
+  const [{ hoveredColumn, hoveredRowData }, setHovered] = React.useState({
+    hoveredColumn: null,
+    hoveredRowData: null
+  });
 
-  resizeRow = ({ dataKey, deltaX }) =>
-    this.setState(
-      prevState => {
-        const prevWidths = prevState.widths;
-        const percentDelta = deltaX / this.props.width;
-        const columns = this.props.columns;
+  const [widths, setWidths] = React.useState(
+    calculateWidths({ resizable, columns })
+  );
+
+  React.useEffect(() => {
+    recomputeGridSize();
+  }, [recomputeGridSize, hoveredColumn, hoveredRowData, widths]);
+
+  const resizableColumnWidths = React.useCallback(
+    (index, columns, tableWidth) => widths[columns[index].name] * tableWidth,
+    [widths]
+  );
+
+  const getColumnWidth = React.useCallback(
+    ({ index }) =>
+      typeof columnWidth === 'function'
+        ? columnWidth({ index, columns, width })
+        : resizable
+        ? resizableColumnWidths(index, columns, width)
+        : calcColumnWidth(index, columns, width),
+    [columnWidth, resizable, columns, width, resizableColumnWidths]
+  );
+
+  const resizeRow = React.useCallback(
+    ({ dataKey, deltaX }) =>
+      setWidths(prev => {
+        const delta = deltaX / width;
         const index = columns.findIndex(c => c.name === dataKey);
         const nextDataKey = columns[index + 1].name;
         return {
-          widths: {
-            ...prevWidths,
-            [dataKey]: prevWidths[dataKey] + percentDelta,
-            [nextDataKey]: prevWidths[nextDataKey] - percentDelta
-          }
+          ...prev,
+          [dataKey]: prev[dataKey] + delta,
+          [nextDataKey]: prev[nextDataKey] - delta
         };
       },
       () => {
@@ -217,6 +242,7 @@ class MuiTable extends Component {
     const rowData = (data && data[rowIndex - headerOffset]) || {};
 
     const isSelected = isCellSelected && isCellSelected(column, rowData);
+    const isDisabled = isCellDisabled && isCellDisabled(column, rowData);
 
     const isHovered =
       hoveredColumn &&
@@ -248,17 +274,11 @@ class MuiTable extends Component {
         <span style={{ float: 'right' }}>
           {isHeader && resizable && columnIndex < columns.length - 1 && (
             <Draggable
-              axis="x"
+              axis='x'
               defaultClassName={classes.dragHandle}
               defaultClassNameDragging={classes.DragHandleActive}
-              onDrag={(event, { deltaX }) =>
-                this.resizeRow({
-                  dataKey: column.name,
-                  deltaX
-                })
-              }
+              onDrag={handleDrag(column.name)}
               position={{ x: 0 }}
-              zIndex={999}
             >
               <span className={classes.DragHandleIcon}>⋮</span>
             </Draggable>
@@ -267,35 +287,48 @@ class MuiTable extends Component {
       </div>
     );
 
+    const hasCellClick = !isHeader && onCellClick;
+    const hasCellDoubleClick = !isHeader && onCellDoubleClick;
+    const hasCellContextMenu = !isHeader && onCellContextMenu;
+    const isClickable =
+      hasCellClick ||
+      hasCellDoubleClick ||
+      hasCellContextMenu ||
+      column.onClick;
+
     const className = classNames(classes.cell, {
+      [classes.cellClickable]: isClickable,
       [classes.cellHovered]: isHovered,
       [classes.cellSelected]: isSelected,
+      [classes.cellDisabled]: isDisabled,
       [classes.cellHeader]: isHeader,
       [classes.cellInLastColumn]: columnIndex === columns.length - 1,
-      [classes.cellInLastRow]: rowIndex === (data ? data.length : 0)
+      [classes.cellInLastRow]:
+        !isHeader && rowIndex === (data ? data.length : 0)
     });
-
-    const hasCellClick = !isHeader && onCellClick;
 
     return (
       <TableCell
-        component="div"
+        component='div'
         className={className}
         key={key}
-        onMouseEnter={() => {
-          this.setState({ hoveredColumn: column, hoveredRowData: rowData });
-        }}
-        onMouseLeave={() =>
-          this.setState({ hoveredColumn: null, hoveredRowData: null })
-        }
+        onMouseEnter={handleMouse(column, rowData)}
+        onMouseLeave={handleMouse(null, null)}
         style={{
           ...style,
-          ...cellStyle,
-          ...((hasCellClick || column.onClick) && { cursor: 'pointer' })
+          ...cellStyle
         }}
-        {...hasCellClick && {
-          onClick: () => onCellClick(column, rowData)
-        }} // Can be overridden by cellProps.onClick on column definition
+        {...(hasCellClick && {
+          onClick: event => onCellClick(event, { column, rowData, data })
+        })} // Can be overridden by cellProps.onClick on column definition
+        {...(hasCellDoubleClick && {
+          onDoubleClick: event =>
+            onCellDoubleClick(event, { column, rowData, data })
+        })} // Can be overridden by cellProps.onDoubleClick on column definition
+        {...(hasCellContextMenu && {
+          onContextMenu: event =>
+            onCellContextMenu(event, { column, rowData, data })
+        })} // Can be overridden by cellProps.onContextMenu on column definition
         {...cellProps}
       >
         {isHeader &&
@@ -309,10 +342,10 @@ class MuiTable extends Component {
             }
             style={{ width: 'inherit' }, tablesortstyle } // fix text overflowing
             direction={orderDirection}
-            onClick={() =>
+            onClick={event =>
               column.onHeaderClick
-                ? column.onHeaderClick()
-                : onHeaderClick(column)
+                ? column.onHeaderClick(event, { column })
+                : onHeaderClick(event, { column })
             }
           >
             {contents}
@@ -320,21 +353,14 @@ class MuiTable extends Component {
         ) : isHeader && column.resizable ? (
           <React.Fragment>
             {contents}
-
             <Draggable
-              axis="x"
-              defaultClassName="DragHandle"
-              defaultClassNameDragging="DragHandleActive"
-              onDrag={(event, { deltaX }) =>
-                this.resizeRow({
-                  dataKey,
-                  deltaX
-                })
-              }
+              axis='x'
+              defaultClassName='DragHandle'
+              defaultClassNameDragging='DragHandleActive'
+              onDrag={handleDrag(column.name)}
               position={{ x: 0 }}
-              zIndex={999}
             >
-              <span className="DragHandleIcon">⋮</span>
+              <span className='DragHandleIcon'>⋮</span>
             </Draggable>
           </React.Fragment>
         ) : (
@@ -344,113 +370,129 @@ class MuiTable extends Component {
     );
   };
 
-  resizableColumnWidths(index, columns, tableWidth) {
-    const column = columns[index];
-    return this.state.widths[column.name] * this.props.width;
+  return { cellRenderer, columnWidth: getColumnWidth };
+};
+
+export default function MuiTable({
+  data,
+  columns,
+  width,
+  height,
+  maxHeight = null,
+  pagination,
+  fitHeightToRows,
+  fixedRowCount = 0,
+  fixedColumnCount = 0,
+  rowHeight = 48,
+  style,
+  columnWidth,
+  includeHeaders = false,
+  isCellHovered,
+  isCellSelected,
+  isCellDisabled,
+  classes: Classes,
+  orderBy,
+  orderDirection,
+  onHeaderClick,
+  onCellClick,
+  onCellDoubleClick,
+  onCellContextMenu,
+  resizable,
+  cellProps,
+  ...other
+}) {
+  const classes = useStyles({ classes: Classes });
+  const theme = useTheme();
+
+  const multiGrid = React.useRef(null);
+
+  const recomputeGridSize = React.useCallback(
+    () => multiGrid.current && multiGrid.current.recomputeGridSize(),
+    [multiGrid]
+  );
+
+  React.useEffect(() => {
+    recomputeGridSize();
+  }, [columns, data, height, width, recomputeGridSize]);
+
+  let calculatedHeight = 0;
+  if (height) {
+    calculatedHeight = height; // fixed height
+  } else if (pagination && pagination.rowsPerPage && !fitHeightToRows) {
+    const rowCount =
+      pagination.rowsPerPage +
+      (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
+    calculatedHeight = rowCount * rowHeight;
+  } else if (Array.isArray(data)) {
+    const rowCount =
+      data.length + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
+    calculatedHeight = rowCount * rowHeight;
   }
 
-  getColumnWidthFunction() {
-    const { columnWidth, resizable, columns, width } = this.props;
-    if (typeof columnWidth === 'function') {
-      return ({ index }) => columnWidth({ index, columns, width });
-    } else if (resizable) {
-      return ({ index }) => this.resizableColumnWidths(index, columns, width);
-    } else {
-      return ({ index }) => calcColumnWidth(index, columns, width);
-    }
-  }
+  const paginationHeight =
+    theme.mixins.toolbar.minHeight + FOOTER_BORDER_HEIGHT;
 
-  render() {
-    const {
-      data,
-      columns,
-      width,
-      height,
-      maxHeight,
-      pagination,
-      fitHeightToRows,
-      fixedRowCount,
-      fixedColumnCount,
-      rowHeight,
-      columnWidth,
-      includeHeaders,
-      classes,
-      orderBy,
-      orderDirection,
-      onHeaderClick,
-      onCellClick,
-      isCellHovered,
-      isCellSelected,
-      cellProps,
-      style,
-      theme,
-      resizable,
-      ...props
-    } = this.props;
+  const calculatedHeightWithFooter =
+    calculatedHeight + (pagination ? paginationHeight : 0);
+  const containerHeight =
+    maxHeight != null
+      ? Math.min(calculatedHeightWithFooter, maxHeight)
+      : calculatedHeightWithFooter;
+  const multiGridHeight = containerHeight - (pagination ? paginationHeight : 0);
 
-    let calculatedHeight = 0;
-    if (height) {
-      calculatedHeight = height; // fixed height
-    } else if (pagination && pagination.rowsPerPage && !fitHeightToRows) {
-      const rowCount =
-        pagination.rowsPerPage +
-        (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
-      calculatedHeight = rowCount * rowHeight;
-    } else if (Array.isArray(data)) {
-      const rowCount =
-        data.length + (fixedRowCount ? fixedRowCount : includeHeaders ? 1 : 0);
-      calculatedHeight = rowCount * rowHeight;
-    }
-
-    const paginationHeight =
-      theme.mixins.toolbar.minHeight + FOOTER_BORDER_HEIGHT;
-
-    const calculatedHeightWithFooter =
-      calculatedHeight + (pagination ? paginationHeight : 0);
-    const containerHeight =
-      maxHeight != null
-        ? Math.min(calculatedHeightWithFooter, maxHeight)
-        : calculatedHeightWithFooter;
-    const multiGridHeight =
-      containerHeight - (pagination ? paginationHeight : 0);
-
-    return (
-      <Table
-        component="div"
-        style={{ width, height: containerHeight, ...style }}
-        className={classes.table}
-        {...props}
-      >
-        <MultiGrid
-          cellRenderer={this.cellRenderer}
-          ref={el => (this.multiGrid = el)}
-          width={width}
-          columnWidth={this.getColumnWidthFunction()}
-          columnCount={Array.isArray(columns) ? columns.length : 0}
-          fixedColumnCount={fixedColumnCount}
-          enableFixedColumnScroll={fixedColumnCount > 0}
-          height={multiGridHeight}
-          rowHeight={rowHeight}
-          rowCount={
-            Array.isArray(data) ? data.length + (includeHeaders ? 1 : 0) : 0
-          }
-          fixedRowCount={fixedRowCount}
-          enableFixedRowScroll={fixedRowCount > 0}
-          // TODO: Read tehse from `classes` without classes.table inherirtance?  How to pass props.classes down to override?
-          classNameTopLeftGrid={'topLeftGrid'}
-          classNameTopRightGrid={'topRightGrid'}
-          classNameBottomLeftGrid={'bottomLeftGrid'}
-          classNameBottomRightGrid={'bottomRightGrid'}
-        />
-
-        {pagination && (
-          <TableFooter component="div" className={classes.footer}>
-            <TablePagination component="div" {...pagination} />
-          </TableFooter>
-        )}
-      </Table>
-    );
-  }
+  return (
+    <Table
+      component='div'
+      style={{ width, height: containerHeight, ...style }}
+      className={classes.table}
+      {...other}
+    >
+      <MultiGrid
+        {...useCellRenderer({
+          recomputeGridSize,
+          data,
+          columns,
+          width,
+          classes,
+          includeHeaders,
+          columnWidth,
+          isCellHovered,
+          isCellSelected,
+          isCellDisabled,
+          orderBy,
+          orderDirection,
+          onHeaderClick,
+          onCellClick,
+          onCellDoubleClick,
+          onCellContextMenu,
+          resizable,
+          cellProps
+        })}
+        ref={multiGrid}
+        width={width}
+        columnCount={Array.isArray(columns) ? columns.length : 0}
+        fixedColumnCount={fixedColumnCount}
+        enableFixedColumnScroll={fixedColumnCount > 0}
+        height={multiGridHeight}
+        rowHeight={rowHeight}
+        rowCount={
+          Array.isArray(data) ? data.length + (includeHeaders ? 1 : 0) : 0
+        }
+        fixedRowCount={fixedRowCount}
+        enableFixedRowScroll={fixedRowCount > 0}
+        // TODO: Read these from `classes` without classes.table inheritance?  How to pass props.classes down to override?
+        classNameTopLeftGrid={'topLeftGrid'}
+        classNameTopRightGrid={'topRightGrid'}
+        classNameBottomLeftGrid={'bottomLeftGrid'}
+        classNameBottomRightGrid={'bottomRightGrid'}
+      />
+      {pagination && (
+        <TableFooter component='div' className={classes.footer}>
+          <TablePagination component='div' {...pagination} />
+        </TableFooter>
+      )}
+    </Table>
+  );
 }
 
 MuiTable.propTypes = {
@@ -470,12 +512,15 @@ MuiTable.propTypes = {
   orderDirection: PropTypes.string,
   onHeaderClick: PropTypes.func,
   onCellClick: PropTypes.func,
+  onCellDoubleClick: PropTypes.func,
+  onCellContextMenu: PropTypes.func,
+  noPointer: PropTypes.bool,
   isCellHovered: PropTypes.func,
   isCellSelected: PropTypes.func,
+  isCellDisabled: PropTypes.func,
   classes: PropTypes.object,
   cellProps: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   style: PropTypes.object
 };
 
 export default withStyles(styles, { withTheme: true })(MuiTable);
-/* beautify ignore:end */

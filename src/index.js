@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
+import React, {
+    Component
+} from 'react';
 import PropTypes from 'prop-types';
 import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import {
+    withStyles
+} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -11,10 +15,13 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Draggable from 'react-draggable';
 
-import { calcColumnWidth } from './utils';
+import {
+    calcColumnWidth
+} from './utils';
 
 const FOOTER_BORDER_HEIGHT = 1;
 
+/* beautify ignore:start */
 export const styles = theme => ({
   table: {
     boxSizing: 'border-box',
@@ -198,7 +205,8 @@ class MuiTable extends Component {
       onHeaderClick,
       onCellClick,
       resizable,
-      cellProps: defaultCellProps
+      cellProps: defaultCellProps,
+      tablesortstyle
     } = this.props;
 
     const { hoveredColumn, hoveredRowData } = this.state;
@@ -299,7 +307,7 @@ class MuiTable extends Component {
               (orderBy === column.name || orderBy === column.orderBy) &&
               rowIndex === 0
             }
-            style={{ width: 'inherit' }} // fix text overflowing
+            style={{ width: 'inherit' }, tablesortstyle } // fix text overflowing
             direction={orderDirection}
             onClick={() =>
               column.onHeaderClick
@@ -470,3 +478,4 @@ MuiTable.propTypes = {
 };
 
 export default withStyles(styles, { withTheme: true })(MuiTable);
+/* beautify ignore:end */

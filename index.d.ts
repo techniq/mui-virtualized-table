@@ -50,6 +50,14 @@ export interface IMuiVirtualizedTableColumn<TRow = any> {
    */
   width?: number | string;
 
+  /**
+   * Minimum width of cell.
+   *
+   * Must be a `number`
+   */
+  minWidth?: number;
+
+
   cellProps?: ICellPropsProducer<TRow>;
 }
 

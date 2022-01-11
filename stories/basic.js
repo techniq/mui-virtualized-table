@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Component from '@reactions/component';
-import Checkbox from '@material-ui/core/Checkbox';
+import Checkbox from '@mui/material/Checkbox';
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data';
-import { withStyles } from '@material-ui/core';
+import { withStyles } from '@mui/styles';
 
 storiesOf('Basic', module)
   .add('default (empty)', () => (

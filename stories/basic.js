@@ -1303,8 +1303,8 @@ class PaginatedTable extends React.Component {
           rowsPerPage: perPage,
           page: page - 1, // material-ui's <TablePagination /> is 0-based
           // rowsPerPageOptions: [5, 10, 25, 100, 1000],
-          onChangePage: (e, page) => this.setState({ page: page + 1 }),
-          onChangeRowsPerPage: e => this.setState({ perPage: e.target.value })
+          onPageChange: (e, page) => this.setState({ page: page + 1 }),
+          onRowsPerPageChange: e => this.setState({ perPage: e.target.value })
         }}
         {...props}
       />

@@ -12,7 +12,8 @@
   "author": "Sean Lynch <techniq35@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^16.8"
+    "@mui/material": "^5.0.0",
+    "react": "^17.0.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",

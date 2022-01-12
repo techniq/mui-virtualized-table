@@ -1,15 +1,15 @@
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-const theme = createTheme();
+const theme = createMuiTheme();
 
 addDecorator(storyFn => (
   <CssBaseline>
-    <ThemeProvider theme={theme}>
+    <MuiThemeProvider theme={theme}>
       {storyFn()}
-    </ThemeProvider>
+    </MuiThemeProvider>
   </CssBaseline>
 ));
 

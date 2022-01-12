@@ -12,8 +12,8 @@
   "author": "Sean Lynch <techniq35@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@mui/material": "^5.0.0",
-    "react": "^17.0.0"
+    "@material-ui/core": "^4.0.1",
+    "react": "^16.8"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -22,10 +22,7 @@
     "react-virtualized": "^9.21.2"
   },
   "devDependencies": {
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.0.0",
-    "@mui/styles": "^5.0.0",
+    "@material-ui/core": "^4.0.1",
     "@reactions/component": "^2.0.2",
     "@storybook/react": "^3.4.0",
     "babel-cli": "^6.26.0",
@@ -35,8 +32,8 @@
     "babel-preset-env": "^1.6.1",
     "gh-pages": "^1.1.0",
     "jest": "^22.4.3",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "scripts": {
     "test": "jest",

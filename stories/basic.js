@@ -2,10 +2,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import Component from '@reactions/component';
-import Checkbox from '@mui/material/Checkbox';
+import Checkbox from '@material-ui/core/Checkbox';
 import MuiTable from '../src';
 import { createPersonData, createDessertData } from './data';
-import { withStyles } from '@mui/styles';
+import { withStyles } from '@material-ui/core';
 
 storiesOf('Basic', module)
   .add('default (empty)', () => (
@@ -1303,8 +1303,8 @@ class PaginatedTable extends React.Component {
           rowsPerPage: perPage,
           page: page - 1, // material-ui's <TablePagination /> is 0-based
           // rowsPerPageOptions: [5, 10, 25, 100, 1000],
-          onPageChange: (e, page) => this.setState({ page: page + 1 }),
-          onRowsPerPageChange: e => this.setState({ perPage: e.target.value })
+          onChangePage: (e, page) => this.setState({ page: page + 1 }),
+          onChangeRowsPerPage: e => this.setState({ perPage: e.target.value })
         }}
         {...props}
       />
